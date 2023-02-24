@@ -1,0 +1,11 @@
+ii  php-common                     2:75                              all          Common files for PHP packages
+ii  php-composer-ca-bundle         1.2.6-1                           all          utility library to find a path to the system CA bundle
+ii  php-composer-semver            1.5.1-1                           all          utilities, version constraint parsing and validation
+ii  php-composer-spdx-licenses     1.5.3-1                           all          SPDX licenses list and validation library
+ii  php-composer-xdebug-handler    1.4.0-1                           all          Restarts a process without Xdebug
+ii  php-psr-container              1.0.0-2                           all          Common Container Interface (PHP FIG PSR-11)
+ii  php-psr-log                    1.1.2-1                           all          common interface for logging libraries
+ii  php-symfony-filesystem         4.3.8+dfsg-1ubuntu1               all          basic filesystem utilities
+ii  php-symfony-finder             4.3.8+dfsg-1ubuntu1               all          find files and directories
+ii  php-symfony-process            4.3.8+dfsg-1ubuntu1               all          execute commands in sub-processes
+ii  php-symfony-service-contracts  1.1.8-1                           all          Generic abstractions related to writing services
