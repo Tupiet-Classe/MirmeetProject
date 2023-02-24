@@ -1,0 +1,1 @@
+<img src="../img/logobo.png" alt="logotip" width="350" height="350">
