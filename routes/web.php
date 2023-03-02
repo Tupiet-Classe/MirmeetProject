@@ -25,6 +25,24 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified', 'check_access'])->name('dashboard');
 
+Route::get('/andrei', function () {
+    return view('andrei');
+});
+
+Route::get('/perfil', function () {
+    return view('perfil');
+});
+
+Route::get('/my', function() {
+    return view('wall_personal');
+});
+
+Route::get('/api', [PublicationController::class, 'get_data_from_reference']);
+Route::get('/user-data', [UserController::class, 'index']);
+Route::get('/post-data', [PublicationController::class, 'index']);
+Route::get('/posts', [PublicationController::class, 'get_posts']);
+Route::post('/post', [PublicationController::class, 'store']);
+
 Route::get('/pending-users', [UserController::class, 'indexPending'])->middleware(['auth', 'verified', 'check_access'])->name('pending.users');
 Route::get('/allow/{id}', [UserController::class, 'allow'])->middleware(['auth', 'verified', 'check_access'])->name('allow');
 Route::get('/deny/{id}', [UserController::class, 'deny'])->middleware(['auth', 'verified', 'check_access'])->name('deny');

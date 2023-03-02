@@ -2,13 +2,19 @@
 import { createApp } from 'vue/dist/vue.esm-bundler.js'
 import titleComp from '../src/welcome.vue'
 
+import Prueba from '../vue/Prueba.vue';
+
+import Perfil from '../vue/Perfil.vue';
+
+import MyProfile from '../vue/MyProfile.vue';
+
 const app = createApp({})
 
-app.component('titulo', titleComp)
+app.component('andrei-prova', Prueba)
 
-if (window.location.pathname === '/dashboard') {
-    app.mount('#welcome')
-}
+app.component('perfil', Perfil)
+
+app.component('my-profile', MyProfile)
 
 // BREEZE
 import Alpine from 'alpinejs';
