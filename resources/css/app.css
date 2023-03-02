@@ -2,6 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+    display: none;
+}
+:root {
+    --red: rgb(198, 80, 54);
+    --cyan: rgb(130, 203, 212);
+    --purple: rgb(48, 30, 74);
+    --viewport-height: 100%;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+.text-red {
+    color: var(--red);
+}
+.text-cyan {
+    color: var(--cyan);
+}
+.text-purple {
+    color: var(--purple);
+}
+
+.bg-red {
+    background: var(--red);
+}
+.bg-cyan {
+    background: var(--cyan);
+}
+.bg-purple {
+    background: var(--purple);
+}
 
 /* Pending Verify */
 #toast-warning {
