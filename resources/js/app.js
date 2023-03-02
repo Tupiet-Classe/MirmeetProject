@@ -8,8 +8,6 @@ import MyProfile from '../vue/MyProfile.vue';
 
 const app = createApp({})
 
-app.component('andrei-prova', Prueba)
-
 app.component('perfil', Perfil)
 
 app.component('my-profile', MyProfile)
