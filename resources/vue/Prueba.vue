@@ -51,7 +51,7 @@
 </form>
 </template>
 
-<style>
+<style scoped>
 
 .img-perfil {
     width: 30%;
