@@ -1,8 +1,6 @@
 // VUE
 import { createApp } from 'vue/dist/vue.esm-bundler.js'
-import titleComp from '../src/welcome.vue'
-
-import Prueba from '../vue/Prueba.vue';
+// import titleComp from './src/welcome.vue'
 
 import Perfil from '../vue/Perfil.vue';
 
