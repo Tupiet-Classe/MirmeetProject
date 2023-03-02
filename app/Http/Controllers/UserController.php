@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         $pendingUsers = User::where('access', 'no')->paginate(5);
 
-        return view('pending_users', compact('pendingUsers'));
+        return view('login.pending_users', compact('pendingUsers'));
     }
 
     public function allow($id)
@@ -44,7 +44,7 @@ class UserController extends Controller
     {
         $deniedUsers = User::where('access', 'denied')->paginate(5);
 
-        return view('denied_users', compact('deniedUsers'));
+        return view('login.denied_users', compact('deniedUsers'));
     }
 
     public function restore($id)
@@ -69,7 +69,7 @@ class UserController extends Controller
             ->where('role', '!=', 'admin') // Excluir al usuario administrador por defecto
             ->paginate(5);
 
-        return view('ban_users', compact('users'));
+        return view('login.ban_users', compact('users'));
     }
 
     public function ban($id)
@@ -101,7 +101,7 @@ class UserController extends Controller
             ->where('role', '!=', 'admin') // Excluir al usuario administrador por defecto
             ->paginate(5);
 
-        return view('verify_users', compact('users'));
+        return view('login.verify_users', compact('users'));
     }
 
     public function verify($id)
