@@ -10,13 +10,17 @@ return new class extends Migration
     {
         Schema::create('shares', function(Blueprint $table){
             $table->id();
-            $table->comment('');
-            $table->dateTime('date');
-            $table->foreignId('publication_id')
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('cascade')
+            ->constrained();
+            $table->foreign('publication_id')
             ->references('id')
             ->on('publications')
             ->onDelete('cascade')
             ->constrained();
+            $table->comment('');
             $table->timestamps();
         });
     }
