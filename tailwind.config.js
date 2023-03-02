@@ -12,6 +12,8 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                'comfortaa': ['Comfortaa', 'sans-serif'],
+                'body': ['"Familjen Grotesk"', 'sans-serif']
             },
         },
     },
