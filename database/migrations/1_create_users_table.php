@@ -44,4 +44,9 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
     }
+
+    /**
+     */
+    public function __construct() {
+    }
 };
