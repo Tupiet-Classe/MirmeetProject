@@ -25,11 +25,11 @@ class UserFactory extends Factory
             'birthdate' => fake()->date(),
             'bibliografy' => fake()->text(),
             'email' => fake()->unique()->safeEmail(),
-            'role' => fake()->randomElement(['admin', 'client']),
+            'role' => fake()->randomElement(['admin', 'moderator', 'client']),
             'access' => fake()->randomElement(['yes', 'no', 'banned']),
             'verified' => fake()->randomElement(['yes', 'no']),
             'email_verified_at' => now(),
-            'password' => bcrypt('tempPass123'), // password
+            'password' => bcrypt('password'),
             'remember_token' => Str::random(10),
 
         ];
