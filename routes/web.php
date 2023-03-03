@@ -104,4 +104,13 @@ Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
 })->middleware('guest')->name('password.request');
 
+/* RUTES EQUIP 3 */
+// Aquestes rutes són per accedir als dos murs
+Route::get('discover');
+Route::get('home');
+
+// Aquestes rutes retornen els posts a mostrar al mur discover i a la home
+Route::get('posts-discover');
+Route::get('posts-home');
+
 require __DIR__.'/auth.php';
