@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Factories;
-
+// e sobrebiscut (FollowFactory.php)
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
