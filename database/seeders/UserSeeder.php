@@ -25,6 +25,22 @@ class UserSeeder extends Seeder
             'password' => bcrypt('admin123')
         ]);
 
-        User::factory(50)->create();
+        // Default Admin
+        $user = User::find(1);
+        $user->assignRole('admin');
+
+        User::factory(50)->create()->each(function ($user){
+            switch ($user->role) {
+                case 'admin':
+                    $user->assignRole('admin');
+                    break;
+                case 'moderator':
+                    $user->assignRole('moderator');
+                    break;
+                case 'client':
+                    $user->assignRole('client');
+                    break;
+            }
+        });
     }
 }
