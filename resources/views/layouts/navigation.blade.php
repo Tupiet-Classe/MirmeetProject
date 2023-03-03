@@ -16,17 +16,23 @@
                         {{ __('Home') }}
                     </x-nav-link>
 
+                    @can('dashboard.validate.records')
                     <x-nav-link :href="route('pending.users')" :active="Str::startsWith(request()->route()->getName(), ['pending.', 'denied.'])">
                         {{ __('Validate Records') }}
                     </x-nav-link>
+                    @endcan
 
+                    @can('dashboard.manage.users')
                     <x-nav-link :href="route('ban.users')" :active="request()->routeIs('ban.users')">
                         {{ __('Manage Users') }}
                     </x-nav-link>
+                    @endcan
 
+                    @can('dashboard.verify.users')
                     <x-nav-link :href="route('verify.users')" :active="request()->routeIs('verify.users')">
                         {{ __('Verify Users') }}
                     </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -83,17 +89,23 @@
                 {{ __('Home') }}
             </x-responsive-nav-link>
 
+            @can('dashboard.validate.records')
             <x-responsive-nav-link :href="route('pending.users')" :active="Str::startsWith(request()->route()->getName(), ['pending.', 'denied.'])">
                 {{ __('Validate Records') }}
             </x-responsive-nav-link>
+            @endcan
 
+            @can('dashboard.manage.users')
             <x-responsive-nav-link :href="route('ban.users')" :active="request()->routeIs('ban.users')">
                 {{ __('Manage Users') }}
             </x-responsive-nav-link>
+            @endcan
 
+            @can('dashboard.verify.users')
             <x-responsive-nav-link :href="route('verify.users')" :active="request()->routeIs('verify.users')">
                 {{ __('Verify Users') }}
             </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->

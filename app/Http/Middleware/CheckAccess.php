@@ -23,6 +23,11 @@ class CheckAccess
             return $next($request);
         }
 
+        if ($user->role == 'moderator') {
+
+            return $next($request);
+        }
+
         else if ($user->access == 'no') {
 
             $request->session()->invalidate();
