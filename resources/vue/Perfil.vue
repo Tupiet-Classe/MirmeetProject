@@ -1,6 +1,6 @@
 <!-- Codi de la pagina -->
 <template>
-
+<div style="width: 500px;">
 <form class="content bg-white w-full mx-5 p-3 rounded-lg flex flex-col text-sm relative bg-white rounded-lg">
 
       <div>
@@ -45,6 +45,7 @@
             </button>
         </div>
     </form>
+    </div>
 </template>
 
 
