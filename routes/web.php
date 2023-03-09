@@ -42,7 +42,7 @@ Route::get('/my', function() {
 // Route::get('/user-data', [UserController::class, 'index']);
 // Route::get('/post-data', [PublicationController::class, 'index']);
 Route::post('/add-image', [PublicationController::class, 'store_image']);
-Route::post('/post', [PublicationController::class, 'store']);
+Route::post('/new-post', [PublicationController::class, 'store_posts']);
 
 Route::get('/pending-users', [UserController::class, 'indexPending'])->middleware(['auth', 'verified', 'check_access'])->name('pending.users');
 Route::get('/allow/{id}', [UserController::class, 'allow'])->middleware(['auth', 'verified', 'check_access'])->name('allow');
