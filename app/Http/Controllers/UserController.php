@@ -57,7 +57,7 @@ class UserController extends Controller
 
     public function indexDenied()
     {
-        if (!auth()->user()->can('dashboard.validate.records')) {
+        if (!auth()->user()->can('dashboard.validate.records.denied')) {
             abort(403, 'No tienes permisos');
         }
         else{
@@ -69,7 +69,7 @@ class UserController extends Controller
 
     public function restore($id)
     {
-        if (!auth()->user()->can('dashboard.validate.records')) {
+        if (!auth()->user()->can('dashboard.validate.records.denied')) {
             abort(403, 'No tienes permisos');
         }
         else{
