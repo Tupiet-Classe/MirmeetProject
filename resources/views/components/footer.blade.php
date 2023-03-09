@@ -5,5 +5,8 @@
     <button class=""><i class="fa fa-search text-2xl"></i></button>
     <button class=""><i class="fa fa-bell text-2xl"></i></button>
 </footer>
-
-<button class="hidden sm:block absolute bottom-0 right-0 p-3 bg-red rounded-lg px-3 py-2 m-4 text-lg"><i class="fa fa-add text-white"></i></button>
+@section('content')
+<div class="hidden sm:block absolute bottom-0 right-0 p-3">
+    <add-post1 />
+</div>
+@endsection
