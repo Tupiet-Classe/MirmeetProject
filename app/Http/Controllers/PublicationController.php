@@ -18,22 +18,46 @@ class PublicationController extends Controller
         return Publication::all()->where('user_id', '=', 1);
     }
 
-    public function get_posts() {
-        return Publication::all()->where('user_id', '=', 1);
-        $data = [];
-        return Http::get('http://insertgenerator.tk', ['reference' => 'ujhygtrfes' ]);
-        // foreach ($posts as $key => $post) {
-        //     $data[$key] = $post;
-        //     $request = ['reference' => $post->comment];
-        //     $comment = Http::get('http://localhost/api');
-        //     return $comment->body();
-        // }
-        // return $data;
+    public function store_image(Request $request)
+    {
+        $image = $request->file('image');
+
+        $ruta = $image->store('public/img/tmp');
+
+        return $ruta;
+    }
+    public function store_posts(Request $request)
+    {
+        $ruta = $request->path;
+
+        $data = [
+            'text' => $request->text,
+            'image' => base64_encode(file_get_contents($ruta)),
+            'key' => ''
+        ];
+        $response = Http::post('https://videowiki-dcom.mirmit.es/api/saveDraft', $data);
+
+        if ($response->ok()) {
+            // Solicitud exitosa
+        } else {
+            // Error en la solicitud
+            $body = $response->json();
+            if (isset($body['error'])) {
+                // Mostrar mensaje de error
+            }
+        }
+
+        if (file_exists($ruta)) {
+            unlink($ruta);
+        }
+        
+        return $response;
     }
 
     // Aquest mètode intenta simular el que faria l'api de MirMeet
-    public function get_data_from_reference(Request $request) {
-        if ( is_null($request->reference) ) return 'no';
+    public function get_data_from_reference(Request $request)
+    {
+        if (is_null($request->reference)) return 'no';
         $data = [
             'ujhygtrfes' => 'image1',
             'sertfyhuiolp' => 'image2',
@@ -57,5 +81,4 @@ class PublicationController extends Controller
         $post->user_id = $request->input('user_id');
         $post->save();
     }
-
 }

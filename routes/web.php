@@ -4,6 +4,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 /*
@@ -37,10 +38,10 @@ Route::get('/my', function() {
     return view('wall_personal');
 });
 
-Route::get('/api', [PublicationController::class, 'get_data_from_reference']);
-Route::get('/user-data', [UserController::class, 'index']);
-Route::get('/post-data', [PublicationController::class, 'index']);
-Route::get('/posts', [PublicationController::class, 'get_posts']);
+// Route::get('/api', [PublicationController::class, 'get_data_from_reference']);
+// Route::get('/user-data', [UserController::class, 'index']);
+// Route::get('/post-data', [PublicationController::class, 'index']);
+Route::post('/add-image', [PublicationController::class, 'store_image']);
 Route::post('/post', [PublicationController::class, 'store']);
 
 Route::get('/pending-users', [UserController::class, 'indexPending'])->middleware(['auth', 'verified', 'check_access'])->name('pending.users');

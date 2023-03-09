@@ -27,9 +27,9 @@
             type="text">
         </div>
         <div class="mb-3 w-96">
-          <input
+          <input name="image"
             class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 dark:border-neutral-600 bg-clip-padding py-[0.32rem] px-3 text-base font-normal text-neutral-700 dark:text-neutral-200 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 dark:file:bg-neutral-700 file:px-3 file:py-[0.32rem] file:text-neutral-700 dark:file:text-neutral-100 file:transition file:duration-150 file:ease-in-out file:[margin-inline-end:0.75rem] file:[border-inline-end-width:1px] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-[0_0_0_1px] focus:shadow-primary focus:outline-none"
-            type="file" @change="onFileChange" accept="image/*,video/*" />
+            type="file" @change="onFileChangeImage" accept="image/*,video/*" />
         </div>
       </div>
 
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Modal from './Modal.vue';
 
 export default {
@@ -59,7 +60,8 @@ export default {
   data() {
     return {
       showModal: false,
-      file: null
+      file: null,
+      image: null
     }
   },
   computed: {
@@ -78,19 +80,35 @@ export default {
   },
   methods: {
     doAction() {
-      // Hacer algo aquí
+      const formData = new FormData();
+      formData.append('image', this.image);
+      const response = axios.post('/add-image', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+        .then(response => {
+          const data = response.data;
+
+        })
+        .catch(error => {
+          console.error(error);
+        });
       this.showModal = false;
+    },
+    onFileChangeImage(event) {
+      this.image = event.target.files[0];
     },
 
     onFileChange(event) {
       this.file = event.target.files[0];
-    }
-  },
+    },
 
-  beforeUnmount() {
-    if (this.file) {
-      URL.revokeObjectURL(this.file);
-    }
+    beforeUnmount() {
+      if (this.file) {
+        URL.revokeObjectURL(this.file);
+      }
+    },
   }
 }
 </script>
