@@ -1,12 +1,12 @@
 <!-- Codi de la pagina -->
 <template>
 
-<form class="bg-white p-6 rounded-lg">
+<form class="content bg-white w-full mx-5 p-3 rounded-lg flex flex-col text-sm relative bg-white rounded-lg">
 
       <div>
-        <img  class="img-perfil" src="https://profesional.semillasbatlle.com/wp-content/uploads/2020/07/semillas-oleaginosas-industriales-girasol.jpg" alt="">
+        <img style="justify-content"  class="img-perfil" src="https://profesional.semillasbatlle.com/wp-content/uploads/2020/07/semillas-oleaginosas-industriales-girasol.jpg" alt="">
       </div>
-
+        
         <div class="mb-4">
             <label class="block font-bold mb-2">
                 Nombre
