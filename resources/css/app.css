@@ -36,6 +36,11 @@ html {
     background: var(--purple);
 }
 
+/* Login style */
+.bg-color-style{
+    background: linear-gradient(to bottom left, #C65036, #82CBD4, #301E4A);
+}
+
 /* Pending Verify */
 #toast-warning {
     bottom: 0;
@@ -57,46 +62,4 @@ html {
     #margin_table {
         width: 100%;
     }
-/* Estil buscador començament */
-.group {
-    display: flex;
-    line-height: 28px;
-    align-items: center;
-    position: relative;
-    max-width: 190px;
-   }
-   
-   .input {
-    width: 150%;
-    height: 40px;
-    line-height: 28px;
-    padding: 0 1rem;
-    padding-left: 2.5rem;
-    border: 2px solid transparent;
-    border-radius: 8px;
-    outline: none;
-    background-color: #f3f3f4;
-    color: #0d0c22;
-    transition: .3s ease;
-   }
-   
-   .input::placeholder {
-    color: #9e9ea7;
-   }
-   
-   .input:focus, input:hover {
-    outline: none;
-    border-color: rgba(89, 165, 247, 0.4);
-    background-color: #fff;
-    box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
-   }
-   
-   .icon {
-    position: absolute;
-    left: 1rem;
-    fill: #9e9ea7;
-    width: 1rem;
-    height: 1rem;
-   }
-  /* Part final */
 }
