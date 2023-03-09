@@ -13,11 +13,11 @@
             <div class="bg-white shadow-sm rounded-lg overflow-hidden">
                 <div class="p-6 text-gray-900">
                     <div id="margin_table">
-                        @can('dashboard.validate.records.denied')
-                        <a href="{{ route('denied.users') }}"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
-                            Denied Users
-                        </a>
+                        @can('dashboard.validate.users.restore')
+                            <a href="{{ route('denied.users') }}"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+                                Denied Users
+                            </a>
                         @endcan
                         <div class="relative shadow-md rounded-lg">
                             <table class="mt-4 w-full text-sm text-left text-gray-500">

@@ -16,9 +16,9 @@
                         {{ __('Home') }}
                     </x-nav-link>
 
-                    @can('dashboard.validate.records')
+                    @can('dashboard.validate.users')
                     <x-nav-link :href="route('pending.users')" :active="Str::startsWith(request()->route()->getName(), ['pending.', 'denied.'])">
-                        {{ __('Validate Records') }}
+                        {{ __('Validate Users') }}
                     </x-nav-link>
                     @endcan
 
@@ -89,9 +89,9 @@
                 {{ __('Home') }}
             </x-responsive-nav-link>
 
-            @can('dashboard.validate.records')
+            @can('dashboard.validate.users')
             <x-responsive-nav-link :href="route('pending.users')" :active="Str::startsWith(request()->route()->getName(), ['pending.', 'denied.'])">
-                {{ __('Validate Records') }}
+                {{ __('Validate Users') }}
             </x-responsive-nav-link>
             @endcan
 
