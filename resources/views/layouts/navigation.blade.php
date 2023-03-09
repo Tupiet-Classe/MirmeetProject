@@ -33,6 +33,12 @@
                         {{ __('Verify Users') }}
                     </x-nav-link>
                     @endcan
+
+                    @can('dashboard.roles')
+                        <x-nav-link :href="route('roles.users')" :active="request()->routeIs('roles.users')">
+                            {{ __('Roles Users') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -105,6 +111,12 @@
             <x-responsive-nav-link :href="route('verify.users')" :active="request()->routeIs('verify.users')">
                 {{ __('Verify Users') }}
             </x-responsive-nav-link>
+            @endcan
+
+            @can('dashboard.roles')
+                <x-responsive-nav-link :href="route('roles.users')" :active="request()->routeIs('roles.users')">
+                    {{ __('Roles Users') }}
+                </x-responsive-nav-link>
             @endcan
         </div>
 

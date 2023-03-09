@@ -96,6 +96,7 @@ class UserController extends Controller
                     ->orWhere('access', 'banned');
             })
                 ->where('role', '!=', 'admin') // Excluir al usuario administrador por defecto
+                ->where('role', '!=', 'moderator') // Excluir al usuario moderador por defecto
                 ->paginate(5);
 
             return view('login.ban_users', compact('users'));
@@ -168,6 +169,51 @@ class UserController extends Controller
         else{
             $user = User::find($id);
             $user->update(['verified' => 'no']);
+            return back()->with('success', 'Usuario desverificado correctamente');
+        }
+    }
+
+    // ---------------------------
+    //
+    //         Roles Users
+    //
+    // ---------------------------
+
+    public function indexRole()
+    {
+        if (!auth()->user()->can('dashboard.roles')) {
+            abort(403, 'No tienes permisos');
+        }
+        else{
+            $users = User::where(function($query) {
+                $query->where('role', '!=', 'admin');
+            })->paginate(5);
+
+            return view('login.roles_users', compact('users'));
+        }
+    }
+
+    public function give($id)
+    {
+        if (!auth()->user()->can('dashboard.roles')) {
+            abort(403, 'No tienes permisos');
+        }
+        else{
+            $user = User::find($id);
+            $user->update(['role' => 'moderator']);
+            $user->assignRole('moderator');
+            return back()->with('success', 'Usuario verificado correctamente');
+        }
+    }
+    public function remove($id)
+    {
+        if (!auth()->user()->can('dashboard.roles')) {
+            abort(403, 'No tienes permisos');
+        }
+        else{
+            $user = User::find($id);
+            $user->update(['role' => 'client']);
+            $user->removeRole('moderator');
             return back()->with('success', 'Usuario desverificado correctamente');
         }
     }
