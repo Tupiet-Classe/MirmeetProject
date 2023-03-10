@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "d27e99b9c6d8d469ba7f566dfc3131e0",
+=======
+    "content-hash": "344def2f19e18b2f16767a89f9c80ee5",
+>>>>>>> TREBALL
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
