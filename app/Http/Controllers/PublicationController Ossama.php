@@ -36,7 +36,7 @@ class PublicationController extends Controller
         ];
         $response = Http::post('https://videowiki-dcom.mirmit.es/api/saveDraft', $data);
 
-        $ref = $response;
+        $ref = json_decode($response)['reference'];
 
         $post->user_id = 1;
         $post->ref_swarm = $ref;

@@ -29,7 +29,7 @@
         <div class="mb-3 w-96">
           <input name="image"
             class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 dark:border-neutral-600 bg-clip-padding py-[0.32rem] px-3 text-base font-normal text-neutral-700 dark:text-neutral-200 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 dark:file:bg-neutral-700 file:px-3 file:py-[0.32rem] file:text-neutral-700 dark:file:text-neutral-100 file:transition file:duration-150 file:ease-in-out file:[margin-inline-end:0.75rem] file:[border-inline-end-width:1px] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-[0_0_0_1px] focus:shadow-primary focus:outline-none"
-            type="file" @change="onFileChangeImage, onFileChange" accept="image/*,video/*" />
+            type="file" @change="onFileChange" accept="image/*,video/*" />
         </div>
       </div>
 
@@ -61,7 +61,6 @@ export default {
     return {
       showModal: false,
       file: null,
-      image: null,
       text: null
     }
   },
@@ -82,26 +81,22 @@ export default {
   methods: {
     doAction() {
       const formData = new FormData();
-      formData.append('image', this.image);
-      axios.post('/add-image', formData, {
+      formData.append('file', this.file,);
+      formData.append('text', this.text);
+      axios.post('/new-post', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       })
         .then(response => {
-          const data = response.data;
-
-          axios.post('/new-post', data, this.text)
-
+          const path = response.data;
+          console.log(response.data['reference'])
         })
         .catch(error => {
           console.error(error);
         });
 
       this.showModal = false;
-    },
-    onFileChangeImage(event) {
-      this.image = event.target.files[0];
     },
 
     onFileChange(event) {

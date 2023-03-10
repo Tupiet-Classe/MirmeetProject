@@ -41,7 +41,6 @@ Route::get('/my', function() {
 // Route::get('/api', [PublicationController::class, 'get_data_from_reference']);
 // Route::get('/user-data', [UserController::class, 'index']);
 // Route::get('/post-data', [PublicationController::class, 'index']);
-Route::post('/add-image', [PublicationController::class, 'store_image']);
 Route::post('/new-post', [PublicationController::class, 'store_posts']);
 
 Route::get('/pending-users', [UserController::class, 'indexPending'])->middleware(['auth', 'verified', 'check_access'])->name('pending.users');
