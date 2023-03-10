@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Models\Publication;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class PublicationController extends Controller
@@ -58,4 +61,45 @@ class PublicationController extends Controller
         $post->save();
     }
 
+    public function myWall()
+    {
+        $user_id = 1; // Aquí anirà la ID de la sessió
+        
+        $data = DB::table('publications')
+            ->where('user_id', $user_id)
+            ->get();
+
+        $encriptionKey = '';
+        $arrayRef = array();
+
+        foreach ($data as $references) {
+            $arrayRef[] = array(
+                'reference' => $references->ref_swarm,
+                'encryptionKey' => $encriptionKey
+            );
+        }
+        PublicationController::recDataSwarm($arrayRef);
+    }
+
+    public static function recDataSwarm($arrayRef)
+    {
+        foreach ($arrayRef as $ref) {
+            $url = 'https://videowiki-dcom.mirmit.es/api/retrieveDraft';
+            $curl = curl_init($url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
+            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($ref));
+            curl_setopt($curl, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json'
+            ]);
+            $response = curl_exec($curl);
+            curl_close($curl);
+            echo($response);
+        }
+    }
+
+    
+    
+    
+    
 }
