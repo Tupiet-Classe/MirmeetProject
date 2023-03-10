@@ -42,7 +42,7 @@ class CheckAccess
 
         else if ($user->access == 'yes') {
 
-            return redirect('/muro')->with('succes', 'Welcome to the application this is your WALL');
+            return redirect('/home')->with('succes', 'Welcome to the application');
         }
 
         else if ($user->access == 'banned') {

@@ -4,6 +4,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 /*
@@ -20,6 +21,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
+
+Route::get('/follow', function () {
+    return view('follow');
+});
+
 
 Route::get('/dashboard', function () {
     return view('login.dashboard');
@@ -58,12 +64,11 @@ Route::get('/verify-users', [UserController::class, 'indexVerify'])->middleware(
 Route::get('/verify/{id}', [UserController::class, 'verify'])->middleware(['auth', 'verified', 'check_access'])->name('verify');
 Route::get('/unverify/{id}', [UserController::class, 'unverify'])->middleware(['auth', 'verified', 'check_access'])->name('unverify');
 
-/*
-Route::get('/search', [UserController::class, 'indexverify'])->middleware(['auth', 'verified', 'check_access'])->name('search.results');
-Route::get('/verified-users', [UserController::class, 'indexverify'])->middleware(['auth', 'verified', 'check_access'])->name('indexverify.users');
-Route::get('/verifyYes/{id}', [UserController::class, 'verifyYes'])->middleware(['auth', 'verified', 'check_access'])->name('verifyYes');
-Route::get('/verifyNo/{id}', [UserController::class, 'verifyNo'])->middleware(['auth', 'verified', 'check_access'])->name('verifyNo');
-*/
+Route::get('/roles', [UserController::class, 'indexRole'])->middleware(['auth', 'verified', 'check_access'])->name('roles.users');
+Route::get('/give-role/{id}', [UserController::class, 'give'])->middleware(['auth', 'verified', 'check_access'])->name('give');
+Route::get('/remove-role/{id}', [UserController::class, 'remove'])->middleware(['auth', 'verified', 'check_access'])->name('remove');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -103,5 +108,14 @@ Route::get('/google-callback', function () {
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
 })->middleware('guest')->name('password.request');
+
+/* RUTES EQUIP 3 */
+// Aquestes rutes són per accedir als dos murs
+Route::get('discover');
+Route::get('home');
+
+// Aquestes rutes retornen els posts a mostrar al mur discover i a la home
+Route::get('/posts-discover', [PublicationController::class, 'myWall'])->name('recoverPosts.discover');
+Route::get('posts-home');
 
 require __DIR__.'/auth.php';
