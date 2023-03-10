@@ -59,10 +59,6 @@ import axios from 'axios';
 import swal from 'sweetalert';
 
 export default {
-    mounted() {
-        this.getPostsData()
-        this.getPosts()
-    },
     data() {
         return {
             posts_data: [],
@@ -70,10 +66,14 @@ export default {
     },
     methods: {
         getPostsData() {
-            axios.get('posts-discover').then(res => {
+            axios.get('/posts-discover').then(res => {
                 this.posts_data = res.data;
             });
         },
+    },
+    mounted() {
+        this.getPostsData()
+        this.getPosts()
     }
 }
 </script>
