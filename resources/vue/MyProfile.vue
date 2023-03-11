@@ -70,9 +70,9 @@ import swal from 'sweetalert';
 
 export default {
     mounted() {
-        this.getUsers()
-        this.getPostsData()
-        this.getPosts()
+        // this.getUsers()
+        // this.getPostsData()
+        // this.getPosts()
     },
     data() {
         return {
