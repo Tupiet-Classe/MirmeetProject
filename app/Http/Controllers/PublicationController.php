@@ -77,16 +77,6 @@ class PublicationController extends Controller
         $post->user_id = $request->input('user_id');
         $post->save();
     }
-    public function myWall()
-    {
-        $user_id = 1; // Aquí anirà la ID de la sessió
-        
-        $data = DB::table('publications')
-            ->where('user_id', $user_id)
-            ->get();
-
-        $encriptionKey = '';
-        $arrayRef = array();
 
     public function myWall()
     {
