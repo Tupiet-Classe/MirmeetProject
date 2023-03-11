@@ -3,7 +3,7 @@
         @if (Route::has('login'))
             <div class="fixed top-0 right-0 px-6 py-4 sm:block mb-8">
                 @auth
-                    @if (auth()->user()->role == 'admin')
+                    @if (auth()->user()->role == 'admin' || auth()->user()->role == 'moderator')
                         <a href="{{ url('/dashboard') }}"
                             class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                             Dashboard

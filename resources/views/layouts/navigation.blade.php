@@ -16,9 +16,9 @@
                         {{ __('Home') }}
                     </x-nav-link>
 
-                    @can('dashboard.validate.records')
+                    @can('dashboard.validate.users')
                     <x-nav-link :href="route('pending.users')" :active="Str::startsWith(request()->route()->getName(), ['pending.', 'denied.'])">
-                        {{ __('Validate Records') }}
+                        {{ __('Validate Users') }}
                     </x-nav-link>
                     @endcan
 
@@ -32,6 +32,12 @@
                     <x-nav-link :href="route('verify.users')" :active="request()->routeIs('verify.users')">
                         {{ __('Verify Users') }}
                     </x-nav-link>
+                    @endcan
+
+                    @can('dashboard.roles')
+                        <x-nav-link :href="route('roles.users')" :active="request()->routeIs('roles.users')">
+                            {{ __('Roles Users') }}
+                        </x-nav-link>
                     @endcan
                 </div>
             </div>
@@ -89,9 +95,9 @@
                 {{ __('Home') }}
             </x-responsive-nav-link>
 
-            @can('dashboard.validate.records')
+            @can('dashboard.validate.users')
             <x-responsive-nav-link :href="route('pending.users')" :active="Str::startsWith(request()->route()->getName(), ['pending.', 'denied.'])">
-                {{ __('Validate Records') }}
+                {{ __('Validate Users') }}
             </x-responsive-nav-link>
             @endcan
 
@@ -105,6 +111,12 @@
             <x-responsive-nav-link :href="route('verify.users')" :active="request()->routeIs('verify.users')">
                 {{ __('Verify Users') }}
             </x-responsive-nav-link>
+            @endcan
+
+            @can('dashboard.roles')
+                <x-responsive-nav-link :href="route('roles.users')" :active="request()->routeIs('roles.users')">
+                    {{ __('Roles Users') }}
+                </x-responsive-nav-link>
             @endcan
         </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Models\Publication;
 use App\Models\User;
@@ -87,6 +88,18 @@ class PublicationController extends Controller
         $encriptionKey = '';
         $arrayRef = array();
 
+    public function myWall()
+    {
+        $user_id = 1; // Aquí anirà la ID de la sessió
+        
+        $data = DB::table('publications')
+            ->where('user_id', $user_id)
+            ->get();
+
+        $encriptionKey = '';
+        $arrayRef = array();
+
+
         foreach ($data as $references) {
             $arrayRef[] = array(
                 'reference' => $references->ref_swarm,
@@ -112,4 +125,5 @@ class PublicationController extends Controller
             echo($response);
         }
     }
+
 }

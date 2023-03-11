@@ -21,10 +21,11 @@ class RoleSeeder extends Seeder
         $client = Role::create(['name' => 'client']);
 
         Permission::create(['name' => 'dashboard.view'])->syncRoles([$admin, $moderator]);
-        Permission::create(['name' => 'dashboard.validate.records'])->syncRoles([$admin, $moderator]);
-        Permission::create(['name' => 'dashboard.validate.records.denied'])->syncRoles([$admin]);
-        Permission::create(['name' => 'dashboard.manage.users'])->assignRole($admin);
+        Permission::create(['name' => 'dashboard.validate.users'])->syncRoles([$admin, $moderator]);
+        Permission::create(['name' => 'dashboard.validate.users.restore'])->syncRoles([$admin]);
+        Permission::create(['name' => 'dashboard.manage.users'])->syncRoles([$admin, $moderator]);
         Permission::create(['name' => 'dashboard.verify.users'])->assignRole([$admin]);
+        Permission::create(['name' => 'dashboard.roles'])->assignRole([$admin]);
         Permission::create(['name' => 'wall.main.users'])->assignRole($client);
         Permission::create(['name' => 'wall.discover.users'])->assignRole($client);
 

@@ -6,7 +6,11 @@ import MyProfile from '../vue/MyProfile.vue';
 import PostBtn1 from '../vue/Post1.vue';
 import PostBtn2 from '../vue/Post2.vue';
 
+import MyButton from '../vue/follow.vue';
+
 const app = createApp({})
+
+app.component('my-button', MyButton)
 
 app.component('welcome', titleComp)
 
