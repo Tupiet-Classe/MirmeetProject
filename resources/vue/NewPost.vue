@@ -90,7 +90,7 @@ export default {
       })
         .then(response => {
           const path = response.data;
-          console.log(response.data['reference'])
+          // console.log(response.data['reference'])
         })
         .catch(error => {
           console.error(error);
