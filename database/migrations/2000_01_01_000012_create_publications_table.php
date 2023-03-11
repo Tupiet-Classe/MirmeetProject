@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('publications', function (Blueprint $table) {
             $table->id();
             $table->string('ref_swarm')->nullable();
-            $table->foreignId('publication_id')->constrained()->nullable();
+            $table->foreignId('publication_id')->nullable()->constrained()->default(null);
             $table->foreignId('user_id')->constrained();
             $table->date('hidden')->nullable()->default(null);
             $table->timestamps();
