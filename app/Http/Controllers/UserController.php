@@ -211,6 +211,21 @@ class UserController extends Controller
         }
     }
 
+    public function searchVerify(Request $request)
+    {
+        $query = $request->input('search-verify');
+
+        $users = User::where(function($q) use ($query) {
+            $q->where('name', 'LIKE', '%'.$query.'%')
+                ->orWhere('email', 'LIKE', '%'.$query.'%');
+        })
+            ->where('role', '!=', 'admin')
+            ->where('role', '!=', 'moderator')
+            ->paginate(5);
+
+        return view('login.verify_users', compact('users'));
+    }
+
     // ---------------------------
     //
     //         Roles Users
@@ -254,6 +269,22 @@ class UserController extends Controller
             $user->removeRole('moderator');
             return back()->with('success', 'Usuario desverificado correctamente');
         }
+    }
+
+    public function searchRole(Request $request)
+    {
+        $query = $request->input('search-role');
+
+        $users = User::where(function($q) use ($query) {
+            $q->where('name', 'LIKE', '%'.$query.'%')
+                ->orWhere('email', 'LIKE', '%'.$query.'%');
+        })
+            ->where('role', '!=', 'admin')
+            ->where('access', '!=', 'banned')
+            ->where('access', '!=', 'denied')
+            ->paginate(5);
+
+        return view('login.roles_users', compact('users'));
     }
 
 
