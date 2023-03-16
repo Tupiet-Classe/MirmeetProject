@@ -22,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'username',
+        'bibliografy',
+        'site',
         'role',
         'access',
         'verified',

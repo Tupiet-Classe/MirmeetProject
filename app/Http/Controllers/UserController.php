@@ -19,7 +19,10 @@ class UserController extends Controller
             abort(403, 'No tienes permisos');
         }
         else{
-            $pendingUsers = User::where('access', 'no')->paginate(5);
+            $pendingUsers = User::where('access', 'no')
+                ->where('role', '!=', 'admin')
+                ->where('role', '!=', 'moderator')
+                ->paginate(5);
 
             return view('login.pending_users', compact('pendingUsers'));
         }
@@ -49,6 +52,22 @@ class UserController extends Controller
         }
     }
 
+    public function searchPending(Request $request)
+    {
+        $query = $request->input('search-pending');
+
+        $pendingUsers = User::where(function($q) use ($query) {
+            $q->where('name', 'LIKE', '%'.$query.'%')
+                ->orWhere('email', 'LIKE', '%'.$query.'%');
+        })
+            ->where('access', '!=', 'denied')
+            ->where('role', '!=', 'admin')
+            ->where('role', '!=', 'moderator')
+            ->paginate(5);
+
+        return view('login.pending_users', compact('pendingUsers'));
+    }
+
     // ------------------------
     //
     //     Show Denied Users
@@ -61,7 +80,10 @@ class UserController extends Controller
             abort(403, 'No tienes permisos');
         }
         else{
-            $deniedUsers = User::where('access', 'denied')->paginate(5);
+            $deniedUsers = User::where('access', 'denied')
+                ->where('role', '!=', 'admin')
+                ->where('role', '!=', 'moderator')
+                ->paginate(5);
 
             return view('login.denied_users', compact('deniedUsers'));
         }
@@ -95,8 +117,8 @@ class UserController extends Controller
                 $query->where('access', 'yes')
                     ->orWhere('access', 'banned');
             })
-                ->where('role', '!=', 'admin') // Excluir al usuario administrador por defecto
-                ->where('role', '!=', 'moderator') // Excluir al usuario moderador por defecto
+                ->where('role', '!=', 'admin')
+                ->where('role', '!=', 'moderator')
                 ->paginate(5);
 
             return view('login.ban_users', compact('users'));
@@ -127,6 +149,21 @@ class UserController extends Controller
         }
     }
 
+    public function searchManage(Request $request)
+    {
+        $query = $request->input('search-manage');
+
+        $users = User::where(function($q) use ($query) {
+            $q->where('name', 'LIKE', '%'.$query.'%')
+                ->orWhere('email', 'LIKE', '%'.$query.'%');
+        })
+            ->where('role', '!=', 'admin')
+            ->where('role', '!=', 'moderator')
+            ->paginate(5);
+
+        return view('login.ban_users', compact('users'));
+    }
+
     // ---------------------------
     //
     //         Verify Users
@@ -143,7 +180,8 @@ class UserController extends Controller
                 $query->where('verified', 'no')
                     ->orWhere('verified', 'yes');
             })
-                ->where('role', '!=', 'admin') // Excluir al usuario administrador por defecto
+                ->where('role', '!=', 'admin')
+                ->where('role', '!=', 'moderator')
                 ->paginate(5);
 
             return view('login.verify_users', compact('users'));
