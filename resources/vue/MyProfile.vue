@@ -63,38 +63,30 @@
     </div>
 </template>
 
-<!-- Scripts per a esta vista -->
 <script>
 import axios from 'axios';
 import swal from 'sweetalert';
 
 export default {
-    mounted() {
-        this.getUsers()
-        this.getPostsData()
-        this.getPosts()
-    },
     data() {
         return {
-            users: [],
             posts_data: [],
-            posts: [],
         }
     },
     methods: {
-        getUsers() {
-            axios.get('user-data').then(res => {
-                this.users = res.data;
-            });
-        },
         getPostsData() {
-            axios.get('post-data').then(res => {
+            axios.get('/posts-discover').then(res => {
                 this.posts_data = res.data;
             });
         },
+    },
+    mounted() {
+        this.getPostsData()
+        this.getPosts()
     }
 }
 </script>
+
 
 <!-- Estils per a esta vista -->
 <style scoped>

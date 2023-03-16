@@ -66,8 +66,11 @@ class PublicationController extends Controller
         $user_id = 1; // Aquí anirà la ID de la sessió
         
         $data = DB::table('publications')
-            ->where('user_id', $user_id)
-            ->get();
+        ->join('users', 'publications.user_id', '=', 'users.id')
+        ->select('users.username', 'publications.ref_swarm')
+        ->where('publications.user_id', $user_id)
+        ->get();
+        echo($data);
 
         $encriptionKey = '';
         $arrayRef = array();
@@ -79,6 +82,8 @@ class PublicationController extends Controller
             );
         }
         PublicationController::recDataSwarm($arrayRef);
+        
+
     }
 
     public static function recDataSwarm($arrayRef)

@@ -111,7 +111,7 @@ Route::get('discover');
 Route::get('home');
 
 // Aquestes rutes retornen els posts a mostrar al mur discover i a la home
-Route::get('/posts-discover', [PublicationController::class, 'myWall'])->name('recoverPosts.discover');
-Route::get('posts-home');
+Route::get('/posts-discover/{user_id}', [PublicationController::class, ''])->name('recoverPosts.discover');
+Route::get('/posts-home/{user_id}', [PublicationController::class, 'myWall'])->name('postsMyWall.discover');
 
 require __DIR__.'/auth.php';

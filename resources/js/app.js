@@ -9,10 +9,9 @@ import MyProfile from '../vue/MyProfile.vue';
 const app = createApp({})
 
 app.component('perfil', Perfil)
-
 app.component('my-profile', MyProfile)
-
 app.mount('#app')
+
 // BREEZE
 import Alpine from 'alpinejs';
 
