@@ -21,7 +21,7 @@ app.component('my-profile', MyProfile)
 app.mount('#app')
 
 createApp(PostBtn1).mount('#post1')
-createApp(PostBtn2).mount('#post2')
+// createApp(PostBtn2).mount('#post2')
 // BREEZE
 import Alpine from 'alpinejs';
 

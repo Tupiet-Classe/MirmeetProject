@@ -32,15 +32,15 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified', 'check_access'])->name('dashboard');
 
 Route::get('/andrei', function () {
-    return view('andrei');
+    return view('perfil.andrei');
 });
 
 Route::get('/perfil', function () {
-    return view('perfil');
+    return view('perfil.perfil');
 });
 
 Route::get('/my', function() {
-    return view('wall_personal');
+    return view('perfil.wall_personal');
 });
 
 // Route::get('/api', [PublicationController::class, 'get_data_from_reference']);
