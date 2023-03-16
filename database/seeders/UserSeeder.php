@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
         $user = User::find(1);
         $user->assignRole('admin');
 
-        User::factory(50)->create()->each(function ($user){
+        User::factory(100)->create()->each(function ($user){
             switch ($user->role) {
                 case 'admin':
                     $user->assignRole('admin');

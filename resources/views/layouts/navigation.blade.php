@@ -23,19 +23,19 @@
                     @endcan
 
                     @can('dashboard.manage.users')
-                    <x-nav-link :href="route('ban.users')" :active="request()->routeIs('ban.users')">
+                    <x-nav-link :href="route('ban.users')" :active="Str::startsWith(request()->route()->getName(), ['ban.', 'manage.'])">
                         {{ __('Manage Users') }}
                     </x-nav-link>
                     @endcan
 
                     @can('dashboard.verify.users')
-                    <x-nav-link :href="route('verify.users')" :active="request()->routeIs('verify.users')">
+                    <x-nav-link :href="route('verify.users')" :active="Str::startsWith(request()->route()->getName(), ['verify.'])">
                         {{ __('Verify Users') }}
                     </x-nav-link>
                     @endcan
 
                     @can('dashboard.roles')
-                        <x-nav-link :href="route('roles.users')" :active="request()->routeIs('roles.users')">
+                        <x-nav-link :href="route('roles.users')" :active="Str::startsWith(request()->route()->getName(), ['role.', 'roles.'])">
                             {{ __('Roles Users') }}
                         </x-nav-link>
                     @endcan
@@ -102,19 +102,19 @@
             @endcan
 
             @can('dashboard.manage.users')
-            <x-responsive-nav-link :href="route('ban.users')" :active="request()->routeIs('ban.users')">
+            <x-responsive-nav-link :href="route('ban.users')" :active="Str::startsWith(request()->route()->getName(), ['ban.', 'manage.'])">
                 {{ __('Manage Users') }}
             </x-responsive-nav-link>
             @endcan
 
             @can('dashboard.verify.users')
-            <x-responsive-nav-link :href="route('verify.users')" :active="request()->routeIs('verify.users')">
+            <x-responsive-nav-link :href="route('verify.users')" :active="Str::startsWith(request()->route()->getName(), ['verify.'])">
                 {{ __('Verify Users') }}
             </x-responsive-nav-link>
             @endcan
 
             @can('dashboard.roles')
-                <x-responsive-nav-link :href="route('roles.users')" :active="request()->routeIs('roles.users')">
+                <x-responsive-nav-link :href="route('roles.users')" :active="Str::startsWith(request()->route()->getName(), ['role.', 'roles.'])">
                     {{ __('Roles Users') }}
                 </x-responsive-nav-link>
             @endcan

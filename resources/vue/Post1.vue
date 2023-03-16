@@ -41,7 +41,7 @@
           Compartir
         </button>
         <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
-          @click="showModal = false">
+          @click="closeModal()">
           Cancelar
         </button>
       </div>
@@ -79,6 +79,11 @@ export default {
     }
   },
   methods: {
+    closeModal(){
+      this.showModal = false
+      this.file = null
+      this.text = null
+    },
     doAction() {
       const formData = new FormData();
       formData.append('file', this.file,);
