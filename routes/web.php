@@ -32,15 +32,15 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified', 'check_access'])->name('dashboard');
 
 Route::get('/andrei', function () {
-    return view('andrei');
+    return view('perfil.andrei');
 });
 
 Route::get('/perfil', function () {
-    return view('perfil');
+    return view('perfil.perfil');
 });
 
 Route::get('/my', function() {
-    return view('wall_personal');
+    return view('perfil.wall_personal');
 });
 
 // Route::get('/api', [PublicationController::class, 'get_data_from_reference']);
@@ -51,6 +51,7 @@ Route::post('/new-post', [PublicationController::class, 'store_posts']);
 Route::get('/pending-users', [UserController::class, 'indexPending'])->middleware(['auth', 'verified', 'check_access'])->name('pending.users');
 Route::get('/allow/{id}', [UserController::class, 'allow'])->middleware(['auth', 'verified', 'check_access'])->name('allow');
 Route::get('/deny/{id}', [UserController::class, 'deny'])->middleware(['auth', 'verified', 'check_access'])->name('deny');
+Route::get('/pending-search', [UserController::class, 'searchPending'])->middleware(['auth', 'verified', 'check_access'])->name('pending.search');
 
 Route::get('/denied-users', [UserController::class, 'indexDenied'])->middleware(['auth', 'verified', 'check_access'])->name('denied.users');
 Route::get('/restore/{id}', [UserController::class, 'restore'])->middleware(['auth', 'verified', 'check_access'])->name('restore');
@@ -58,15 +59,17 @@ Route::get('/restore/{id}', [UserController::class, 'restore'])->middleware(['au
 Route::get('/ban-users', [UserController::class, 'indexBanned'])->middleware(['auth', 'verified', 'check_access'])->name('ban.users');
 Route::get('/ban/{id}', [UserController::class, 'ban'])->middleware(['auth', 'verified', 'check_access'])->name('ban');
 Route::get('/unban/{id}', [UserController::class, 'unban'])->middleware(['auth', 'verified', 'check_access'])->name('unban');
+Route::get('/manage-search', [UserController::class, 'searchManage'])->middleware(['auth', 'verified', 'check_access'])->name('manage.search');
 
 Route::get('/verify-users', [UserController::class, 'indexVerify'])->middleware(['auth', 'verified', 'check_access'])->name('verify.users');
 Route::get('/verify/{id}', [UserController::class, 'verify'])->middleware(['auth', 'verified', 'check_access'])->name('verify');
 Route::get('/unverify/{id}', [UserController::class, 'unverify'])->middleware(['auth', 'verified', 'check_access'])->name('unverify');
+Route::get('/verify-search', [UserController::class, 'searchVerify'])->middleware(['auth', 'verified', 'check_access'])->name('verify.search');
 
 Route::get('/roles', [UserController::class, 'indexRole'])->middleware(['auth', 'verified', 'check_access'])->name('roles.users');
 Route::get('/give-role/{id}', [UserController::class, 'give'])->middleware(['auth', 'verified', 'check_access'])->name('give');
 Route::get('/remove-role/{id}', [UserController::class, 'remove'])->middleware(['auth', 'verified', 'check_access'])->name('remove');
-
+Route::get('/role-search', [UserController::class, 'searchRole'])->middleware(['auth', 'verified', 'check_access'])->name('role.search');
 
 
 Route::middleware('auth')->group(function () {
