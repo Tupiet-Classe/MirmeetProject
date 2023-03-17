@@ -2,14 +2,14 @@
 <template>
     <div style="width: 500px;">
         <form class="content bg-white w-full mx-5 p-3 rounded-lg flex flex-col text-sm relative bg-white rounded-lg">
-            <div style="width: 500px; text-align: center;">
+            <div style="width: 500px;">
                 <div style="display: inline-block;">
                     <img class="img-perfil"
                         src="https://profesional.semillasbatlle.com/wp-content/uploads/2020/07/semillas-oleaginosas-industriales-girasol.jpg"
                         alt="">
                 </div>
                 <div style="display: inline-block; text-align:">
-                    <div class="contador" style="display:inline-block; padding-right: 30px;">
+                    <div class="contador" style="display:inline-block; padding-right: 30px; padding-left: 50px;">
                         <h2>Publicaciones</h2>
                         <p>57</p>
                     </div>
