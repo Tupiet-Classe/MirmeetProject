@@ -75,7 +75,7 @@ Route::get('/remove-role/{id}', [UserController::class, 'remove'])->middleware([
 Route::get('/role-search', [UserController::class, 'searchRole'])->middleware(['auth', 'verified', 'check_access'])->name('role.search');
 
 Route::get('/profile/get-followers/{id}', [UserController::class, 'followersammount'])->name('get.followers');
-Route::get('/profile/get-following/{id}', [UserController::class, 'followingammount'])->name('get.followers');
+Route::get('/profile/get-following/{id}', [UserController::class, 'followingammount'])->name('get.following');
 
 
 Route::middleware('auth')->group(function () {
