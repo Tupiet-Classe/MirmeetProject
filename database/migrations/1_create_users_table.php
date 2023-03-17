@@ -21,9 +21,8 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('birthdate')->nullable();
             $table->string('bibliografy')->nullable();
-            $table->string('site')->nullable();
             $table->string('email')->unique();
-            $table->enum('role', ['admin', 'moderator', 'client'])->default('client');
+            $table->enum('role', ['admin', 'client'])->default('client');
             $table->enum('access', ['yes', 'no', 'denied', 'banned'])->default('no');
             $table->enum('verified', ['yes', 'no'])->default('no');
             $table->timestamp('email_verified_at')->nullable();
@@ -44,5 +43,10 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+    }
+
+    /**
+     */
+    public function __construct() {
     }
 };
