@@ -35,6 +35,9 @@ Route::get('/andrei', function () {
     return view('perfil.andrei');
 });
 
+
+
+
 Route::get('/perfil', function () {
     return view('perfil.perfil');
 });
