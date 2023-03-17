@@ -73,7 +73,7 @@
                                                 @elseif ($user->role == 'client')
                                                     <a href="{{ route('give', $user->id) }}"
                                                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded-md">
-                                                        Assing
+                                                        Assign
                                                     </a>
                                                 @endif
                                             </div>
