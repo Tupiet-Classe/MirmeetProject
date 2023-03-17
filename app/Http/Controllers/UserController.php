@@ -287,6 +287,32 @@ class UserController extends Controller
         return view('login.roles_users', compact('users'));
     }
 
+    
+    // ---------------------------
+    //
+    //         Followers
+    //
+    // ---------------------------
+
+    public function followersammount($id)
+    {
+        $ammount = Follow::selectRaw('COUNT(*) as followersammount')
+        ->where('follows.following_id', '=', $id)
+        ->get();
+
+        return $ammount;
+    }
+
+
+    public function followingammount($id)
+    {
+        $ammount = Follow::selectRaw('COUNT(*) as followersammount')
+        ->where('follows.follower_id', '=', $id)
+        ->get();
+
+        return $ammount;
+    }
+
 
 
 }
