@@ -35,6 +35,9 @@ Route::get('/andrei', function () {
     return view('perfil.andrei');
 });
 
+
+
+
 Route::get('/perfil', function () {
     return view('perfil.perfil');
 });
@@ -70,6 +73,9 @@ Route::get('/roles', [UserController::class, 'indexRole'])->middleware(['auth', 
 Route::get('/give-role/{id}', [UserController::class, 'give'])->middleware(['auth', 'verified', 'check_access'])->name('give');
 Route::get('/remove-role/{id}', [UserController::class, 'remove'])->middleware(['auth', 'verified', 'check_access'])->name('remove');
 Route::get('/role-search', [UserController::class, 'searchRole'])->middleware(['auth', 'verified', 'check_access'])->name('role.search');
+
+Route::get('/profile/get-followers/{id}', [UserController::class, 'followersammount'])->name('get.followers');
+Route::get('/profile/get-following/{id}', [UserController::class, 'followingammount'])->name('get.followers');
 
 
 Route::middleware('auth')->group(function () {
