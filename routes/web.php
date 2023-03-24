@@ -1,5 +1,7 @@
 <?php
 
+use App\Events\StartChat;
+use App\Http\Controllers\ChatController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
@@ -8,6 +10,7 @@ use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,12 +123,31 @@ Route::get('/forgot-password', function () {
 })->middleware('guest')->name('password.request');
 
 /* RUTES EQUIP 3 */
+
+/**
+ * ==================
+ *     RUTES XAT
+ * ==================
+ */
+Route::get('/chat', [ChatController::class, 'index'])->middleware('auth');
+Route::post('/send', [ChatController::class, 'send'])->middleware('auth');
+Route::get('/start-chat/{to_id}', function($to_id) {
+    $token = Str::random(16);
+    StartChat::dispatch($token, $to_id);
+    return ['token' => $token];
+});
+
+Route::get('/me', function() {
+    return ['id' => Auth::id(), 'username' => Auth::user()->username];
+});
+
+
 // Aquestes rutes són per accedir als dos murs
 Route::get('discover');
 Route::get('home');
 
 // Aquestes rutes retornen els posts a mostrar al mur discover i a la home
-Route::get('/posts-discover', [PublicationController::class, 'myWall'])->name('recoverPosts.discover');
-Route::get('posts-home');
+Route::get('/posts-discover/{user_id}', [PublicationController::class, ''])->name('recoverPosts.discover');
+Route::get('/posts-home/{user_id}', [PublicationController::class, 'myWall'])->name('postsMyWall.discover');
 
 require __DIR__.'/auth.php';
