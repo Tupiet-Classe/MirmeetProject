@@ -1,15 +1,20 @@
 <template>
-    <div style="height: 10vh">
-        <button @click="startChat(1)">Start chat with 1</button>
-        <button @click="startChat(2)">Start chat with 2</button>
-    </div>
+    <div class="chat flex" style="height: calc(100vh - 4rem);">
+        <div>
+            <button @click="startChat(1)">Start chat with 1</button>
+            <button @click="startChat(2)">Start chat with 2</button>
+        </div>
 
-    <div class="content" id="messages" style="height: 80vh">
-    </div>
-
-    <div class="message-bar" style="height: 10vh; width: 100%">
-        <input id="message" type="text" style="width: 100%">
-        <button @click="send()">Send!</button>
+        <div class="flex flex-col justify-between">
+            <div class="content flex flex-col gap-3" id="messages">
+            </div>
+        
+            <div class="message-bar h-fit">
+                <input id="message" type="text" style="width: 100%">
+                <button @click="send()">Send!</button>
+            </div>
+        </div>
+    
     </div>
 </template>
 
@@ -33,7 +38,8 @@ window.Echo = new Echo({
 export default {
     data() {
         return {
-            actualToken: ''
+            actualToken: '',
+            username: ''
         }
     },
     mounted() {
@@ -44,8 +50,9 @@ export default {
             let messages = id('messages')
 
             let req = await axios.get('/me')
-            let userId = req.data
-            console.log(userId)
+            let userId = req.data.id
+            this.username = req.data.username
+            console.log(userId, this.username)
             
             window.Echo.join('chat.' + userId)
                 .here((users) => {
@@ -73,10 +80,16 @@ export default {
     methods: {
         showMessage(e) {
             let messages = document.getElementById('messages')
+            let div = document.createElement('div')
+            div.classList.add('comment');
+            (e.username === this.username) 
+                ? div.classList.add('my-comment')
+                : div.classList.add('other-comment')
             let p = document.createElement('p')
             let message = document.createTextNode(e.username + ': ' + e.message)
             p.appendChild(message)
-            messages.appendChild(p)
+            div.appendChild(p)
+            messages.appendChild(div)
             console.log(e);
         },
         send() {
@@ -101,3 +114,20 @@ export default {
     }
 }
 </script>
+
+<style>
+    .comment{
+        width: fit-content;
+        background: white;
+        padding: .5rem;
+        border-radius: .5rem;
+    }
+
+    .my-comment {
+        margin-right: auto;
+    }
+
+    .other-comment {
+        margin-left: auto;
+    }
+</style>

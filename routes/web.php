@@ -125,7 +125,7 @@ Route::get('/start-chat/{to_id}', function($to_id) {
 });
 
 Route::get('/me', function() {
-    return Auth::id();
+    return ['id' => Auth::id(), 'username' => Auth::user()->username];
 });
 
 
