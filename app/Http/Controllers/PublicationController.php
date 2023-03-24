@@ -36,6 +36,7 @@ class PublicationController extends Controller
                 'image' => base64_encode($file)
             ]
         ];
+        
         $response = Http::post('https://videowiki-dcom.mirmit.es/api/saveDraft', $data);
 
         $datajson = json_decode($response);

@@ -6,7 +6,9 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,8 +37,8 @@ Route::get('/andrei', function () {
     return view('perfil.andrei');
 });
 
-
-
+// Notifications
+Route::get('/get-notifications', [NotificationController::class, 'show'])->name('get-notifications');
 
 Route::get('/perfil', function () {
     return view('perfil.perfil');
