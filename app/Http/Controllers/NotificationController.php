@@ -2,85 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreNotificacioRequest;
-use App\Http\Requests\UpdateNotificacioRequest;
 use App\Models\Notificacio;
+use App\Models\Notification;
+use GuzzleHttp\Client;
+use Illuminate\Http\Request;
+use App\Models\Publication;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
-class NotificacioController extends Controller
+class NotificationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function store()
     {
-        //
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreNotificacioRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreNotificacioRequest $request)
+
+    public function show(Notification $notificacio)
     {
-        //
+
+        return Notification::all();
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Notificacio  $notificacio
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Notificacio $notificacio)
+
+    public function edit(Notification $notificacio)
     {
-        //
+    
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Notificacio  $notificacio
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Notificacio $notificacio)
+
+    public function update(Request $request, Notification $notificacio)
     {
-        //
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateNotificacioRequest  $request
-     * @param  \App\Models\Notificacio  $notificacio
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateNotificacioRequest $request, Notificacio $notificacio)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Notificacio  $notificacio
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Notificacio $notificacio)
+    public function destroy(Notification $notificacio)
     {
-        //
+
     }
 }
