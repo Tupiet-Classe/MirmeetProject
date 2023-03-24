@@ -10,14 +10,14 @@ return new class extends Migration
     {
         Schema::create('shares', function(Blueprint $table){
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('publication_id');
-            $table->text('comment');
+            $table->comment('');
+            $table->dateTime('date');
+            $table->foreignId('publication_id')
+            ->references('id')
+            ->on('publications')
+            ->onDelete('cascade')
+            ->constrained();
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('publication_id')->references('id')->on('publications');
-
         });
     }
     public function down()

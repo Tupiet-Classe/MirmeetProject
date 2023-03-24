@@ -8,6 +8,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -38,6 +39,9 @@ Route::get('/dashboard', function () {
 Route::get('/andrei', function () {
     return view('perfil.andrei');
 });
+
+// Notifications
+Route::get('/get-notifications', [NotificationController::class, 'show'])->name('get-notifications');
 
 Route::get('/perfil', function () {
     return view('perfil.perfil');
@@ -74,6 +78,9 @@ Route::get('/roles', [UserController::class, 'indexRole'])->middleware(['auth', 
 Route::get('/give-role/{id}', [UserController::class, 'give'])->middleware(['auth', 'verified', 'check_access'])->name('give');
 Route::get('/remove-role/{id}', [UserController::class, 'remove'])->middleware(['auth', 'verified', 'check_access'])->name('remove');
 Route::get('/role-search', [UserController::class, 'searchRole'])->middleware(['auth', 'verified', 'check_access'])->name('role.search');
+
+Route::get('/perfil/get-followers/{id}', [UserController::class, 'followersammount'])->name('get.followers');
+Route::get('/perfil/get-following/{id}', [UserController::class, 'followingammount'])->name('get.following');
 
 
 Route::middleware('auth')->group(function () {
