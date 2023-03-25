@@ -101,7 +101,7 @@ export default {
           console.error(error);
         });
 
-      this.showModal = false;
+      this.closeModal();
     },
 
     onFileChange(event) {
