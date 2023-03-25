@@ -10,9 +10,9 @@
     </div>
 
     <div class="flex gap-x-5 mr-3">
+        <div id="notify"></div>
         <button class=""><i class="fa fa-search text-2xl"></i></button>
         <button class=""><i class="fa fa-comments text-2xl"></i></button>
-        <div id="notify"></div>
         <button class=""><i class="fa fa-user text-2xl"></i></button>
     </div>
 </header>

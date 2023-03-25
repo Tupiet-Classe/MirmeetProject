@@ -1,28 +1,29 @@
 <!-- Codi de la pagina -->
 <template>
     <div class="pt-5 posts w-full sm:w-96 flex flex-col items-center gap-3 overflow-y-scroll">
-        <form class="content bg-white w-full mx-5 p-3 rounded-lg flex flex-col text-sm relative">
+        <!-- <form class="content bg-white w-full mx-5 p-3 rounded-lg flex flex-col text-sm relative">
             <div class="flex flex-col items-center">
-                <img class="img-perfil"
-                    v-bind:src="users.avatar"
-                    alt="">
+                <img class="img-perfil" v-bind:src="users.avatar" alt="">
             </div>
             <div class="content bg-cyan w-full p-3 rounded-lg flex flex-col text-sm relative">
                 <a class="text-right" href="/perfil"><i class="fa-solid fa-user-pen"></i></a>
-                <input class="bg-transparent w-full border border-transparent p-2 rounded-lg font-bold" type="text" v-bind:value="users.username" disabled>
-                <textarea class="bg-transparent w-full border border-transparent p-2 rounded-lg" type="text" v-bind:value="users.bibliografy" disabled>
-                </textarea>
+                <input class="bg-transparent w-full border border-transparent p-2 rounded-lg font-bold" type="text"
+                    v-bind:value="users.username" disabled>
+                <textarea class="bg-transparent w-full border border-transparent p-2 rounded-lg" type="text"
+                    v-bind:value="users.bibliografy" disabled>
+                    </textarea>
             </div>
         </form>
         <div class="posts w-full sm:w-96 flex flex-col items-center gap-3 overflow-y-scroll">
-            <div class="post flex flex-col gap-y-3 items-center bg-white rounded-md p-4" v-for="post in posts_data" :key="post.id">
+            <div class="post flex flex-col gap-y-3 items-center bg-white rounded-md p-4" v-for="post in posts_data"
+                :key="post.id">
                 <div class="info bg-cyan w-full mx-5 p-3 rounded-lg flex flex-row gap-y-3">
                     <div class="user-image w-16">
                         <img v-bind:src="users.avatar" alt="logo">
                     </div>
                     <div class="other-content w-full flex justify-between">
                         <div class="user-info flex flex-col h-full justify-around ml-4 gap-y-1">
-                            <span class="username text-sm font-comfortaa font-semibold">@{{users.username}}</span>
+                            <span class="username text-sm font-comfortaa font-semibold">@{{ users.username }}</span>
                             <button class="btn-follow bg-purple rounded-xl py-0.5 px-4 text-white">Seguir</button>
                         </div>
 
@@ -59,7 +60,7 @@
                     <button><i class="fa fa-share"></i></button>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -82,7 +83,6 @@ export default {
     },
     mounted() {
         this.getPostsData()
-        this.getPosts()
     }
 }
 </script>
