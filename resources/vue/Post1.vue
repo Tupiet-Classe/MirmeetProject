@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center">
-    <button class="hidden sm:block absolute bottom-0 right-0 p-3 bg-red rounded-lg px-3 py-2 m-4 text-lg"
+    <button class="hidden sm:block absolute bottom-0 right-0 p-3 bg-red rounded-lg px-3 py-2 m-12 text-lg"
       @click="showModal = true"><i class="fa fa-add text-white"></i></button>
 
     <Modal :isOpen="showModal" @update:isOpen="showModal = $event">
