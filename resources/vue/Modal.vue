@@ -1,6 +1,6 @@
 <template>
-  <div class="fixed flex justify-center z-10 inset-0 overflow-y-auto" :class="{ 'hidden': !isOpen }">
-    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+  <div class="fixed flex justify-center z-10 inset-0 overflow-y-auto overflow-y-auto md:flex md:items-center md:justify-center" :class="{ 'hidden': !isOpen }">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
       <div class="fixed inset-0 transition-opacity" aria-hidden="true">
         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
       </div>
