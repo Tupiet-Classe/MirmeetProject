@@ -70,25 +70,22 @@ class PublicationController extends Controller
         ->select('users.username', 'publications.ref_swarm')
         ->where('publications.user_id', $user_id)
         ->get();
-        echo($data);
 
         $encriptionKey = '';
-        $arrayRef = array();
 
         foreach ($data as $references) {
-            $arrayRef[] = array(
+            $arrayRef = array(
                 'reference' => $references->ref_swarm,
                 'encryptionKey' => $encriptionKey
             );
-        }
-        PublicationController::recDataSwarm($arrayRef);
-        
-
+            $response = PublicationController::recDataSwarm($arrayRef);
+            $posts[] = ['data' => $response, 'user'=>$references->username];
+        } 
+        return json_encode($posts);
     }
 
-    public static function recDataSwarm($arrayRef)
+    public static function recDataSwarm($ref)
     {
-        foreach ($arrayRef as $ref) {
             $url = 'https://videowiki-dcom.mirmit.es/api/retrieveDraft';
             $curl = curl_init($url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -99,8 +96,7 @@ class PublicationController extends Controller
             ]);
             $response = curl_exec($curl);
             curl_close($curl);
-            echo($response);
-        }
+            return $response; 
     }
 
     

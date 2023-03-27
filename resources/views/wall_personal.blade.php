@@ -1,4 +1,4 @@
 @extends('template')
 @section('content')
-        <my-profile />
+        <my-profile/>
 @endsection

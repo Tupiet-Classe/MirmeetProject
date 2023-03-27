@@ -66,7 +66,7 @@ export default {
     },
     methods: {
         getPostsData() {
-            axios.get('/posts-home/').then(res => {
+            axios.get('/posts-discover/').then(res => {
                 this.posts_data = res.data;
             });
         },
