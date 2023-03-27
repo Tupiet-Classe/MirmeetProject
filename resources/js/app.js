@@ -26,7 +26,7 @@ app.mount('#app')
 createApp(PostBtn1).mount('#post1')
 createApp(NotificationsBTN).mount('#notify')
 createApp(chartAdmin).mount('#graphic')
-// createApp(PostBtn2).mount('#post2')
+createApp(PostBtn2).mount('#post2')
 
 // BREEZE
 import Alpine from 'alpinejs';
