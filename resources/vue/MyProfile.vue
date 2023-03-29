@@ -1,10 +1,10 @@
 <!-- Codi de la pagina -->
 <template>
-    <div class="pt-5 posts w-full sm:w-96 flex flex-col items-center gap-3 overflow-y-scroll">
+    <div class="posts w-full sm:w-96 flex flex-col items-center gap-3 overflow-y-scroll">
         <div v-for="post in posts_data" :key="post.id"
             class="post flex flex-col gap-y-3 items-center bg-white rounded-md p-4">
             <div class="info bg-cyan w-full mx-5 p-3 rounded-lg flex flex-row gap-y-3">
-                <div class="user-image w-16">
+                <div class="user-image w-16" src=""> 
                     <img alt="user">
                 </div>
                 <div class="other-content w-full flex justify-between">
@@ -21,7 +21,7 @@
             </div>
 
             <div class="images w-full mx-5 mt-1">
-                <div class="flex image justify-center w-full">
+                <div class="image w-full">
                     <img :src="post.image" alt="image" class="rounded-md">
                 </div>
             </div>
