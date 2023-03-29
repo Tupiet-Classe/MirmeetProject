@@ -6,8 +6,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PublicationController;
+use App\Models\Publication;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -60,7 +61,7 @@ Route::get('/ban/{id}', [UserController::class, 'ban'])->middleware(['auth', 've
 Route::get('/unban/{id}', [UserController::class, 'unban'])->middleware(['auth', 'verified', 'check_access'])->name('unban');
 
 Route::get('/verify-users', [UserController::class, 'indexVerify'])->middleware(['auth', 'verified', 'check_access'])->name('verify.users');
-Route::get('/verify/{id}', [UserController::class, 'verify'])->middleware(['auth', 'verified', 'check_access'])->name('verify');
+Route ::get('/verify/{id}', [UserController::class, 'verify'])->middleware(['auth', 'verified', 'check_access'])->name('verify');
 Route::get('/unverify/{id}', [UserController::class, 'unverify'])->middleware(['auth', 'verified', 'check_access'])->name('unverify');
 
 /*
@@ -109,6 +110,8 @@ Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
 })->middleware('guest')->name('password.request');
 
+
+
 /* RUTES EQUIP 3 */
 
 /**
@@ -128,13 +131,38 @@ Route::get('/me', function() {
     return ['id' => Auth::id(), 'username' => Auth::user()->username];
 });
 
+Route::get('/discover2', function () {
+    return view('prova');
+});
+
+// Route::get('/api/posts/{follower_id}', [PublicationController::class, 'getPosts']);
+
 
 // Aquestes rutes són per accedir als dos murs
 Route::get('discover');
 Route::get('home');
 
+//Redirecció a la view Blade "Discover" que es redirigirà a la view Vue
+Route::get('/discover-prova', function(){
+    return view('discover-prova');
+});
+
+Route::get('/publications/{follower_id}',  [PublicationController::class, 'GetPosts']);
+Route::get('/publications',  [PublicationController::class, 'GetAllPosts2']);
+Route::get('/publications2', [PublicationController::class, 'GetPosts3'])->name('discover-prova');
+Route::get('/publications3', [PublicationController::class, 'GetPosts3'])->name('prova');
+
+Route::get('/api/posts', [PublicationController::class, 'GetAllPosts2'])->name('discover-prova');
+
+//Recuperar les dades de la base de dades
+Route::get('/posts-discover', [PublicationController::class, 'index'])->name('c');
+Route::get('/post-discover/posts', [PublicationController::class, 'GetPosts'])->name('discover-prova');
+Route::get('/posts', [PublicationController::class, 'GetPosts']);
+
 // Aquestes rutes retornen els posts a mostrar al mur discover i a la home
 Route::get('/posts-discover', [PublicationController::class, 'recDataSwarm'])->name('recoverPosts.discover');
 Route::get('/posts-home', [PublicationController::class, 'myWall'])->name('postsMyWall.discover');
+//Route::get('posts-discover');
+Route::get('posts-home');
 
 require __DIR__.'/auth.php';
