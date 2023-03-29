@@ -8,6 +8,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -31,6 +32,8 @@ Route::get('/follow', function () {
     return view('follow');
 });
 
+Route::post('/follower', [FollowController::class, 'insert'])->name('follow.follower');
+Route::put('/following', [FollowController::class, 'update'])->name('follow.following');
 
 Route::get('/dashboard', function () {
     return view('login.dashboard');
