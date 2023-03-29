@@ -10,10 +10,12 @@
           <div class="other-content w-full flex justify-between">
             <div class="user-info flex flex-col h-full justify-around ml-4 gap-y-1">
               <span class="username text-sm font-comfortaa font-semibold">@{{publication.username}}</span>
-              <button class="btn-follow bg-purple rounded-xl py-0.5 px-4 text-white">Seguir</button>
+              <button class="btn-follow bg-purple rounded-xl py-0.5 px-4 text-white">
+                Seguir
+                {{publication.likes}}
+              </button>
             </div>
             <div class="extra-info flex gap-x-3 items-baseline">
-              <span class="time text-sm">{{publication.created_at}}</span>
               <i class="fa-solid fa-ellipsis-vertical text-purple cursor-pointer"></i>
             </div>
           </div>
@@ -31,11 +33,13 @@
           </div>
         </div>
         <div class="options bg-purple w-full flex justify-around mx-5 p-1 rounded-lg text-white text-xl">
-          <button><i class="fa-regular fa-heart"></i></button>
-          <button><i class="fa fa-retweet"></i></button>
+          <button :title="publication.Magrada"><i class="fa-regular fa-heart"></i></button>
+          <button :title="publication.compartit "><i class="fa fa-retweet"></i></button>
           <button><i class="fa-regular fa-comment"></i></button>
-          <button><i class="fa fa-share"></i></button>
+          <button :title="publication.compartit"><i class="fa fa-share"></i></button>
         </div>
+        <span class="time text-sm">{{publication.created_at}}</span>
+
       </div>
     </div>
   </div>
