@@ -133,12 +133,12 @@ Route::get('/github-callback', function () {
     //dd($user);
     $userexist = User::where('external_id', $user->id)->where('external_auth', 'github')->first();
 
-
     if($userexist){
         Auth::login($userexist);
-    } else{
+    } else if(User::where('email', $user->email)->exists()) {
+        return redirect('/login')->with('error', 'You tried logging in through GitHub, which is not the authentication method you used when you registered. Please try again with the authentication method you used when you registered.');
+    } else {
         $userexist = User::create([
-
             'name' => $user->nickname,
             'username' => $user->nickname,
             'email' => $user->email,
@@ -146,9 +146,9 @@ Route::get('/github-callback', function () {
             'external_id' => $user->id,
             'external_auth' => 'github',
         ]);
-
         Auth::login($userexist);
     }
+
     return redirect('/dashboard');
 });
 
