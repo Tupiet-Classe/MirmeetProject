@@ -8,6 +8,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -31,6 +32,8 @@ Route::get('/follow', function () {
     return view('follow');
 });
 
+Route::post('/follower', [FollowController::class, 'insert'])->name('follow.follower');
+Route::put('/following', [FollowController::class, 'update'])->name('follow.following');
 
 Route::get('/dashboard', function () {
     return view('login.dashboard');
@@ -89,6 +92,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//login google------------------------------------------------------------------
+
 Route::get('/login-google', function () {
     return Socialite::driver('google')->redirect();
 })->name('login.google');
@@ -116,6 +121,37 @@ Route::get('/google-callback', function () {
     }
     return redirect('/dashboard');
 });
+
+//login github------------------------------------------------------------------
+
+Route::get('/login-github', function () {
+    return Socialite::driver('github')->redirect();
+})->name('login.github');
+
+Route::get('/github-callback', function () {
+    $user = Socialite::driver('github')->user();
+    //dd($user);
+    $userexist = User::where('external_id', $user->id)->where('external_auth', 'github')->first();
+
+
+    if($userexist){
+        Auth::login($userexist);
+    } else{
+        $userexist = User::create([
+
+            'name' => $user->nickname,
+            'username' => $user->nickname,
+            'email' => $user->email,
+            'avatar' => $user->avatar,
+            'external_id' => $user->id,
+            'external_auth' => 'github',
+        ]);
+
+        Auth::login($userexist);
+    }
+    return redirect('/dashboard');
+});
+
 
 /* Ruta per sol·licitar enllaços de restabliment de contrasenya */
 Route::get('/forgot-password', function () {

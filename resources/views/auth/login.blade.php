@@ -74,7 +74,7 @@
             <a class="bg-blue-500 text-white font-bold py-2 px-4 rounded mr-5" href="{{ route('login.google') }}">
                 <i class="fa-brands fa-google"></i>
             </a>
-            <a class="bg-gray-500 text-white font-bold py-2 px-4 rounded mr-12" href="{{ route('login.google') }}">
+            <a class="bg-gray-500 text-white font-bold py-2 px-4 rounded mr-12" href="{{ route('login.github') }}">
                 <i class="fa-brands fa-github"></i>
             </a>
 
