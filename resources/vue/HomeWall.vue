@@ -2,17 +2,15 @@
 <template>
     <div class="pt-5 posts w-full sm:w-96 flex flex-col items-center gap-3 overflow-y-scroll">
         <div class="posts w-full sm:w-96 flex flex-col items-center gap-3 overflow-y-scroll">
-            <div 
-                v-for="post in posts_data" :key="post.id"
-                class="post flex flex-col gap-y-3 items-center bg-white rounded-md p-4">
+            <div class="post flex flex-col gap-y-3 items-center bg-white rounded-md p-4">
 
                 <div class="info bg-cyan w-full mx-5 p-3 rounded-lg flex flex-row gap-y-3">
                     <div class="user-image w-16">
-                        <img v-bind:src="users.avatar" alt="logo">
+                        <img alt="logo">
                     </div>
                     <div class="other-content w-full flex justify-between">
                         <div class="user-info flex flex-col h-full justify-around ml-4 gap-y-1">
-                            <span class="username text-sm font-comfortaa font-semibold">@{{users.username}}</span>
+                            <span class="username text-sm font-comfortaa font-semibold"></span>
                             <button class="btn-follow bg-purple rounded-xl py-0.5 px-4 text-white">Seguir</button>
                         </div>
 
@@ -25,12 +23,12 @@
 
                 <div class="images w-full mx-5 mt-1">
                     <div class="image w-full">
-                        <img v-bind:src="post.image" alt="image" class="rounded-md">
+                        <img  alt="image" class="rounded-md">
                     </div>
                 </div>
 
                 <div class="content bg-cyan w-full mx-5 p-3 rounded-lg flex flex-col text-sm relative">
-                    <p>{{ post.comment }}</p>
+                    <p></p>
                     <div class="topics mt-2 flex flex-wrap gap-2">
                         <span class="topic bg-red py-1 px-2 rounded-xl text-white w-fit">
                             #hello-world
@@ -60,8 +58,12 @@ import swal from 'sweetalert';
 
 export default {
     mounted() {
-        this.getPostsData()
-        this.getPosts()
+        axios.get('/posts-home')
+            .then((response) => {
+                this.tareas = response.data.tasks.data;
+            })
+            .catch((error) => {
+            });
     },
     data() {
         return {
@@ -69,11 +71,6 @@ export default {
         }
     },
     methods: {
-        getPostsData() {
-            axios.get('posts-home').then(res => {
-                this.posts_data = res.data;
-            });
-        },
     }
 }
 </script>
