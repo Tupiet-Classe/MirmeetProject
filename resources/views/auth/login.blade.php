@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="fixed top-0 right-0 px-6 py-4 sm:block mb-8">
+    {{-- <div class="fixed top-0 right-0 px-6 py-4 sm:block mb-8">
         @if (Route::has('login'))
             <div class="fixed top-0 right-0 px-6 py-4 sm:block mb-8">
                 @auth
@@ -24,7 +24,7 @@
                 @endauth
             </div>
         @endif
-    </div>
+    </div> --}}
 
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -42,23 +42,34 @@
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
+            <div class="flex justify-between">
+                <x-input-label for="password" :value="__('Password')" />
+        
+                @if (Route::has('password.request'))
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-2"
+                        href="{{ route('password.request') }}">
+                        {{ __('Forgot password?') }}
+                    </a>
+                @endif
+            </div>
+                    
             <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
                 autocomplete="current-password" />
-
+        
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
+        
 
         <!-- Remember Me -->
-        <div class="block mt-4">
+        {{-- <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
                 <input id="remember_me" type="checkbox"
                     class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
                 <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
             </label>
-        </div>
-
+        </div> --}}
+        
+        <br>
         <div class="mt-1">
             {!! NoCaptcha::renderJs() !!}
             {!! NoCaptcha::display() !!}
@@ -69,27 +80,45 @@
                 <p class="mt-1">{{ $errors->first('g-recaptcha-response') }}</p>
             </span>
         @endif
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="bg-blue-500 text-white font-bold py-2 px-4 rounded mr-5" href="{{ route('login.google') }}">
-                <i class="fa-brands fa-google"></i>
-            </a>
-            <a class="bg-gray-500 text-white font-bold py-2 px-4 rounded mr-12" href="{{ route('login.github') }}">
-                <i class="fa-brands fa-github"></i>
-            </a>
-
-
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+        
+        <div class="flex items-center justify-between mt-4">
+            @if (Route::has('register'))
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('register') }}">
+                    {{ __('Sign up for free') }}
                 </a>
             @endif
-
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+            <div class="flex items-center justify-end">
+                <x-primary-button class="ml-3">
+                    {{ __('Log in') }}
+                </x-primary-button>
+            </div>
         </div>
+        
+
+        <div class="mt-4">
+            <hr>
+            <br>
+            <p class="text-center text-gray-500">{{ __('Or enter with') }}</p>
+            <div class="flex justify-center mt-4">
+                <a href="{{ route('login.google') }}" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                    <i class="fab fa-google"></i> {{ __('Google') }}
+                </a>
+                <span class="mx-4 text-gray-400">{{ __('') }}</span>
+                <a href="{{ route('login.github') }}" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded">
+                    <i class="fab fa-github"></i> {{ __('Github') }}
+                </a>
+            </div>
+        </div>
+
+        {{-- <div class="mt-4">
+            <hr>
+            <br>
+            <div class="flex justify-center">
+                <a href="{{ route('register') }}" class="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded">
+                    {{ __('Sign up for free') }}
+                </a>
+            </div>
+        </div> --}}
     </form>
 
     @if (session('error'))
