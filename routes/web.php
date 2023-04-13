@@ -132,7 +132,9 @@ Route::get('/messages-between/{user_id}', [ChatController::class, 'get_messages_
 
 // Aquestes rutes són per accedir als dos murs
 Route::get('discover')->middleware(['auth', 'verified', 'check_access']);
-Route::get('home')->middleware(['auth', 'verified', 'check_access']);
+Route::get('/home', function() {
+    return view('perfil.wall_personal');
+})->middleware(['auth', 'verified', 'check_access']);
 
 // Aquestes rutes retornen els posts a mostrar al mur discover i a la home
 Route::get('/posts-discover/{user_id}', [PublicationController::class, ''])->name('recoverPosts.discover')->middleware(['auth', 'verified', 'check_access']);
