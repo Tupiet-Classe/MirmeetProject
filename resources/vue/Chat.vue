@@ -79,18 +79,21 @@ export default {
     },
     methods: {
         showMessage(e) {
+            this.printMessage(e.username, e.message)
+            console.log(e);
+        },
+        printMessage(usernameFromServer, messageFromServer) {
             let messages = document.getElementById('messages')
             let div = document.createElement('div')
             div.classList.add('comment');
-            (e.username === this.username) 
+            (usernameFromServer === this.username) 
                 ? div.classList.add('my-comment')
                 : div.classList.add('other-comment')
             let p = document.createElement('p')
-            let message = document.createTextNode(e.username + ': ' + e.message)
+            let message = document.createTextNode(usernameFromServer+ ': ' + messageFromServer)
             p.appendChild(message)
             div.appendChild(p)
             messages.appendChild(div)
-            console.log(e);
         },
         send() {
             axios.post('/send', {
@@ -106,11 +109,19 @@ export default {
             window.Echo.join('chat-between.' + token)
                 .here((users) => {
                     console.log(users)
+                    this.getMessagesBetween(id)
                 })
                 .listen('NewMessage', (message) => {
                     this.showMessage(message)
                 })
-        }       
+        },
+        async getMessagesBetween(id) {
+            let res = await axios.get('/messages-between/' + id)
+            let messages = res.data
+            messages.forEach(m => {
+                this.printMessage(m.sender, m.text)
+            })
+        }
     }
 }
 </script>
@@ -125,9 +136,11 @@ export default {
 
     .my-comment {
         margin-right: auto;
+        background: rgb(216, 216, 216);
     }
 
     .other-comment {
         margin-left: auto;
+        background: white;
     }
 </style>
