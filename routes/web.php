@@ -144,9 +144,10 @@ Route::get('/messages-between/{token}', [ChatController::class, 'get_messages_be
 // Aquestes rutes són per accedir als dos murs
 
 Route::get('discover')->middleware(['auth', 'verified', 'check_access']);
+
 Route::get('/home', function() {
     return view('perfil.wall_personal');
-})->middleware(['auth', 'verified', 'check_access']);
+})->middleware(['auth', 'verified']);
 
 
 //Redirecció a la view Blade "Discover" que es redirigirà a la view Vue
