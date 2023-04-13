@@ -4,7 +4,7 @@
         <div v-for="post in posts_data" :key="post.id"
             class="post flex flex-col gap-y-3 items-center bg-white rounded-md p-4">
             <div class="info bg-cyan w-full mx-5 p-3 rounded-lg flex flex-row gap-y-3">
-                <div class="user-image w-16" src=""> 
+                <div class="user-image w-16" src="">
                     <img alt="user">
                 </div>
                 <div class="other-content w-full flex justify-between">
@@ -75,8 +75,8 @@ export default {
 
                     let js = JSON.parse(post.data)
                     postJSON.image = js.image,
-                        postJSON.text = js.text,
-                        console.log(postJSON);
+                    postJSON.text = js.text,
+                    console.log(postJSON);
                     this.posts_data.push(postJSON)
                 }
             })
