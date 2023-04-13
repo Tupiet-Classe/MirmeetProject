@@ -120,16 +120,15 @@ Route::get('/forgot-password', function () {
  */
 Route::get('/chat', [ChatController::class, 'index'])->middleware('auth');
 Route::post('/send', [ChatController::class, 'send'])->middleware('auth');
-Route::get('/start-chat/{to_id}', function($to_id) {
-    $token = Str::random(16);
-    StartChat::dispatch($token, $to_id);
-    return ['token' => $token];
-});
+Route::get('/start-chat/{to_id}', [ChatController::class, 'start_chat']);
 
 Route::get('/me', function() {
     return ['id' => Auth::id(), 'username' => Auth::user()->username];
 });
 
+Route::get('/channels', [ChatController::class, 'get_channels']);
+
+Route::get('/messages-between/{user_id}', [ChatController::class, 'get_messages_between']);
 
 // Aquestes rutes són per accedir als dos murs
 Route::get('discover');
