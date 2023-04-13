@@ -3,12 +3,13 @@
     <div class="pt-5 posts w-full sm:w-96 flex flex-col items-center gap-3 overflow-y-scroll">
         <div class="posts w-full sm:w-96 flex flex-col items-center gap-3 overflow-y-scroll">
             <div 
-                v-for="post in posts_data" :key="post.id"
+                v-for="post in getPostsData.data" :key="post.id"
                 class="post flex flex-col gap-y-3 items-center bg-white rounded-md p-4">
 
                 <div class="info bg-cyan w-full mx-5 p-3 rounded-lg flex flex-row gap-y-3">
                     <div class="user-image w-16">
-                        <img v-bind:src="users.avatar" alt="logo">
+                        <!-- <img v-bind:src="users.avatar" alt="logo"> -->
+                        <img {{users.avatar}} alt="logo">
                     </div>
                     <div class="other-content w-full flex justify-between">
                         <div class="user-info flex flex-col h-full justify-around ml-4 gap-y-1">
@@ -41,7 +42,7 @@
 
                     </div>
                 </div>
-
+                &nbsp;
                 <div class="options bg-purple w-full flex justify-around mx-5 p-1 rounded-lg text-white text-xl">
                     <button><i class="fa-regular fa-heart"></i></button>
                     <button><i class="fa fa-retweet"></i></button>
@@ -49,8 +50,10 @@
                     <button><i class="fa fa-share"></i></button>
                 </div>
             </div>
+            &nbsp;
         </div>
     </div>
+    
 </template>
 
 <!-- Scripts per a esta vista -->
@@ -59,25 +62,59 @@ import axios from 'axios';
 import swal from 'sweetalert';
 
 export default {
+
+/*    mounted() {
+        this.getPosts()
+    },*/
+
     data() {
         return {
-            posts_data: [],
+            getPosts: [],
+            posts: [],
+            IdPost: null,
         }
     },
-    methods: {
+    /*methods: {
         getPostsData() {
-            axios.get('/posts-home/').then(res => {
+            axios.get('/discover-prova/').then(res => {
                 this.posts_data = res.data;
             });
         },
     },
     mounted() {
         this.getPostsData()
-        this.getPosts()
-    }
+    }*/
+    mounted() {
+  // establece el valor de IdPost al ID de la publicación que deseas recuperar
+  this.IdPost = 1;
+
+  axios.get(`/publications/${this.IdPost}`)
+    .then(response => {
+      this.posts = response.data;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}
 }
 </script>
 
+<script setup>
+import { ref } from 'vue'
+const postsData = ref({});
+
+function getPosts(page = 1) {
+    axios.get("/discover-prova?page=" + page)
+        .then(response => {
+        postsData.value = response.data;
+//        postsData.data = response.data.data;
+    })
+        .catch(error => {
+        console.log(error);
+    });
+}
+getPosts()
+</script>
 <!-- Estils per a esta vista -->
 <style scoped>
 </style>
