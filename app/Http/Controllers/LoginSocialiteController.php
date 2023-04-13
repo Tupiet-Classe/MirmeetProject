@@ -50,7 +50,7 @@ class LoginSocialiteController extends Controller
     {
         $user = Socialite::driver('github')->user();
     //dd($user);
-    $userexist = User::where('external_id', $user->id)->where('external_auth', 'github')->first();
+    $userexist = User::where('email', $user->email)->first();
 
     if($userexist){
         Auth::login($userexist);
