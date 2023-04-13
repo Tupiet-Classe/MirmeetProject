@@ -54,13 +54,12 @@ Route::get('/perfil', function () {
 
 Route::get('/my', function() {
     return view('perfil.wall_personal');
-});
+})->middleware(['auth', 'verified', 'check_access']);
 
 Route::get('/apiSwarm', function() {
     return view('apiSwarm');
 });
-})->middleware(['auth', 'verified', 'check_access']);
-
+ 
 // Route::get('/api', [PublicationController::class, 'get_data_from_reference']);
 // Route::get('/user-data', [UserController::class, 'index']);
 // Route::get('/post-data', [PublicationController::class, 'index']);
@@ -139,9 +138,6 @@ Route::get('/discover2', function () {
 });
 
 // Route::get('/api/posts/{follower_id}', [PublicationController::class, 'getPosts']);
-})->middleware(['auth', 'verified', 'check_access']);
-
-Route::get('/channels', [ChatController::class, 'get_channels'])->middleware(['auth', 'verified', 'check_access']);
 
 Route::get('/messages-between/{token}', [ChatController::class, 'get_messages_between'])->middleware(['auth', 'verified', 'check_access']);
 
@@ -165,15 +161,11 @@ Route::get('/api/posts', [PublicationController::class, 'GetAllPosts2'])->name('
 Route::get('/posts-discover', [PublicationController::class, 'index'])->name('c');
 Route::get('/post-discover/posts', [PublicationController::class, 'GetPosts'])->name('discover-prova');
 Route::get('/posts', [PublicationController::class, 'GetPosts']);
-Route::get('discover')->middleware(['auth', 'verified', 'check_access']);
-Route::get('home')->middleware(['auth', 'verified', 'check_access']);
 
 // Aquestes rutes retornen els posts a mostrar al mur discover i a la home
 Route::get('/posts-discover', [PublicationController::class, 'recDataSwarm'])->name('recoverPosts.discover');
 Route::get('/posts-home', [PublicationController::class, 'myWall'])->name('postsMyWall.discover');
 //Route::get('posts-discover');
 Route::get('posts-home');
-Route::get('/posts-discover/{user_id}', [PublicationController::class, ''])->name('recoverPosts.discover')->middleware(['auth', 'verified', 'check_access']);
-Route::get('/posts-home/{user_id}', [PublicationController::class, 'myWall'])->name('postsMyWall.discover')->middleware(['auth', 'verified', 'check_access']);
 
 require __DIR__.'/auth.php';
