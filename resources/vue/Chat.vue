@@ -66,6 +66,7 @@ export default {
                             console.log(`Acabo d'entrar a la sala ${res.token}`)
                             console.log(users)
                             this.actualToken = res.token
+                            this.getMessagesBetween()
                         })
                         .listen('NewMessage', (message) => {
                             console.log('Missatge rebut!', message)
@@ -115,8 +116,8 @@ export default {
                     this.showMessage(message)
                 })
         },
-        async getMessagesBetween(id) {
-            let res = await axios.get('/messages-between/' + id)
+        async getMessagesBetween() {
+            let res = await axios.get('/messages-between/' + this.actualToken)
             let messages = res.data
             messages.forEach(m => {
                 this.printMessage(m.sender, m.text)

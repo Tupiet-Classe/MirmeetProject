@@ -128,7 +128,7 @@ Route::get('/me', function() {
 
 Route::get('/channels', [ChatController::class, 'get_channels'])->middleware(['auth', 'verified', 'check_access']);
 
-Route::get('/messages-between/{user_id}', [ChatController::class, 'get_messages_between'])->middleware(['auth', 'verified', 'check_access']);
+Route::get('/messages-between/{token}', [ChatController::class, 'get_messages_between'])->middleware(['auth', 'verified', 'check_access']);
 
 // Aquestes rutes són per accedir als dos murs
 Route::get('discover')->middleware(['auth', 'verified', 'check_access']);
