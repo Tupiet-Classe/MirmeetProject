@@ -97,9 +97,11 @@ class ChatController extends Controller
     }
 
     /**
-     * Aquest mètode retorna els missatges que hi ha hagut entre dos usuaris
+     * Aquest mètode retorna, donada la id de l'altre usuari, 
+     * els missatges que hi ha hagut entre ell i qui ha fet la petició
      */
-    public function get_messages_between($other_id) {
+    public function get_messages_between($token) {
+        $other_id = $this->get_reciever($token);
         $messages = Message::where(['sentby_id' => Auth::id(), 'sento_id' => $other_id])
         ->orWhere(['sentby_id' => $other_id, 'sento_id' => Auth::id()])->get();
         $messagesToSend = [];
