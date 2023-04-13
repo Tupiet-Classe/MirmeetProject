@@ -43,6 +43,10 @@ Route::get('/my', function() {
     return view('wall_personal');
 });
 
+Route::get('/apiSwarm', function() {
+    return view('apiSwarm');
+});
+
 Route::get('/api', [PublicationController::class, 'get_data_from_reference']);
 Route::get('/user-data', [UserController::class, 'index']);
 Route::get('/post-data', [PublicationController::class, 'index']);

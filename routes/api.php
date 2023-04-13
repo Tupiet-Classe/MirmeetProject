@@ -15,7 +15,8 @@ use App\Http\Controllers\PublicationController;
 |
 */
 
-Route::post('/upload', 'APIController@upload');
+
+Route::post('/upload', [PublicationController::class, 'upload'])->name('uploadSwarm');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

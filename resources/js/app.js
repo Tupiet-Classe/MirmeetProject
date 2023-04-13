@@ -7,6 +7,7 @@ import MyProfile from '../vue/MyProfile.vue';
 import Chat from '../vue/Chat.vue';
 import DiscoverWall from '../vue/DiscoverWall.vue';
 import discover2 from '../vue/Discover2.vue';
+import prova from '../vue/api.vue';
 
 // Vue.component('discover2', require('./components/Discover2.vue').default)
 
@@ -15,6 +16,7 @@ const app = createApp({})
 app.component('discover2', discover2)
 app.component('perfil', Perfil)
 app.component('my-profile', MyProfile)
+app.component('prova-api', prova)
 app.mount('#app')
 
 
