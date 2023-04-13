@@ -175,7 +175,7 @@ Route::get('/me', function() {
 
 Route::get('/channels', [ChatController::class, 'get_channels']);
 
-Route::get('/messages-between/{user_id}', [ChatController::class, 'get_messages_between']);
+Route::get('/messages-between/{token}', [ChatController::class, 'get_messages_between']);
 
 // Aquestes rutes són per accedir als dos murs
 Route::get('discover');
