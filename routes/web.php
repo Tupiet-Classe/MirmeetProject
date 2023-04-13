@@ -6,11 +6,12 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\LoginSocialiteController;
+use App\Models\Publication;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -55,6 +56,10 @@ Route::get('/my', function() {
     return view('perfil.wall_personal');
 })->middleware(['auth', 'verified', 'check_access']);
 
+Route::get('/apiSwarm', function() {
+    return view('apiSwarm');
+});
+ 
 // Route::get('/api', [PublicationController::class, 'get_data_from_reference']);
 // Route::get('/user-data', [UserController::class, 'index']);
 // Route::get('/post-data', [PublicationController::class, 'index']);
@@ -74,7 +79,7 @@ Route::get('/unban/{id}', [UserController::class, 'unban'])->middleware(['auth',
 Route::get('/manage-search', [UserController::class, 'searchManage'])->middleware(['auth', 'verified', 'check_access'])->name('manage.search');
 
 Route::get('/verify-users', [UserController::class, 'indexVerify'])->middleware(['auth', 'verified', 'check_access'])->name('verify.users');
-Route::get('/verify/{id}', [UserController::class, 'verify'])->middleware(['auth', 'verified', 'check_access'])->name('verify');
+Route ::get('/verify/{id}', [UserController::class, 'verify'])->middleware(['auth', 'verified', 'check_access'])->name('verify');
 Route::get('/unverify/{id}', [UserController::class, 'unverify'])->middleware(['auth', 'verified', 'check_access'])->name('unverify');
 Route::get('/verify-search', [UserController::class, 'searchVerify'])->middleware(['auth', 'verified', 'check_access'])->name('verify.search');
 
@@ -111,6 +116,8 @@ Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
 })->middleware('guest')->name('password.request');
 
+
+
 /* RUTES EQUIP 3 */
 
 /**
@@ -124,20 +131,45 @@ Route::get('/start-chat/{to_id}', [ChatController::class, 'start_chat'])->middle
 
 Route::get('/me', function() {
     return ['id' => Auth::id(), 'username' => Auth::user()->username];
-})->middleware(['auth', 'verified', 'check_access']);
+});
 
-Route::get('/channels', [ChatController::class, 'get_channels'])->middleware(['auth', 'verified', 'check_access']);
+Route::get('/discover2', function () {
+    return view('prova');
+});
+
+// Route::get('/api/posts/{follower_id}', [PublicationController::class, 'getPosts']);
 
 Route::get('/messages-between/{token}', [ChatController::class, 'get_messages_between'])->middleware(['auth', 'verified', 'check_access']);
 
 // Aquestes rutes són per accedir als dos murs
+
 Route::get('discover')->middleware(['auth', 'verified', 'check_access']);
 Route::get('/home', function() {
     return view('perfil.wall_personal');
 })->middleware(['auth', 'verified', 'check_access']);
 
+
+//Redirecció a la view Blade "Discover" que es redirigirà a la view Vue
+Route::get('/discover-prova', function(){
+    return view('discover-prova');
+});
+
+Route::get('/publications/{follower_id}',  [PublicationController::class, 'GetPosts']);
+Route::get('/publications',  [PublicationController::class, 'GetAllPosts2']);
+Route::get('/publications2', [PublicationController::class, 'GetPosts3'])->name('discover-prova');
+Route::get('/publications3', [PublicationController::class, 'GetPosts3'])->name('prova');
+
+Route::get('/api/posts', [PublicationController::class, 'GetAllPosts2'])->name('discover-prova');
+
+//Recuperar les dades de la base de dades
+Route::get('/posts-discover', [PublicationController::class, 'index'])->name('c');
+Route::get('/post-discover/posts', [PublicationController::class, 'GetPosts'])->name('discover-prova');
+Route::get('/posts', [PublicationController::class, 'GetPosts']);
+
 // Aquestes rutes retornen els posts a mostrar al mur discover i a la home
-Route::get('/posts-discover/{user_id}', [PublicationController::class, ''])->name('recoverPosts.discover')->middleware(['auth', 'verified', 'check_access']);
-Route::get('/posts-home/{user_id}', [PublicationController::class, 'myWall'])->name('postsMyWall.discover')->middleware(['auth', 'verified', 'check_access']);
+Route::get('/posts-discover', [PublicationController::class, 'recDataSwarm'])->name('recoverPosts.discover');
+Route::get('/posts-home', [PublicationController::class, 'myWall'])->name('postsMyWall.discover');
+//Route::get('posts-discover');
+Route::get('posts-home');
 
 require __DIR__.'/auth.php';
