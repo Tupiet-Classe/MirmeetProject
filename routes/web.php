@@ -28,7 +28,7 @@ use Illuminate\Support\Str;
 
 Route::get('/', function () {
     return view('auth.login');
-})->middleware(['auth', 'verified', 'check_access']);
+});
 
 Route::get('/follow', function () {
     return view('follow');
@@ -142,8 +142,12 @@ Route::get('/discover2', function () {
 Route::get('/messages-between/{token}', [ChatController::class, 'get_messages_between'])->middleware(['auth', 'verified', 'check_access']);
 
 // Aquestes rutes són per accedir als dos murs
-Route::get('discover');
-Route::get('home');
+
+Route::get('discover')->middleware(['auth', 'verified', 'check_access']);
+Route::get('/home', function() {
+    return view('perfil.wall_personal');
+})->middleware(['auth', 'verified', 'check_access']);
+
 
 //Redirecció a la view Blade "Discover" que es redirigirà a la view Vue
 Route::get('/discover-prova', function(){
