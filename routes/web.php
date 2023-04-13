@@ -10,6 +10,7 @@ use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\LoginSocialiteController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -94,63 +95,15 @@ Route::middleware('auth')->group(function () {
 
 //login google------------------------------------------------------------------
 
-Route::get('/login-google', function () {
-    return Socialite::driver('google')->redirect();
-})->name('login.google');
+Route::get('/login-google', [LoginSocialiteController::class, 'Google'])->name('login.google');
 
-Route::get('/google-callback', function () {
-    $user = Socialite::driver('google')->user();
-
-    $userexist = User::where('external_id', $user->id)->where('external_auth', 'google')->first();
-
-
-    if($userexist){
-        Auth::login($userexist);
-    } else{
-        $userexist = User::create([
-
-            'name' => $user->name,
-            'username' => $user->name,
-            'email' => $user->email,
-            'avatar' => $user->avatar,
-            'external_id' => $user->id,
-            'external_auth' => 'google',
-        ]);
-
-        Auth::login($userexist);
-    }
-    return redirect('/dashboard');
-});
+Route::get('/google-callback', [LoginSocialiteController::class, 'googleCallback']);
 
 //login github------------------------------------------------------------------
 
-Route::get('/login-github', function () {
-    return Socialite::driver('github')->redirect();
-})->name('login.github');
+Route::get('/login-github', [LoginSocialiteController::class, 'Github'])->name('login.github');
 
-Route::get('/github-callback', function () {
-    $user = Socialite::driver('github')->user();
-    //dd($user);
-    $userexist = User::where('external_id', $user->id)->where('external_auth', 'github')->first();
-
-    if($userexist){
-        Auth::login($userexist);
-    } else if(User::where('email', $user->email)->exists()) {
-        return redirect('/login')->with('error', 'You tried logging in through GitHub, which is not the authentication method you used when you registered. Please try again with the authentication method you used when you registered.');
-    } else {
-        $userexist = User::create([
-            'name' => $user->nickname,
-            'username' => $user->nickname,
-            'email' => $user->email,
-            'avatar' => $user->avatar,
-            'external_id' => $user->id,
-            'external_auth' => 'github',
-        ]);
-        Auth::login($userexist);
-    }
-
-    return redirect('/dashboard');
-});
+Route::get('/github-callback', [LoginSocialiteController::class, 'githubCallback']);
 
 
 /* Ruta per sol·licitar enllaços de restabliment de contrasenya */
