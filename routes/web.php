@@ -27,7 +27,7 @@ use Illuminate\Support\Str;
 
 Route::get('/', function () {
     return view('auth.login');
-})->middleware(['auth', 'verified', 'check_access']);
+});
 
 Route::get('/follow', function () {
     return view('follow');
