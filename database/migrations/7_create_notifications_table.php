@@ -10,13 +10,17 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('message_id')->constrained();
+            $table->foreignId('message_id')->nullable()->constrained();
             $table->foreignId('share_id')->nullable()->constrained();
             $table->foreignId('like_id')->nullable()->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->unsignedBigInteger('sentby_id');
+            $table->unsignedBigInteger('sento_id');
             $table->foreignId('publication_id')->constrained();
             $table->date('hidden')->nullable()->default(null);
             $table->timestamps();
+
+            $table->foreign('sentby_id')->references('id')->on('users');
+            $table->foreign('sento_id')->references('id')->on('users');
         });
     }
 

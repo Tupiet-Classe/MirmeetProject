@@ -46,7 +46,7 @@ Route::get('/andrei', function () {
 })->middleware(['auth', 'verified', 'check_access']);
 
 // Notifications
-Route::get('/get-notifications', [NotificationController::class, 'show'])->name('get-notifications')->middleware(['auth', 'verified', 'check_access']);
+Route::get('/get-notifications', [NotificationController::class, 'show'])->name('get-notifications')->middleware(['auth', 'verified']);
 
 Route::get('/perfil', function () {
     return view('perfil.perfil');
