@@ -15,48 +15,50 @@ class NotificationController extends Controller
 {
     public function index()
     {
-
     }
 
 
     public function store()
     {
-
     }
 
 
     public function show(Notification $notificacio)
     {
-        $data = DB::table('notifications')
-            ->join('users', 'users.id', '=', 'notifications.user_id')
-            ->join('publications', 'publications.id', '=', 'notifications.publication_id')
-            ->join('likes', 'likes.id', '=', 'notifications.like_id')
-            // ->join('shares', 'shares.id', '=', 'notifications.share_id')
-            ->join('messages', 'messages.id', '=', 'notifications.message_id')
-            ->select('notifications.id AS id', 'users.username', 'users.avatar', 'messages.text as message', 'notifications.share_id AS share', 'notifications.like_id AS like', 'likes.date', 'messages.sentby_id', 'messages.sento_id')
-            // ->where('tasks.budget_id', '=', '1')
-            // ->orderBy('tasks.id')
+
+        $username = DB::table('notifications')
+            ->join('users', 'users.id', '=', 'notifications.sentby_id')
+            ->select('users.username')
+            ->whereColumn('users.id', '=', 'notifications.sentby_id')
             ->get();
 
-        return response()->json($data);
+        $data = DB::table('notifications')
+            ->join('users', 'users.id', '=', 'notifications.sento_id')
+            ->join('publications', 'publications.id', '=', 'notifications.publication_id')
+            ->select('notifications.id AS id', 'users.username', 'publications.ref_swarm AS avatar', 'notifications.message_id as message', 'notifications.share_id AS share', 'notifications.like_id AS like', 'notifications.created_at AS date')
+            ->where('users.id', '=', auth()->user()->id)
+            ->get();
 
+        $resultado = [
+            'username' => $username,
+            'data' => $data,
+        ];
+
+        return response()->json($resultado);
     }
 
 
     public function edit(Notification $notificacio)
     {
-    
     }
 
 
     public function update(Request $request, Notification $notificacio)
     {
-
     }
 
 
     public function destroy(Notification $notificacio)
     {
-
     }
 }

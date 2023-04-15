@@ -12,8 +12,6 @@ class Message extends Model
     protected $table = "messages";
     
     protected $fillable = [
-        'sentby_id',
-        'sento_id',
         'text',
         'hidden',
     ];

@@ -16,7 +16,8 @@ class Notification extends Model
         'share_id',
         'publication_id',
         'like_id',
-        'user_id',
+        'sentby_id',
+        'sento_id',
         'hidden',
     ];
 }
