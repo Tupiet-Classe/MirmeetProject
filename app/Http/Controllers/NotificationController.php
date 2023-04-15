@@ -35,8 +35,7 @@ class NotificationController extends Controller
         $data = DB::table('notifications')
             ->join('users', 'users.id', '=', 'notifications.sento_id')
             ->join('publications', 'publications.id', '=', 'notifications.publication_id')
-            ->join('messages', 'messages.id', '=', 'notifications.message_id')
-            ->select('notifications.id AS id', 'users.username', 'publications.ref_swarm AS avatar', 'messages.text as message', 'notifications.share_id AS share', 'notifications.like_id AS like', 'notifications.created_at AS date')
+            ->select('notifications.id AS id', 'users.username', 'publications.ref_swarm AS avatar', 'notifications.message_id as message', 'notifications.share_id AS share', 'notifications.like_id AS like', 'notifications.created_at AS date')
             ->where('users.id', '=', auth()->user()->id)
             ->get();
 
