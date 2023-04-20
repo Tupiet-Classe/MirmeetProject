@@ -60,14 +60,16 @@ Route::get('/apiSwarm', function() {
     return view('apiSwarm');
 });
 
-Route::get('/post', [PublicationController::class, 'postToSwarm'])->name('getSwarm');
+
+// Route::get('/post', [PublicationController::class, 'postToSwarm'])->name('getSwarm');
 Route::get('/get', [PublicationController::class, 'getFromSwarm'])->name('getSwarm');
 
 
 // Route::get('/api', [PublicationController::class, 'get_data_from_reference']);
 // Route::get('/user-data', [UserController::class, 'index']);
 // Route::get('/post-data', [PublicationController::class, 'index']);
-Route::post('/new-post', [PublicationController::class, 'store_posts'])->middleware(['auth', 'verified', 'check_access']);
+Route::post('/new-post', [PublicationController::class, 'store_posts'])->middleware(['auth']);
+Route::post('/post', [PublicationController::class, 'postToSwarm'])->middleware(['auth']);
 
 Route::get('/pending-users', [UserController::class, 'indexPending'])->middleware(['auth', 'verified', 'check_access'])->name('pending.users');
 Route::get('/allow/{id}', [UserController::class, 'allow'])->middleware(['auth', 'verified', 'check_access'])->name('allow');
