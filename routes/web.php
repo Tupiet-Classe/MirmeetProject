@@ -32,29 +32,29 @@ Route::get('/', function () {
 
 Route::get('/follow', function () {
     return view('follow');
-})->middleware(['auth', 'verified', 'check_access']);
+})->middleware(['auth', 'verified']);
 
-Route::post('/follower', [FollowController::class, 'insert'])->name('follow.follower')->middleware(['auth', 'verified', 'check_access']);
-Route::put('/following', [FollowController::class, 'update'])->name('follow.following')->middleware(['auth', 'verified', 'check_access']);
+Route::post('/follower', [FollowController::class, 'insert'])->name('follow.follower')->middleware(['auth', 'verified']);
+Route::put('/following', [FollowController::class, 'update'])->name('follow.following')->middleware(['auth', 'verified']);
 
 Route::get('/dashboard', function () {
     return view('login.dashboard');
-})->middleware(['auth', 'verified', 'check_access'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/andrei', function () {
     return view('perfil.andrei');
-})->middleware(['auth', 'verified', 'check_access']);
+})->middleware(['auth', 'verified']);
 
 // Notifications
 Route::get('/get-notifications', [NotificationController::class, 'show'])->name('get-notifications')->middleware(['auth', 'verified']);
 
 Route::get('/perfil', function () {
     return view('perfil.perfil');
-})->middleware(['auth', 'verified', 'check_access']);
+})->middleware(['auth', 'verified']);
 
 Route::get('/my', function() {
     return view('perfil.wall_personal');
-})->middleware(['auth', 'verified', 'check_access']);
+})->middleware(['auth', 'verified']);
 
 Route::get('/apiSwarm', function() {
     return view('apiSwarm');
@@ -92,8 +92,8 @@ Route::get('/give-role/{id}', [UserController::class, 'give'])->middleware(['aut
 Route::get('/remove-role/{id}', [UserController::class, 'remove'])->middleware(['auth', 'verified', 'check_access'])->name('remove');
 Route::get('/role-search', [UserController::class, 'searchRole'])->middleware(['auth', 'verified', 'check_access'])->name('role.search');
 
-Route::get('/perfil/get-followers/{id}', [UserController::class, 'followersammount'])->name('get.followers')->middleware(['auth', 'verified', 'check_access']);
-Route::get('/perfil/get-following/{id}', [UserController::class, 'followingammount'])->name('get.following')->middleware(['auth', 'verified', 'check_access']);
+Route::get('/perfil/get-followers/{id}', [UserController::class, 'followersammount'])->name('get.followers')->middleware(['auth', 'verified']);
+Route::get('/perfil/get-following/{id}', [UserController::class, 'followingammount'])->name('get.following')->middleware(['auth', 'verified']);
 
 
 Route::middleware('auth')->group(function () {
@@ -129,9 +129,9 @@ Route::get('/forgot-password', function () {
  *     RUTES XAT
  * ==================
  */
-Route::get('/chat', [ChatController::class, 'index'])->middleware(['auth', 'verified', 'check_access']);
-Route::post('/send', [ChatController::class, 'send'])->middleware(['auth', 'verified', 'check_access']);
-Route::get('/start-chat/{to_id}', [ChatController::class, 'start_chat'])->middleware(['auth', 'verified', 'check_access']);
+Route::get('/chat', [ChatController::class, 'index'])->middleware(['auth', 'verified']);
+Route::post('/send', [ChatController::class, 'send'])->middleware(['auth', 'verified']);
+Route::get('/start-chat/{to_id}', [ChatController::class, 'start_chat'])->middleware(['auth', 'verified']);
 
 Route::get('/me', function() {
     return ['id' => Auth::id(), 'username' => Auth::user()->username];
@@ -142,14 +142,14 @@ Route::get('/discover2', function () {
 });
 
 // Route::get('/api/posts/{follower_id}', [PublicationController::class, 'getPosts']);
-Route::get('/channels', [ChatController::class, 'get_channels'])->middleware(['auth', 'verified', 'check_access']);
-Route::get('/rooms/{to_id}', [ChatController::class, 'check_existing_room'])->middleware(['auth', 'verified', 'check_access']);
+Route::get('/channels', [ChatController::class, 'get_channels'])->middleware(['auth', 'verified']);
+Route::get('/rooms/{to_id}', [ChatController::class, 'check_existing_room'])->middleware(['auth', 'verified']);
 
-Route::get('/messages-between/{token}', [ChatController::class, 'get_messages_between'])->middleware(['auth', 'verified', 'check_access']);
+Route::get('/messages-between/{token}', [ChatController::class, 'get_messages_between'])->middleware(['auth', 'verified']);
 
 // Aquestes rutes són per accedir als dos murs
 
-Route::get('discover')->middleware(['auth', 'verified', 'check_access']);
+Route::get('discover')->middleware(['auth', 'verified']);
 
 Route::get('/home', function() {
     return view('perfil.wall_personal');
