@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Models\Publication;
@@ -186,7 +187,7 @@ class PublicationController extends Controller
             $response = PublicationController::recDataSwarm($arrayRef);
             $posts[] = ['data' => $response, 'user'=>$references->username];
         } 
-        return json_encode($posts);
+        return ($posts);
     }
 
     public static function recDataSwarm($ref)
@@ -203,5 +204,55 @@ class PublicationController extends Controller
             curl_close($curl);
             return $response; 
     }
+
+    public function postToSwarm($data) {
+        
+        print("API funcional de veritat.");
+
+        echo("<br><br>");
+
+        $url = 'https://download.gateway.ethswarm.org/bzz';
+        
+        $json = array(
+            'image' => 'hola',
+            'text' => 'hola2'
+        );
+    
+        $curl = curl_init($url);
+        
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($json));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json'
+        ));
+        
+        $response = curl_exec($curl);
+        
+        curl_close($curl);
+    
+        return $response;
+    }
+    
+    public function getFromSwarm($posts) {
+        
+        // $hash = 'ba9bfb950096d257ffbc98873456403d3930d33c1f61c171f2d8113f16dd3277';
+        $url = 'https://download.gateway.ethswarm.org/bzz/'.$hash.'/';
+        $curl = curl_init($url);
+
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json'
+        ]);
+    
+        $response = curl_exec($curl);
+    
+        curl_close($curl);
+
+        return $response;  
+    }
+    
+    
 
 }

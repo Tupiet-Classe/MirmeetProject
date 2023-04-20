@@ -59,7 +59,11 @@ Route::get('/my', function() {
 Route::get('/apiSwarm', function() {
     return view('apiSwarm');
 });
- 
+
+Route::get('/post', [PublicationController::class, 'postToSwarm'])->name('getSwarm');
+Route::get('/get', [PublicationController::class, 'getFromSwarm'])->name('getSwarm');
+
+
 // Route::get('/api', [PublicationController::class, 'get_data_from_reference']);
 // Route::get('/user-data', [UserController::class, 'index']);
 // Route::get('/post-data', [PublicationController::class, 'index']);
@@ -173,6 +177,6 @@ Route::get('/posts', [PublicationController::class, 'GetPosts']);
 Route::get('/posts-discover', [PublicationController::class, 'recDataSwarm'])->name('recoverPosts.discover');
 Route::get('/posts-home', [PublicationController::class, 'myWall'])->name('postsMyWall.discover');
 //Route::get('posts-discover');
-Route::get('posts-home');
+//Route::get('posts-home');
 
 require __DIR__.'/auth.php';
