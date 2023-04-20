@@ -3,7 +3,9 @@ import { createApp } from 'vue/dist/vue.esm-bundler.js'
 import titleComp from '../vue/welcome.vue'
 import Perfil from '../vue/Perfil.vue';
 import MyProfile from '../vue/MyProfile.vue';
+import ChatRecentUsers from '../vue/ChatRecentUsers.vue';
 import Chat from '../vue/Chat.vue';
+import ChatUser from '../vue/ChatUser.vue';
 import DiscoverWall from '../vue/DiscoverWall.vue';
 import discover2 from '../vue/Discover2.vue';
 import prova from '../vue/api.vue';
@@ -29,6 +31,8 @@ app.component('prova-api', prova)
 
 app.component('chart', chartAdmin);
 app.component('chat', Chat)
+app.component('chat-user', ChatUser)
+app.component('chat-recent-users', ChatRecentUsers)
 app.mount('#app')
 
 createApp(PostBtn1).mount('#post1')
