@@ -27,7 +27,7 @@ use Illuminate\Support\Str;
 */
 Route::get('/', function () {
     return view('auth.login');
-})->middleware('setLocale');
+});
 
 Route::get('/follow', function () {
     return view('follow');
@@ -36,11 +36,10 @@ Route::get('/follow', function () {
 Route::post('/follower', [FollowController::class, 'insert'])->name('follow.follower')->middleware(['auth', 'verified']);
 Route::put('/following', [FollowController::class, 'update'])->name('follow.following')->middleware(['auth', 'verified']);
 
-Route::group(['prefix'=>'{locale}'], function (){
 Route::get('/dashboard', function () {
     return view('login.dashboard');
-})->middleware(['auth', 'verified', 'check_access','Setlocale'])->name('dashboard');
-});
+})->middleware(['auth', 'verified', 'check_access'])->name('dashboard');
+
 Route::get('/andrei', function () {
     return view('perfil.andrei');
 })->middleware(['auth', 'verified']);
