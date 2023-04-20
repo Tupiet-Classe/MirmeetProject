@@ -130,9 +130,10 @@ Route::get('/forgot-password', function () {
  *     RUTES XAT
  * ==================
  */
-Route::get('/chat', [ChatController::class, 'index'])->middleware(['auth', 'verified']);
-Route::post('/send', [ChatController::class, 'send'])->middleware(['auth', 'verified']);
-Route::get('/start-chat/{to_id}', [ChatController::class, 'start_chat'])->middleware(['auth', 'verified']);
+Route::get('/chat/{id}', [ChatController::class, 'index'])->middleware(['auth', 'verified', 'check_access']);
+Route::get('/recents', [ChatController::class, 'chat_recents'])->middleware(['auth', 'verified', 'check_access']);
+Route::post('/send', [ChatController::class, 'send'])->middleware(['auth', 'verified', 'check_access']);
+Route::get('/start-chat/{to_id}', [ChatController::class, 'start_chat'])->middleware(['auth', 'verified', 'check_access']);
 
 Route::get('/me', function() {
     return ['id' => Auth::id(), 'username' => Auth::user()->username];
@@ -146,7 +147,8 @@ Route::get('/discover2', function () {
 Route::get('/channels', [ChatController::class, 'get_channels'])->middleware(['auth', 'verified']);
 Route::get('/rooms/{to_id}', [ChatController::class, 'check_existing_room'])->middleware(['auth', 'verified']);
 
-Route::get('/messages-between/{token}', [ChatController::class, 'get_messages_between'])->middleware(['auth', 'verified']);
+Route::get('/recent-chats', [ChatController::class, 'get_recent_chats'])->middleware(['auth', 'verified', 'check_access']);
+Route::get('/messages-between/{token}', [ChatController::class, 'get_messages_between'])->middleware(['auth', 'verified', 'check_access']);
 
 // Aquestes rutes són per accedir als dos murs
 

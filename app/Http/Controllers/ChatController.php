@@ -9,6 +9,7 @@ use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Pusher\Pusher;
 
 class ChatController extends Controller
@@ -18,9 +19,12 @@ class ChatController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index() {
         return view('chat');
+    }
+
+    public function chat_recents() {
+        return view('chat-recent-users');
     }
 
     public function prepare() {
@@ -116,7 +120,7 @@ class ChatController extends Controller
 
         // Emitim l'event NewMessage
         NewMessage::dispatch($request->message, $request->token);
-        return $request;
+        return true;
     }
 
     /**
@@ -146,5 +150,22 @@ class ChatController extends Controller
         }
 
         echo json_encode($messagesToSend);
+    }
+
+    function get_recent_chats() {
+        return Message::select('sento_id as id', 'username', DB::raw('MAX(created_at) as last_message'))
+        ->from(
+            Message::select('sento_id', 'username', 'messages.created_at', 'messages.text')
+                ->join('users', 'messages.sento_id', '=', 'users.id')
+                ->where('sentby_id', Auth::id())
+                ->union(
+                    Message::select('sentby_id', 'username', 'messages.created_at', 'messages.text')
+                        ->join('users', 'messages.sentby_id', '=', 'users.id')
+                        ->where('sento_id', Auth::id())
+                ), 'alias'
+        )
+        ->groupBy('alias.sento_id', 'alias.username')
+        ->orderByDesc(DB::raw('MAX(created_at)'))
+        ->get();
     }
 }
