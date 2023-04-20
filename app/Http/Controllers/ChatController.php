@@ -44,11 +44,34 @@ class ChatController extends Controller
     }
 
     /**
+     * Aquest mètode retorna, si existeix, el token entre dos usuaris.
+     * Si no existeix, retorna null
+     */
+    private function check_existing_room($other_id) {
+        $room = Room::where([
+            ['start_user', Auth::id()],
+            ['end_user', $other_id]
+        ])
+        ->orWhere([
+            ['start_user', $other_id],
+            ['end_user', Auth::id()]
+        ])
+        ->first();
+        return $room->token ?? null;
+    }
+
+
+    /**
      * Aquest mètode s'executa quan un usuari vol iniciar un xat amb un altre usuari.
      * Crea un token, que serà la id de la sala, i emet l'event StartChat a l'usuari desitjat.
      * Finalment, retorna a l'usuari el token de la sala.
      */
     public function start_chat($to_id) {
+        $original_token = $this->check_existing_room($to_id);
+        if ($original_token) {
+            StartChat::dispatch($original_token, $to_id);
+            return ['token' => $original_token];
+        }
         $token = Str::random(16);
         Room::create([
             'token' => $token,
@@ -79,7 +102,7 @@ class ChatController extends Controller
         // Recuperem la instància de Pusher
         $pusher = $this->get_pusher();
         //! Pusher sempre afegeix "presence-" al davant, SÍ QUE CAL posar-ho aquí 
-        $users = $pusher->getPresenceUsers('presence-chat-between.' . $request->token);
+        //$users = $pusher->getPresenceUsers('presence-chat-between.' . $request->token);
 
         // Recuperem l'usuari a qui li enviarem el missatge
         $receiver = $this->get_reciever($request->token);
@@ -102,8 +125,16 @@ class ChatController extends Controller
      */
     public function get_messages_between($token) {
         $other_id = $this->get_reciever($token);
-        $messages = Message::where(['sentby_id' => Auth::id(), 'sento_id' => $other_id])
-        ->orWhere(['sentby_id' => $other_id, 'sento_id' => Auth::id()])->get();
+        $messages = Message::where([
+            ['sentby_id', Auth::id()],
+            ['sento_id', $other_id]
+        ])
+        ->orWhere([
+            ['sentby_id', $other_id],
+            ['sento_id', Auth::id()]
+        ])
+        ->get();
+        
         $messagesToSend = [];
 
         foreach ($messages as $key => $message) {

@@ -21,6 +21,6 @@ class Room extends Authenticatable
     protected $fillable = [
         'token',
         'start_user',
-        'end_user',
+        'end_user'
     ];
 }
