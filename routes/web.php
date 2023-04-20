@@ -125,7 +125,7 @@ Route::get('/forgot-password', function () {
  *     RUTES XAT
  * ==================
  */
-Route::get('/chat', [ChatController::class, 'index'])->middleware(['auth', 'verified', 'check_access']);
+Route::get('/chat/{id}', [ChatController::class, 'index'])->middleware(['auth', 'verified', 'check_access']);
 Route::get('/recents', [ChatController::class, 'chat_recents'])->middleware(['auth', 'verified', 'check_access']);
 Route::post('/send', [ChatController::class, 'send'])->middleware(['auth', 'verified', 'check_access']);
 Route::get('/start-chat/{to_id}', [ChatController::class, 'start_chat'])->middleware(['auth', 'verified', 'check_access']);

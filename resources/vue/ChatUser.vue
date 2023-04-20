@@ -11,6 +11,7 @@
         methods: {
             startChat(id) {
                 console.log('id', id)
+                location.href = '/chat/'+ id
             }
         }
     }
