@@ -41,7 +41,7 @@
           Compartir
         </button>
         <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
-          @click="showModal = false">
+          @click="closeModal()">
           Cancelar
         </button>
       </div>
@@ -75,13 +75,18 @@ export default {
       return this.file && this.file.type.startsWith('video/');
     },
     imagePreview() {
-      return this.image64
+      return this.file ? URL.createObjectURL(this.file) : ''
     },
     videoPreview() {
       return this.file ? URL.createObjectURL(this.file) : ''
     }
   },
   methods: {
+    closeModal(){
+      this.file = ''
+      this.text = ''
+      this.showModal = false;
+    },
     doAction() {
       const formData = new FormData();
       formData.append('file', this.image64);
@@ -116,6 +121,17 @@ export default {
     },
 
     onFileChange(event) {
+      this.file = event.target.files[0]
+      const file = event.target.files[0]
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        const base64Image = reader.result
+        this.image64 = base64Image
+      }
+    },
+
+    onFileSelected(event) {
       const file = event.target.files[0]
       const reader = new FileReader()
       reader.readAsDataURL(file)
