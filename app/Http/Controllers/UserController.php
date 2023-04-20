@@ -307,7 +307,7 @@ class UserController extends Controller
 
     public function followingammount($id)
     {
-        $ammount = Follow::selectRaw('COUNT(*) as followersammount')
+        $ammount = Follow::selectRaw('COUNT(*) as followingammount')
         ->where('follows.follower_id', '=', $id)
         ->get();
 
