@@ -15,11 +15,11 @@
                     </div>
                     <div class="contador" style="display: inline-block; padding-right: 30px;">
                         <h2>Seguidores</h2>
-                        <p>512</p>
+                        <p v-if="followers.length > 0">{{ followers[0].followersammount}}</p>
                     </div>
                     <div class="contador" style="display: inline-block;">
                         <h2>Siguiendo</h2>
-                        <p>247</p>
+                        <p v-if="following.length > 0">{{ following[0].followingammount}}</p>
                     </div>
                 </div>
             </div>
@@ -96,6 +96,47 @@
 </style>
 
 <!-- Scripts per a esta vista -->
+
 <script>
 
+// Importem la llibreria axios per a fer peticions HTTP
+import axios from 'axios';
+
+export default {
+    data() {
+        return {
+            followers: 0,
+            following: 0
+        };
+    },
+
+    mounted() {
+        this.getFollowers();
+        this.getFollowing();
+    },
+
+    methods:{
+        getFollowers(){                 
+            axios.get("perfil/get-followers/5")
+            
+                .then(response => {    
+                this.followers = response.data;
+            })
+                .catch(error => {  
+                console.log(error);
+            });
+        },
+
+        getFollowing(){                 
+            axios.get("perfil/get-following/6")
+            
+                .then(response => {    
+                this.following = response.data;
+            })
+                .catch(error => {  
+                console.log(error);
+            });
+        },
+    },
+};
 </script>
