@@ -116,7 +116,7 @@ class ChatController extends Controller
 
         // Emitim l'event NewMessage
         NewMessage::dispatch($request->message, $request->token);
-        return $request;
+        return true;
     }
 
     /**

@@ -96,11 +96,14 @@ export default {
             div.appendChild(p)
             messages.appendChild(div)
         },
-        send() {
-            axios.post('/send', {
+        async send() {
+            let res = await axios.post('/send', {
                 message: document.getElementById('message').value,
                 token: this.actualToken
             })
+            if (res.status === 200) {
+                this.cleanInput()
+            }
         },
         async startChat(id) {
             let res = await axios.get('/start-chat/' + id)
@@ -122,6 +125,9 @@ export default {
             messages.forEach(m => {
                 this.printMessage(m.sender, m.text)
             })
+        },
+        async cleanInput() {
+            document.getElementById('message').value = ''
         }
     }
 }
