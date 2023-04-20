@@ -138,6 +138,8 @@ Route::get('/discover2', function () {
 });
 
 // Route::get('/api/posts/{follower_id}', [PublicationController::class, 'getPosts']);
+Route::get('/channels', [ChatController::class, 'get_channels'])->middleware(['auth', 'verified', 'check_access']);
+Route::get('/rooms/{to_id}', [ChatController::class, 'check_existing_room'])->middleware(['auth', 'verified', 'check_access']);
 
 Route::get('/messages-between/{token}', [ChatController::class, 'get_messages_between'])->middleware(['auth', 'verified', 'check_access']);
 
