@@ -13,6 +13,8 @@ class Message extends Model
     
     protected $fillable = [
         'text',
+        'sentby_id',
+        'sento_id',
         'hidden',
     ];
 
