@@ -30,33 +30,17 @@ class PublicationController extends Controller
         return Publication::all()->where('user_id', '=', 1);
     }
 
-    public function store_posts(Request $request, Publication $post)
+    public function store_posts(Request $request)
     {
-        $file = $request->file('file');
+        $file = $request->input('file');
         $text = $request->input('text');
 
-        $response = 0;
-
         $data = [
-            'encrypted' => false,
-            'data' =>
-            [
-                'text' => $text,
-                'image' => base64_encode($file)
-            ]
+            'text' => $text,
+            'image' => $file
         ];
         
-        $response = Http::post('https://videowiki-dcom.mirmit.es/api/saveDraft', $data);
-
-        $datajson = json_decode($response);
-
-        $ref = $datajson->reference;
-
-        $post->user_id = 1;
-        $post->ref_swarm = $ref;
-        $post->save();
-
-        return $response;
+        return $data;
     }
 
     // Aquest mètode intenta simular el que faria l'api de MirMeet
@@ -205,17 +189,20 @@ class PublicationController extends Controller
             return $response; 
     }
 
-    public function postToSwarm($data) {
+    public function postToSwarm(Request $request, Publication $post) {
         
         print("API funcional de veritat.");
 
         echo("<br><br>");
 
+        $image = $request->input('image');
+        $text = $request->input('coment');
+
         $url = 'https://download.gateway.ethswarm.org/bzz';
         
         $json = array(
-            'image' => 'hola',
-            'text' => 'hola2'
+            'image' => $image,
+            'text' => $text
         );
     
         $curl = curl_init($url);
@@ -228,15 +215,23 @@ class PublicationController extends Controller
         ));
         
         $response = curl_exec($curl);
+
+        $datajson = json_decode($response);
+
+        $ref = $datajson->reference;
+
+        $post->user_id = 1;
+        $post->ref_swarm = $ref;
+        $post->save();
         
         curl_close($curl);
     
         return $response;
     }
     
-    public function getFromSwarm($posts) {
+    public function getFromSwarm() {
         
-        // $hash = 'ba9bfb950096d257ffbc98873456403d3930d33c1f61c171f2d8113f16dd3277';
+        $hash = '13b115b9d3132270e0151d39756fb98e54e3ffe41d0e44d5dcad01e19d1e055f';
         $url = 'https://download.gateway.ethswarm.org/bzz/'.$hash.'/';
         $curl = curl_init($url);
 

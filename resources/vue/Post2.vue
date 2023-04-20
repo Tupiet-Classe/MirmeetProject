@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center">
-    <button class="sm:block absolute p-3 bg-purple px-3 py-1 rounded-md"
-      @click="showModal = true"><i class="fa fa-add text-2xl text-white"></i></button>
+    <button class="sm:block absolute p-3 bg-purple px-3 py-1 rounded-md" @click="showModal = true"><i
+        class="fa fa-add text-2xl text-white"></i></button>
 
     <Modal :isOpen="showModal" @update:isOpen="showModal = $event">
 
@@ -61,7 +61,10 @@ export default {
     return {
       showModal: false,
       file: null,
-      text: null
+      image64: '',
+      text: null,
+      image: null,
+      coment: null,
     }
   },
   computed: {
@@ -72,7 +75,7 @@ export default {
       return this.file && this.file.type.startsWith('video/');
     },
     imagePreview() {
-      return this.file ? URL.createObjectURL(this.file) : ''
+      return this.image64
     },
     videoPreview() {
       return this.file ? URL.createObjectURL(this.file) : ''
@@ -81,26 +84,45 @@ export default {
   methods: {
     doAction() {
       const formData = new FormData();
-      formData.append('file', this.file,);
+      formData.append('file', this.image64);
       formData.append('text', this.text);
-      axios.post('/new-post', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+      console.log(this.image64)
+      axios.post('/new-post', formData)
         .then(response => {
-          const path = response.data;
+          this.image = response.data['image'];
+          this.coment = response.data['text'];
+          this.alsoDo()
+        })
+        .catch(error => {
+          console.error(error);
+        });
+      this.showModal = false;
+    },
+
+    alsoDo() {
+      const data = {
+        image: this.image,
+        coment: this.coment
+      };
+
+      axios.post('/post', data)
+        .then(response => {
+          this.data = response.data;
           // console.log(response.data['reference'])
         })
         .catch(error => {
           console.error(error);
         });
-
-      this.showModal = false;
     },
 
     onFileChange(event) {
-      this.file = event.target.files[0];
+      const file = event.target.files[0]
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        const base64Image = reader.result
+        this.image64 = base64Image
+      }
     },
 
     beforeUnmount() {
