@@ -102,7 +102,7 @@ export default {
         .catch(error => {
           console.error(error);
         });
-      this.showModal = false;
+      this.closeModal();
     },
 
     alsoDo() {
