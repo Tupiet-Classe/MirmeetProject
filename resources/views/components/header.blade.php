@@ -24,10 +24,10 @@
                 <div class="py-1" role="none">
                     <a href="#"
                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                        role="menuitem"><button>Profile</button></a>
+                        role="menuitem">Profile</a>
                     <a href="#"
                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                        role="menuitem"><button>Configuration</button></a>
+                        role="menuitem">Configuration</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
 
