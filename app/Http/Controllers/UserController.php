@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Follow;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -18,8 +19,7 @@ class UserController extends Controller
     {
         if (!auth()->user()->can('dashboard.validate.users')) {
             abort(403, 'No tienes permisos');
-        }
-        else{
+        } else {
             $pendingUsers = User::where('access', 'no')
                 ->where('role', '!=', 'admin')
                 ->where('role', '!=', 'moderator')
@@ -33,8 +33,7 @@ class UserController extends Controller
     {
         if (!auth()->user()->can('dashboard.validate.users')) {
             abort(403, 'No tienes permisos');
-        }
-        else{
+        } else {
             $user = User::find($id);
             $user->update(['access' => 'yes']);
             return back()->with('success', 'Usuario aceptado con éxito');
@@ -45,8 +44,7 @@ class UserController extends Controller
     {
         if (!auth()->user()->can('dashboard.validate.users')) {
             abort(403, 'No tienes permisos');
-        }
-        else{
+        } else {
             $user = User::find($id);
             $user->update(['access' => 'denied']);
             return back()->with('success', 'Usuario denegado con éxito');
@@ -57,9 +55,9 @@ class UserController extends Controller
     {
         $query = $request->input('search-pending');
 
-        $pendingUsers = User::where(function($q) use ($query) {
-            $q->where('name', 'LIKE', '%'.$query.'%')
-                ->orWhere('email', 'LIKE', '%'.$query.'%');
+        $pendingUsers = User::where(function ($q) use ($query) {
+            $q->where('name', 'LIKE', '%' . $query . '%')
+                ->orWhere('email', 'LIKE', '%' . $query . '%');
         })
             ->where('access', '!=', 'denied')
             ->where('role', '!=', 'admin')
@@ -79,8 +77,7 @@ class UserController extends Controller
     {
         if (!auth()->user()->can('dashboard.validate.users.restore')) {
             abort(403, 'No tienes permisos');
-        }
-        else{
+        } else {
             $deniedUsers = User::where('access', 'denied')
                 ->where('role', '!=', 'admin')
                 ->where('role', '!=', 'moderator')
@@ -94,8 +91,7 @@ class UserController extends Controller
     {
         if (!auth()->user()->can('dashboard.validate.users.restore')) {
             abort(403, 'No tienes permisos');
-        }
-        else{
+        } else {
             $user = User::find($id);
             $user->update(['access' => 'yes']);
             return back()->with('success', 'Usuario restaurado con éxito');
@@ -112,9 +108,8 @@ class UserController extends Controller
     {
         if (!auth()->user()->can('dashboard.manage.users')) {
             abort(403, 'No tienes permisos');
-        }
-        else{
-            $users = User::where(function($query) {
+        } else {
+            $users = User::where(function ($query) {
                 $query->where('access', 'yes')
                     ->orWhere('access', 'banned');
             })
@@ -130,8 +125,7 @@ class UserController extends Controller
     {
         if (!auth()->user()->can('dashboard.manage.users')) {
             abort(403, 'No tienes permisos');
-        }
-        else{
+        } else {
             $user = User::find($id);
             $user->update(['access' => 'banned']);
             return back()->with('success', 'Usuario expulsado de la comunidad');
@@ -142,8 +136,7 @@ class UserController extends Controller
     {
         if (!auth()->user()->can('dashboard.manage.users')) {
             abort(403, 'No tienes permisos');
-        }
-        else{
+        } else {
             $user = User::find($id);
             $user->update(['access' => 'yes']);
             return back()->with('success', 'Usuario desbaneado con éxito');
@@ -154,9 +147,9 @@ class UserController extends Controller
     {
         $query = $request->input('search-manage');
 
-        $users = User::where(function($q) use ($query) {
-            $q->where('name', 'LIKE', '%'.$query.'%')
-                ->orWhere('email', 'LIKE', '%'.$query.'%');
+        $users = User::where(function ($q) use ($query) {
+            $q->where('name', 'LIKE', '%' . $query . '%')
+                ->orWhere('email', 'LIKE', '%' . $query . '%');
         })
             ->where('role', '!=', 'admin')
             ->where('role', '!=', 'moderator')
@@ -175,9 +168,8 @@ class UserController extends Controller
     {
         if (!auth()->user()->can('dashboard.verify.users')) {
             abort(403, 'No tienes permisos');
-        }
-        else{
-            $users = User::where(function($query) {
+        } else {
+            $users = User::where(function ($query) {
                 $query->where('verified', 'no')
                     ->orWhere('verified', 'yes');
             })
@@ -193,8 +185,7 @@ class UserController extends Controller
     {
         if (!auth()->user()->can('dashboard.verify.users')) {
             abort(403, 'No tienes permisos');
-        }
-        else{
+        } else {
             $user = User::find($id);
             $user->update(['verified' => 'yes']);
             return back()->with('success', 'Usuario verificado correctamente');
@@ -204,8 +195,7 @@ class UserController extends Controller
     {
         if (!auth()->user()->can('dashboard.verify.users')) {
             abort(403, 'No tienes permisos');
-        }
-        else{
+        } else {
             $user = User::find($id);
             $user->update(['verified' => 'no']);
             return back()->with('success', 'Usuario desverificado correctamente');
@@ -216,9 +206,9 @@ class UserController extends Controller
     {
         $query = $request->input('search-verify');
 
-        $users = User::where(function($q) use ($query) {
-            $q->where('name', 'LIKE', '%'.$query.'%')
-                ->orWhere('email', 'LIKE', '%'.$query.'%');
+        $users = User::where(function ($q) use ($query) {
+            $q->where('name', 'LIKE', '%' . $query . '%')
+                ->orWhere('email', 'LIKE', '%' . $query . '%');
         })
             ->where('role', '!=', 'admin')
             ->where('role', '!=', 'moderator')
@@ -237,9 +227,8 @@ class UserController extends Controller
     {
         if (!auth()->user()->can('dashboard.roles')) {
             abort(403, 'No tienes permisos');
-        }
-        else{
-            $users = User::where(function($query) {
+        } else {
+            $users = User::where(function ($query) {
                 $query->where('role', '!=', 'admin');
             })->paginate(5);
 
@@ -251,8 +240,7 @@ class UserController extends Controller
     {
         if (!auth()->user()->can('dashboard.roles')) {
             abort(403, 'No tienes permisos');
-        }
-        else{
+        } else {
             $user = User::find($id);
             $user->update(['role' => 'moderator']);
             $user->assignRole('moderator');
@@ -263,8 +251,7 @@ class UserController extends Controller
     {
         if (!auth()->user()->can('dashboard.roles')) {
             abort(403, 'No tienes permisos');
-        }
-        else{
+        } else {
             $user = User::find($id);
             $user->update(['role' => 'client']);
             $user->removeRole('moderator');
@@ -276,9 +263,9 @@ class UserController extends Controller
     {
         $query = $request->input('search-role');
 
-        $users = User::where(function($q) use ($query) {
-            $q->where('name', 'LIKE', '%'.$query.'%')
-                ->orWhere('email', 'LIKE', '%'.$query.'%');
+        $users = User::where(function ($q) use ($query) {
+            $q->where('name', 'LIKE', '%' . $query . '%')
+                ->orWhere('email', 'LIKE', '%' . $query . '%');
         })
             ->where('role', '!=', 'admin')
             ->where('access', '!=', 'banned')
@@ -288,7 +275,7 @@ class UserController extends Controller
         return view('login.roles_users', compact('users'));
     }
 
-    
+
     // ---------------------------
     //
     //         Followers
@@ -298,8 +285,8 @@ class UserController extends Controller
     public function followersammount($id)
     {
         $ammount = Follow::selectRaw('COUNT(*) as followersammount')
-        ->where('follows.following_id', '=', $id)
-        ->get();
+            ->where('follows.following_id', '=', $id)
+            ->get();
 
         return $ammount;
     }
@@ -308,12 +295,90 @@ class UserController extends Controller
     public function followingammount($id)
     {
         $ammount = Follow::selectRaw('COUNT(*) as followingammount')
-        ->where('follows.follower_id', '=', $id)
-        ->get();
+            ->where('follows.follower_id', '=', $id)
+            ->get();
 
         return $ammount;
     }
 
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
 
+        $users = User::query()
+            ->when($search, function ($query, $search) {
+                $query->where('name', 'like', "%$search%")
+                    ->orWhere('email', 'like', "%$search%");
+            })
+            ->paginate(10);
 
+        return view('users.index', compact('users', 'search'));
+    }
+
+    public function create()
+    {
+        return view('users.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:255',
+            'username' => 'required|max:255|unique:users,username',
+            'email' => 'required|email|unique:users,email',
+            'dni' => 'required|max:255',
+            'phone' => 'required|max:255',
+            'birthdate' => 'required|date|max:255',
+            'role' => ['required', 'in:admin,client,moderator'],
+            'password' => 'required|min:8',
+        ]);
+
+        $userData = $request->only('name', 'username', 'email', 'dni', 'phone', 'birthdate', 'role');
+        $userData['password'] = Hash::make($request->input('password'));
+
+        User::create($userData);
+
+        return redirect()->route('users.index');
+    }
+
+    public function show(User $user)
+    {
+        return view('users.show', compact('user'));
+    }
+
+    public function edit(User $user)
+    {
+        return view('users.edit', compact('user'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $request->validate([
+            'name' => 'required|max:255',
+            'username' => 'required|max:255|unique:users,username,' . $user->id,
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'dni' => 'required|max:255',
+            'phone' => 'required|max:255',
+            'birthdate' => 'required|date|max:255',
+            'role' => ['required', 'in:admin,client,moderator'],
+            'password' => 'sometimes|required|min:8|confirmed', // La contraseña es opcional, pero si se proporciona, debe tener al menos 8 caracteres y coincidir con la confirmación
+        ]);
+
+        $userData = $request->only('name', 'username', 'email', 'dni', 'phone', 'birthdate', 'role');
+
+        if ($request->filled('password')) {
+            $userData['password'] = Hash::make($request->input('password'));
+        }
+
+        $user->update($userData);
+
+        return redirect()->route('users.index');
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return redirect()->route('users.index');
+    }
 }

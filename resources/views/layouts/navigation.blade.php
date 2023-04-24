@@ -40,6 +40,10 @@
                         {{ __('Home') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('users.index')" :active="Str::startsWith(request()->route()->getName(), ['users.', 'manage.'])">
+                        {{ __('Manage Users') }}
+                    </x-nav-link>
+
                     @can('dashboard.validate.users')
                     <x-nav-link :href="route('pending.users')" :active="Str::startsWith(request()->route()->getName(), ['pending.', 'denied.'])">
                         {{ __('Validate Users') }}
@@ -48,7 +52,7 @@
 
                     @can('dashboard.manage.users')
                     <x-nav-link :href="route('ban.users')" :active="Str::startsWith(request()->route()->getName(), ['ban.', 'manage.'])">
-                        {{ __('Manage Users') }}
+                        {{ __('Ban Users') }}
                     </x-nav-link>
                     @endcan
 
