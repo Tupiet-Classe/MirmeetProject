@@ -50,7 +50,7 @@
                 </a>
             @endif
             <div class="flex items-center justify-end">
-                <x-login-button id="login-btn" tabindex="3" data-modal-target="loginModal"
+                <x-login-button tabindex="3" data-modal-target="loginModal"
                     data-modal-toggle="loginModal" class="ml-3">
                     {{ __('Log in') }}
                 </x-login-button>
@@ -76,14 +76,6 @@
             </div>
         </div>
     </form>
-
-    <script>
-        $("#password").keyup(function(event) {
-            if (event.keyCode === 13) {
-                $("#login-btn").click();
-            }
-        });
-    </script>
 
     @include('auth.submit-form')
     @include('auth.toast-error')
