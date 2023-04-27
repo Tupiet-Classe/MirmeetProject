@@ -6,6 +6,7 @@ use App\Events\NewMessage;
 use App\Events\StartChat;
 use App\Models\Message;
 use App\Models\Room;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -167,5 +168,16 @@ class ChatController extends Controller
         ->groupBy('alias.sento_id', 'alias.username')
         ->orderByDesc(DB::raw('MAX(created_at)'))
         ->get();
+    }
+
+    public function get_following_users_to_chat($search = null) {
+        $users = User::select('users.id', 'users.username', 'users.avatar')
+            ->join('follows', 'users.id', '=', 'follows.following_id')
+            ->where('follows.follower_id', Auth::id())
+            ->where('users.username', 'LIKE', "%$search%")
+            ->groupBy('users.id', 'users.avatar', 'users.username')
+            ->limit(5)
+            ->get();
+        return $users;
     }
 }
