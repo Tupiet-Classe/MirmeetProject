@@ -37,16 +37,12 @@ class PublicationController extends Controller
 
         $response = 0;
 
-        $data = [
-            'encrypted' => false,
-            'data' =>
-            [
-                'text' => $text,
-                'image' => base64_encode($file)
-            ]
-        ];
-        
-        $response = Http::post('https://videowiki-dcom.mirmit.es/api/saveDraft', $data);
+        $data = array(
+                'image' => $text,
+                'text' => base64_encode($file)
+        );
+
+        $response = PublicationController::postToSwarm($data);
 
         $datajson = json_decode($response);
 
@@ -214,8 +210,8 @@ class PublicationController extends Controller
         $url = 'https://download.gateway.ethswarm.org/bzz';
         
         $json = array(
-            'image' => 'hola',
-            'text' => 'hola2'
+            'image' => $data[0],
+            'text' => $data[1]
         );
     
         $curl = curl_init($url);
