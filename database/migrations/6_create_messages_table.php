@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->string('text');
+            $table->foreignId('sentby_id')->references('id')->on('users');
+            $table->foreignId('sento_id')->references('id')->on('users');
             $table->date('hidden')->nullable()->default(null);
             $table->timestamps();
         });
