@@ -13,9 +13,7 @@
         <div id="notify"></div>
 
         <div id="search"></div>
-        <button class=""><i class="fa fa-comments text-2xl"></i></button>
 
-        <button class=""><i class="fa fa-search text-2xl"></i></button>
         <a href="/chat"><i class="fa fa-comments text-2xl"></i></a>
 
         <div class="relative inline-block text-left">
