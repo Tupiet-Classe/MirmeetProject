@@ -29,28 +29,45 @@ export default {
     data() {
         return {
             searchModal: false,
-            searchUser: "",
+            searchUser: '',
+            searchResults: [],
+            searchQuery: '',
         };
     },
     methods: {
         search() {
             // Lógica para realizar la búsqueda
-            console.log("Búsqueda realizada:", this.searchUser);
+            console.log('Búsqueda realizada:', this.searchUser);
 
             // Realizar petición axios al endpoint de búsqueda
-            axios.post('/search/user', { 'username': this.searchUser })
-                .then(response => {
-                    // Actualizar la variable $users con los resultados de la búsqueda
-                    this.$root.$data.users = response.data;
-                    window.location.href = '/search';
+            axios.post('/search/user', { username: this.searchUser })
+                .then((response) => {
+                    this.searchResults = response.data.users;
+                    this.searchQuery = response.data.query;
+
+                    // Redirigir al usuario a la página de resultados de búsqueda
+                    window.location.href = '/search?query=' + this.searchQuery;
+                    // this.showSearchResults();
+
                 })
+                .catch((error) => {
+                    console.log(error);
+                });
 
             // Cerrar modal después de realizar la búsqueda
             this.searchModal = false;
         },
+        // showSearchResults() {
+        //     axios.get('/search')
+        //         .then((response) => {
+        //             this.searchResults = response.data.users;
+        //             this.searchQuery = response.data.query;
 
-
+        //         })
+        //         .catch((error) => {
+        //             console.log(error);
+        //         });
+        // },
     },
 };
 </script>
-  

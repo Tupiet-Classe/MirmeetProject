@@ -291,9 +291,23 @@ class UserController extends Controller
                 ->orWhere('name', 'LIKE', '%' . $query . '%');
         })->get();
 
-        return response()->json($users);
-        // return view('search.index', compact('users'));
+        return response()->json(['users' => $users, 'query' => $query]);
     }
+
+
+    public function showSearchResults(Request $request)
+    {
+        $query = $request->input('query');
+
+        $users = User::where(function ($q) use ($query) {
+            $q->where('username', 'LIKE', '%' . $query . '%')
+                ->orWhere('name', 'LIKE', '%' . $query . '%');
+        })->get();
+
+        return view('search.index', compact('users'));
+    }
+
+
 
 
     // ---------------------------

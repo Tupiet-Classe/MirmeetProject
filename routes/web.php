@@ -162,11 +162,12 @@ Route::get('/messages-between/{token}', [ChatController::class, 'get_messages_be
 Route::get('discover')->middleware(['auth', 'verified']);
 
 Route::post('/search/user', [UserController::class, 'searchUsers'])->middleware(['auth', 'verified']);
+Route::get('/search', [UserController::class, 'showSearchResults'])->middleware(['auth', 'verified'])->name('search.results');
 
-Route::get('/search', function() {
-    $users = collect(); // Definir una colección vacía
-    return view('search.index', compact('users'));
-})->middleware(['auth', 'verified']);
+// Route::get('/search', function() {
+//     $users = collect(); // Definir una colección vacía
+//     return view('search.index', compact('users'));
+// })->middleware(['auth', 'verified']);
 
 
 Route::get('/home', function() {
