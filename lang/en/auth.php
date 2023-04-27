@@ -25,14 +25,14 @@ return [
     'Log in' => 'Log in',
 
     //Dashboard
-        //Home
+    //Home
     'Home' => 'Home',
     'Dashboard' => 'Dashboard',
     'Welcome back ' => 'Welcome back',
     'Pending Users' => 'Pending Users',
     'Baned Users' => 'Baned Users',
 
-        //Validate Users
+    //Validate Users
     'User Registration' => 'User Registration',
     'Buscador' => 'Buscador',
     'Buscar' => 'Buscar',
@@ -46,8 +46,8 @@ return [
     'Denied Users' => 'Denied Users',
     'Allow' => 'Allow',
     'Deny' => 'Deny',
-        
-        //Manage Users
+
+    //Manage Users
     'Manage Users' => 'Manage Users',
     'Buscador' => 'Buscador',
     'Buscar' => 'Buscar',
@@ -62,12 +62,12 @@ return [
     'Unban' => 'Unban',
     'Ban' => 'Ban',
 
-        //Verify Users
+    //Verify Users
     'Verify Users' => 'Verify Users',
     'Buscador' => 'Buscador',
     'Buscar' => 'Buscar',
     'Name' => 'Name',
-    'Username' =>'Username',
+    'Username' => 'Username',
     'Email' => 'Email',
     'Option' => 'Option',
     'Showing' => 'Showing',
@@ -78,7 +78,7 @@ return [
     'Verify' => 'Verify',
     'Unverify' => 'Unverify',
 
-        //Roles Users
+    //Roles Users
     'Roles Users' => 'Roles Users',
     'Buscador' => 'Buscador',
     'Buscar' => 'Buscar',
@@ -92,4 +92,26 @@ return [
     'results' => 'results',
     'Remove' => 'Remove',
     'Assign' => 'Assign',
+
+
+    //Profile
+    'Profile Information' => 'Profile Information',
+    "Update your account's profile information and email address" => "Update your account's profile information and email address",
+    'Name' => 'Name',
+    'Email' => 'Email',
+    'Save' => 'Save',
+    'Update Password' => 'Update Password',
+    'Ensure your account is using a long, random password to stay secure.' => 'Ensure your account is using a long, random password to stay secure.',
+    'Current Password' => 'Current Password',
+    'New Password' => 'New Password',
+    'Confirm Password' => 'Confirm Password',
+    'Delete Account' => 'Delete Account',
+    'DELETE ACCOUNT' => 'DELETE ACCOUNT',
+    'Once your account is deleted, all of its resources and data will be permanently deleted.
+    Before deleting your account, please download any data or information that you wish to retain.' =>
+    'Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account,
+    please download any data or information that you wish to retain.',
+    'The current password field is required.' => 'The current password field is required.',
+    'The password field is required.' => 'The password field is required.',
+    'Log Out' => 'Log Out'
 ];
