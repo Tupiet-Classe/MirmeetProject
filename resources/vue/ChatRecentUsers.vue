@@ -19,6 +19,14 @@
             <p v-if="followingUsersToChat.length === 0">To chat with someone, you must follow him/her.</p>
             <p v-else>Listado de usuarios</p>
             <div class="p-2 rounded-md bg-cyan-300">
+                <label class="relative block">
+                    <span class="sr-only">Search</span>
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                        <svg class="h-5 w-5 fill-slate-300" viewBox="0 0 20 20"></svg>
+                    </span>
+                    <input id="search-users" @keyup="getSearchedFollowingUsersToChat()" class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search for anything..." type="text" name="search"/>
+                </label>
+
                 <chat-user v-for="user in followingUsersToChat" :user="user" />
             </div>
         </div>
@@ -62,6 +70,12 @@
             },
             async getFollowingUsersToChat() {
                 let req = await axios.get('/following-users')
+                this.followingUsersToChat = req.data
+                console.log(this.followingUsersToChat)
+            },
+            async getSearchedFollowingUsersToChat() {
+                let searched = document.getElementById('search-users').value
+                let req = await axios.get('/following-users/' + searched)
                 this.followingUsersToChat = req.data
                 console.log(this.followingUsersToChat)
             },
