@@ -40,16 +40,17 @@ Route::get('/dashboard', function () {
     return view('login.dashboard');
 })->middleware(['auth', 'verified', 'check_access'])->name('dashboard');
 
-Route::get('/andrei', function () {
-    return view('perfil.andrei');
-})->middleware(['auth', 'verified']);
 
 // Notifications
 Route::get('/get-notifications', [NotificationController::class, 'show'])->name('get-notifications')->middleware(['auth', 'verified']);
 
+Route::get('/perfil/{id}', [ProfileController::class, 'show'])->name('get-perfil')->middleware(['auth', 'verified']);
+Route::get('/perfil/{id}/recuperar', [ProfileController::class, 'recuperar'])->name('get-informacio')->middleware(['auth', 'verified']);
+/*
 Route::get('/perfil', function () {
     return view('perfil.perfil');
 })->middleware(['auth', 'verified']);
+*/
 
 Route::get('/my', function() {
     return view('perfil.wall_personal');
