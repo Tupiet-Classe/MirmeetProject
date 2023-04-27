@@ -11,7 +11,7 @@
 
     <div class="flex gap-x-5 mr-3">
         <div id="notify"></div>
-        <button class=""><i class="fa fa-search text-2xl"></i></button>
+        <div id="search"></div>
         <button class=""><i class="fa fa-comments text-2xl"></i></button>
         <div class="relative inline-block text-left">
             <button type="button" class="" id="user-menu" aria-expanded="false" aria-haspopup="true"
