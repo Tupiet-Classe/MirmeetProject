@@ -281,6 +281,40 @@ class UserController extends Controller
 
     // ---------------------------
     //
+    //        Search Users
+    //
+    // --------------------------- 
+
+    public function searchUsers(Request $request)
+    {
+        $query = $request->input('username');
+
+        $users = User::where(function ($q) use ($query) {
+            $q->where('username', 'LIKE', '%' . $query . '%')
+                ->orWhere('name', 'LIKE', '%' . $query . '%');
+        })->get();
+
+        return response()->json(['users' => $users, 'query' => $query]);
+    }
+
+
+    public function showSearchResults(Request $request)
+    {
+        $query = $request->input('query');
+
+        $users = User::where(function ($q) use ($query) {
+            $q->where('username', 'LIKE', '%' . $query . '%')
+                ->orWhere('name', 'LIKE', '%' . $query . '%');
+        })->get();
+
+        return view('search.index', compact('users'));
+    }
+
+
+
+
+    // ---------------------------
+    //
     //         Followers
     //
     // ---------------------------
