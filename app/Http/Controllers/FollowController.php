@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Follow;
+use Illuminate\Support\Facades\Auth;
 
 class followController extends Controller
 {
@@ -13,7 +14,7 @@ class followController extends Controller
 
        $follow = new Follow;
 
-        $follow->follower_id = $request->idFollower;
+        $follow->follower_id = Auth::user()->id;
         $follow->following_id = $request->idFollowing;
 
         $follow->save();
