@@ -1,7 +1,7 @@
 <template>
     <div class="chat-user flex justify-between" @click="startChat(user.id)">
         <span class="username">{{ user.username }}</span>
-        <span class="last-message">{{ user.last_message }}</span>
+        <span v-if="user.last_message" class="last-message">{{ user.last_message }}</span>
     </div>
 </template>
 
