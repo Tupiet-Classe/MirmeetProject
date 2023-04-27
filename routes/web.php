@@ -59,12 +59,14 @@ Route::get('/apiSwarm', function() {
     return view('apiSwarm');
 });
 
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-Route::post('/users', [UserController::class, 'store'])->name('users.store');
-Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::get('/make-like/{id}/{post}', [UserController::class, 'likes'])->middleware(['auth'])->name('make-like');
+
+Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'verified', 'check_access'])->name('users.index');
+Route::get('/users/create', [UserController::class, 'create'])->middleware(['auth', 'verified', 'check_access'])->name('users.create');
+Route::post('/users', [UserController::class, 'store'])->middleware(['auth', 'verified', 'check_access'])->name('users.store');
+Route::get('/users/{user}/edit', [UserController::class, 'edit'])->middleware(['auth', 'verified', 'check_access'])->name('users.edit');
+Route::put('/users/{user}', [UserController::class, 'update'])->middleware(['auth', 'verified', 'check_access'])->name('users.update');
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware(['auth', 'verified', 'check_access'])->name('users.destroy');
 
 
 // Route::get('/post', [PublicationController::class, 'postToSwarm'])->name('getSwarm');

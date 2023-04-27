@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Follow;
+use App\Models\Like;
+use App\Models\Notification;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -380,5 +383,71 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('users.index');
+    }
+
+    public function likes(Request $request, Like $like, Notification $notification)
+    {
+        $userliked = $request->id;
+        $postliked = $request->post;
+
+        $likedYet = DB::table('notifications')
+        ->join('publications', 'publications.id', '=', 'notifications.publication_id')
+        ->join('likes', 'likes.id', '=', 'notifications.like_id')
+        ->join('users', 'users.id', '=', 'notifications.sentby_id')
+        ->select('like_id', 'notifications.id')
+        ->where('notifications.publication_id', '=', $postliked)
+        ->where('notifications.sentby_id', '=', auth()->user()->id)
+        ->get();
+
+        $likedYet = json_encode($likedYet);
+
+        if($likedYet == '[]'){
+
+            $like = new Like;
+            $like->date = now();
+            $like->publication_id = $postliked;
+            $like->hidden = null;
+            $like->created_at = now();
+            $like->updated_at = now();
+
+            $like->save();
+
+            $notification = new Notification;
+            $notification->message_id = null;
+            $notification->share_id = null;
+            $notification->like_id = $like->id;
+            $notification->sentby_id = auth()->user()->id;
+            $notification->sento_id = $userliked;
+            $notification->publication_id = $postliked;
+            $notification->hidden = null;
+            $notification->created_at = now();
+            $notification->updated_at = now();
+
+            $notification->save();
+
+            $data = "OK";
+
+            return response()->json($data);
+
+        }else {
+
+            $likeData = json_decode($likedYet);
+            $quitLike = $likeData[0]->like_id;
+
+            $notifyData = json_decode($likedYet);
+            $quitNotify = $notifyData[0]->id;
+
+            DB::table('notifications')
+            ->where('id', '=', $quitNotify)
+            ->delete();
+
+            DB::table('likes')
+            ->where('id', '=', $quitLike)
+            ->delete();
+
+            $data = "Deleted OK";
+
+            return response()->json($data);
+        }
     }
 }

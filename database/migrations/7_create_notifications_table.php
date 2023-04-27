@@ -15,7 +15,7 @@ return new class extends Migration
             $table->foreignId('like_id')->nullable()->constrained();
             $table->unsignedBigInteger('sentby_id');
             $table->unsignedBigInteger('sento_id');
-            $table->foreignId('publication_id')->constrained();
+            $table->foreignId('publication_id')->nullable()->constrained();
             $table->date('hidden')->nullable()->default(null);
             $table->timestamps();
 
