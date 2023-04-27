@@ -1,5 +1,8 @@
 <!-- Codi de la pagina -->
 <template>
+    <div>
+        <input type="file" @change="onFileSelected">
+    </div>
     <div class="posts w-full sm:w-96 flex flex-col items-center gap-3 overflow-y-scroll">
         <div v-for="post in posts_data" :key="post.id"
             class="post flex flex-col gap-y-3 items-center bg-white rounded-md p-4">
@@ -75,8 +78,8 @@ export default {
 
                     let js = JSON.parse(post.data)
                     postJSON.image = js.image,
-                    postJSON.text = js.text,
-                    console.log(postJSON);
+                        postJSON.text = js.text,
+                        console.log(postJSON);
                     this.posts_data.push(postJSON)
                 }
             })
@@ -87,7 +90,16 @@ export default {
 
 
     methods: {
-
+        onFileSelected(event) {
+            const file = event.target.files[0]
+            const reader = new FileReader()
+            reader.readAsDataURL(file)
+            reader.onload = () => {
+                const base64Image = reader.result
+                console.log(base64Image)
+                // aquí puedes hacer lo que necesites con la imagen en base64
+            }
+        }
     },
 
 }
