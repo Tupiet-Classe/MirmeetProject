@@ -163,6 +163,15 @@ Route::get('/following-users/{search}', [ChatController::class, 'get_following_u
 
 Route::get('discover')->middleware(['auth', 'verified']);
 
+Route::post('/search/user', [UserController::class, 'searchUsers'])->middleware(['auth', 'verified']);
+Route::get('/search', [UserController::class, 'showSearchResults'])->middleware(['auth', 'verified'])->name('search.results');
+
+// Route::get('/search', function() {
+//     $users = collect(); // Definir una colección vacía
+//     return view('search.index', compact('users'));
+// })->middleware(['auth', 'verified']);
+
+
 Route::get('/home', function() {
     return view('perfil.wall_personal');
 })->middleware(['auth', 'verified']);

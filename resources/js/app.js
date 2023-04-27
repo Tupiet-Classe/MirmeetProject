@@ -15,6 +15,7 @@ import PostBtn1 from '../vue/Post1.vue';
 import PostBtn2 from '../vue/Post2.vue';
 import chartAdmin from '../vue/chartDashboard.vue';
 import NotificationsBTN from '../vue/NotificationsBTN.vue';
+import SearchBTN from '../vue/SearchBTN.vue';
 import MyButton from '../vue/follow.vue';
 
 const app = createApp({})
@@ -37,6 +38,7 @@ app.mount('#app')
 
 createApp(PostBtn1).mount('#post1')
 createApp(NotificationsBTN).mount('#notify')
+createApp(SearchBTN).mount('#search')
 createApp(chartAdmin).mount('#graphic')
 createApp(PostBtn2).mount('#post2')
 
