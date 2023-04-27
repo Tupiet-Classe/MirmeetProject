@@ -152,7 +152,7 @@ class PublicationController extends Controller
 
     public function myWall()
     {
-        $user_id = 1; // Aquí anirà la ID de la sessió
+        $user_id = Auth::user()->id; 
         
         $data = DB::table('publications')
         ->join('users', 'publications.user_id', '=', 'users.id')
@@ -168,29 +168,14 @@ class PublicationController extends Controller
                 'reference' => $references->ref_swarm,
                 'encryptionKey' => $encriptionKey
             );
-            $response = PublicationController::recDataSwarm($arrayRef);
+            $response = PublicationController::getFromSwarm($references->ref_swarm);
             $posts[] = ['data' => $response, 'user'=>$references->username];
         } 
         return ($posts);
     }
 
-    public static function recDataSwarm($ref)
+    public function postToSwarm(Request $request, Publication $post) 
     {
-            $url = 'https://videowiki-dcom.mirmit.es/api/retrieveDraft';
-            $curl = curl_init($url);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
-            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($ref));
-            curl_setopt($curl, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/json'
-            ]);
-            $response = curl_exec($curl);
-            curl_close($curl);
-            return $response; 
-    }
-
-    public function postToSwarm(Request $request, Publication $post) {
-        
         print("API funcional de veritat.");
 
         echo("<br><br>");
@@ -220,7 +205,7 @@ class PublicationController extends Controller
 
         $ref = $datajson->reference;
 
-        $post->user_id = 1;
+        $post->user_id = Auth::user()->id; 
         $post->ref_swarm = $ref;
         $post->save();
         
@@ -229,9 +214,8 @@ class PublicationController extends Controller
         return $response;
     }
     
-    public function getFromSwarm() {
+    public function getFromSwarm($hash) {
         
-        $hash = '13b115b9d3132270e0151d39756fb98e54e3ffe41d0e44d5dcad01e19d1e055f';
         $url = 'https://download.gateway.ethswarm.org/bzz/'.$hash.'/';
         $curl = curl_init($url);
 
