@@ -170,11 +170,13 @@ class ChatController extends Controller
         ->get();
     }
 
-    public function get_following_users_to_chat() {
+    public function get_following_users_to_chat($search = null) {
         $users = User::select('users.id', 'users.username', 'users.avatar')
             ->join('follows', 'users.id', '=', 'follows.following_id')
             ->where('follows.follower_id', Auth::id())
+            ->where('users.username', 'LIKE', "%$search%")
             ->groupBy('users.id', 'users.avatar', 'users.username')
+            ->limit(5)
             ->get();
         return $users;
     }

@@ -1,6 +1,6 @@
 <header class="flex justify-between sm:hidden mx-3 py-2 h-16">
     <button class="bg-red rounded-full w-12"><i class="fa fa-user text-2xl"></i></button>
-    <button class="bg-red rounded-full w-12"><i class="fa fa-comments text-2xl"></i></button>
+    <a href="/chat" class="align-self-center bg-red rounded-full w-12"><i class="fa fa-comments text-2xl"></i></a>
 </header>
 
 <header class="hidden justify-between bg-red p-3 sm:flex">
@@ -12,7 +12,7 @@
     <div class="flex gap-x-5 mr-3">
         <div id="notify"></div>
         <button class=""><i class="fa fa-search text-2xl"></i></button>
-        <button class=""><i class="fa fa-comments text-2xl"></i></button>
+        <a href="/chat"><i class="fa fa-comments text-2xl"></i></a>
         <div class="relative inline-block text-left">
             <button type="button" class="" id="user-menu" aria-expanded="false" aria-haspopup="true"
                 onclick="toggleMenu()">
