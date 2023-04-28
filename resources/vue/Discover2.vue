@@ -11,7 +11,7 @@
             <div class="user-info flex flex-col h-full justify-around ml-4 gap-y-1">
               <span class="username text-sm font-comfortaa font-semibold">@{{publication.username}}</span>
               <button class="btn-follow bg-purple rounded-xl py-0.5 px-4 text-white">
-                Seguir
+                {{ $t('Follow') }}
                 {{publication.likes}}
               </button>
             </div>
