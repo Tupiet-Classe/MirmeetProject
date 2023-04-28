@@ -321,6 +321,29 @@ class UserController extends Controller
         return view('search.index', compact('users', 'message'));
     }
 
+    public function searchUsersResponsive(Request $request)
+    {
+        $request->validate([
+            'username' => 'required'
+        ], [
+            'username.required' => 'La búsqueda está vacía'
+        ]);
+
+        $query = $request->input('username');
+
+        $users = User::where(function ($q) use ($query) {
+            $q->where('username', 'LIKE', '%' . $query . '%')
+                ->orWhere('name', 'LIKE', '%' . $query . '%');
+        })->get();
+
+        if ($request->session()->has('errors')) {
+            $error = $request->session()->get('errors')->first();
+            return response()->json(['error' => $error]);
+        }else{
+            return view('search.indexResponsive', compact('users'));
+        }
+    }
+
 
 
 
