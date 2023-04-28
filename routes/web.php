@@ -25,6 +25,26 @@ use Illuminate\Support\Str;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+/**
+  * Ruta que s'utilitza per canviar l'idioma de l'aplicació i desar la selecció a la sessió de l'usuari
+  *
+  * setLocale() estableix l'idioma actiu de l'aplicació per a l'idioma seleccionat actual
+  * La segona línia desa l'idioma actiu a la sessió de l'aplicació utilitzant el mètode put de la instància de sessió (session()),
+  * d'aquesta manera, l'idioma actiu persistirà a totes les sol·licituds posteriors.
+  *
+  * @param $locale representa que l'usuari vol establir a l'aplicació
+  * @return back retorna l'usuari a la pàgina on era abans de canviar l'idioma de l'aplicació
+  */
+
+//Canviar idioma
+Route::get('language/{locale}', function ($locale) {
+    app()->setLocale($locale);
+    session()->put('locale', $locale);
+    return redirect()->back();
+});
+
+//
 Route::get('/', function () {
     return view('auth.login');
 });

@@ -5,6 +5,7 @@ import Perfil from '../vue/Perfil.vue';
 import MyProfile from '../vue/MyProfile.vue';
 import ChatRecentUsers from '../vue/ChatRecentUsers.vue';
 import Chat from '../vue/Chat.vue';
+import { i18nVue } from 'laravel-vue-i18n'; //Importacion de vue-i18n con Laravel integrado
 import ChatUser from '../vue/ChatUser.vue';
 import DiscoverWall from '../vue/DiscoverWall.vue';
 import discover2 from '../vue/Discover2.vue';
@@ -42,6 +43,21 @@ createApp(SearchBTN).mount('#search')
 createApp(chartAdmin).mount('#graphic')
 createApp(PostBtn2).mount('#post2')
 
+
+/**
+  * Mateix manera de traduir que a Mirmeet 
+  * Middleware que permet carregar automàticament els fitxers d'idioma de l'aplicació segons l'idioma seleccionat per l'usuari.
+  *
+  * * resolve és una funció asíncrona que rep com a paràmetre el codi de l'idioma que volem traduir
+  * * la funcio import.meta.glob és una funció que retorna un objecte amb un mapeig de totes les rutes relatives que coincideixen amb el patró especificat
+  *
+  */
+app.use(i18nVue, {
+    resolve: async lang => {
+        const langs = import.meta.glob('../lang/*.json');
+        return await langs[`../lang/${lang}.json`]();
+    }
+});
 
 // BREEZE
 import Alpine from 'alpinejs';
