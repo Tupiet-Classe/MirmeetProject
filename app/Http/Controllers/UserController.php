@@ -289,6 +289,10 @@ class UserController extends Controller
     {
         $query = $request->input('username');
 
+        if (empty($query)) {
+            return response()->json(['error' => 'La búsqueda está vacía']);
+        }
+
         $users = User::where(function ($q) use ($query) {
             $q->where('username', 'LIKE', '%' . $query . '%')
                 ->orWhere('name', 'LIKE', '%' . $query . '%');
@@ -296,6 +300,7 @@ class UserController extends Controller
 
         return response()->json(['users' => $users, 'query' => $query]);
     }
+
 
 
     public function showSearchResults(Request $request)
@@ -307,8 +312,15 @@ class UserController extends Controller
                 ->orWhere('name', 'LIKE', '%' . $query . '%');
         })->get();
 
-        return view('search.index', compact('users'));
+        if ($users->isEmpty()) {
+            $message = 'No hay resultados para "' . $query . '"';
+        } else {
+            $message = '';
+        }
+
+        return view('search.index', compact('users', 'message'));
     }
+
 
 
 
@@ -425,17 +437,17 @@ class UserController extends Controller
         $postliked = $request->post;
 
         $likedYet = DB::table('notifications')
-        ->join('publications', 'publications.id', '=', 'notifications.publication_id')
-        ->join('likes', 'likes.id', '=', 'notifications.like_id')
-        ->join('users', 'users.id', '=', 'notifications.sentby_id')
-        ->select('like_id', 'notifications.id')
-        ->where('notifications.publication_id', '=', $postliked)
-        ->where('notifications.sentby_id', '=', auth()->user()->id)
-        ->get();
+            ->join('publications', 'publications.id', '=', 'notifications.publication_id')
+            ->join('likes', 'likes.id', '=', 'notifications.like_id')
+            ->join('users', 'users.id', '=', 'notifications.sentby_id')
+            ->select('like_id', 'notifications.id')
+            ->where('notifications.publication_id', '=', $postliked)
+            ->where('notifications.sentby_id', '=', auth()->user()->id)
+            ->get();
 
         $likedYet = json_encode($likedYet);
 
-        if($likedYet == '[]'){
+        if ($likedYet == '[]') {
 
             $like = new Like;
             $like->date = now();
@@ -462,8 +474,7 @@ class UserController extends Controller
             $data = "OK";
 
             return response()->json($data);
-
-        }else {
+        } else {
 
             $likeData = json_decode($likedYet);
             $quitLike = $likeData[0]->like_id;
@@ -472,12 +483,12 @@ class UserController extends Controller
             $quitNotify = $notifyData[0]->id;
 
             DB::table('notifications')
-            ->where('id', '=', $quitNotify)
-            ->delete();
+                ->where('id', '=', $quitNotify)
+                ->delete();
 
             DB::table('likes')
-            ->where('id', '=', $quitLike)
-            ->delete();
+                ->where('id', '=', $quitLike)
+                ->delete();
 
             $data = "Deleted OK";
 
