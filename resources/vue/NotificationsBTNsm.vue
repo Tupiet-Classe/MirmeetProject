@@ -9,10 +9,10 @@
         <div v-show="isOpen" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-10">
             <div class="mt-2 w-48 bg-white rounded-md">
                 <div class="flex justify-center items-center mt-2">
-                    <button @click="isOpen = !isOpen" class="mr-2">
+                    <button @click="isOpen = !isOpen" class="mr-3">
                         <i class="fa-solid fa-x"></i>
                     </button>
-                    <button @click="quitNotifications">
+                    <button @click="quitNotifications" class="ml-3">
                         <i class="fa-solid fa-bell-slash"></i>
                     </button>
                 </div>
@@ -39,8 +39,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-gray-600 text-xs p-1">{{ notifications.date == null ? '' :
-                                notification.date.substring(10, 16) }}</div>
+                            <!-- <div class="text-gray-600 text-xs p-1">{{ notifications.date == null ? '' :
+                                notification.date.substring(10, 16) }}</div> -->
                         </div>
                     </li>
                 </ul>

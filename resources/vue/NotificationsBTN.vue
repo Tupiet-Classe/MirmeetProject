@@ -8,13 +8,14 @@
 
         <div v-show="isOpen" class="absolute mt-2 w-48 bg-white rounded-md">
             <div class="flex justify-center items-center mt-2">
-                <button @click="isOpen = !isOpen" class="mr-2">
+                <button @click="isOpen = !isOpen" class="mr-3">
                     <i class="fa-solid fa-x"></i>
                 </button>
-                <button @click="quitNotifications">
+                <button @click="quitNotifications" class="ml-3">
                     <i class="fa-solid fa-bell-slash"></i>
                 </button>
             </div>
+
             <ul>
                 <li class="cursor-pointer" v-for="(notification, index) in notifications" :key="notification.id">
                     <div class="select-none flex flex-1 items-center p-1">
@@ -37,8 +38,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="text-gray-600 text-xs p-1">{{ notifications.date == null ? '' :
-                            notification.date.substring(10, 16) }}</div>
+                        <!-- <div class="text-gray-600 text-xs p-1">{{ notifications.date == null ? '' :
+                            notification.date.substring(10, 16) }}</div> -->
                     </div>
                 </li>
             </ul>
