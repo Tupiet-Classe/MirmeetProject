@@ -157,7 +157,7 @@ class PublicationController extends Controller
         $data = DB::table('publications')
         ->join('users', 'publications.user_id', '=', 'users.id')
         ->select('users.id AS id_user', 'publications.id AS post_id', 'users.username', 'users.avatar AS profile', 'publications.ref_swarm', 'publications.created_at AS date')
-        // ->where('publications.user_id', $user_id)
+        ->where('publications.user_id', $user_id)
         ->get();
 
         $encriptionKey = '';
