@@ -156,8 +156,8 @@ class PublicationController extends Controller
         
         $data = DB::table('publications')
         ->join('users', 'publications.user_id', '=', 'users.id')
-        ->select('users.username', 'publications.ref_swarm')
-        ->where('publications.user_id', $user_id)
+        ->select('users.id AS id_user', 'publications.id AS post_id', 'users.username', 'users.avatar AS profile', 'publications.ref_swarm', 'publications.created_at AS date')
+        // ->where('publications.user_id', $user_id)
         ->get();
 
         $encriptionKey = '';
@@ -168,8 +168,9 @@ class PublicationController extends Controller
                 'reference' => $references->ref_swarm,
                 'encryptionKey' => $encriptionKey
             );
-            $response = PublicationController::getFromSwarm($references->ref_swarm);
-            $posts[] = ['data' => $response, 'user'=>$references->username];
+            $res = new PublicationController;
+            $response = $res->getFromSwarm($references->ref_swarm);
+            $posts[] = ['data' => $response, 'post'=>$references->post_id, 'id_user'=>$references->id_user, 'profile'=>$references->profile, 'user'=>$references->username, 'date'=>$references->date];
         } 
         return ($posts);
     }

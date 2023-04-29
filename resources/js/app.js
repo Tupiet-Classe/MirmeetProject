@@ -5,7 +5,7 @@ import Perfil from '../vue/Perfil.vue';
 import MyProfile from '../vue/MyProfile.vue';
 import ChatRecentUsers from '../vue/ChatRecentUsers.vue';
 import Chat from '../vue/Chat.vue';
-import { i18nVue } from 'laravel-vue-i18n'; //Importacion de vue-i18n con Laravel integrado
+// import { i18nVue } from 'laravel-vue-i18n'; //Importacion de vue-i18n con Laravel integrado
 import ChatUser from '../vue/ChatUser.vue';
 import DiscoverWall from '../vue/DiscoverWall.vue';
 import discover2 from '../vue/Discover2.vue';
