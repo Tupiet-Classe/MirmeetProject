@@ -55,13 +55,11 @@
 <script>
 import axios from 'axios';
 import Modal from './Modal.vue';
-import MyProfile from './MyProfile.vue';
 import { resultPosts } from './mostrar-posts';
 
 export default {
   components: {
     Modal,
-    MyProfile,
   },
   data() {
     return {
@@ -125,7 +123,6 @@ export default {
       axios.post('/post', data)
         .then(response => {
           this.data = response.data;
-          MyProfile.methods.getposts()
           // console.log(response.data['reference'])
         })
         .catch(error => {

@@ -12,6 +12,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
+use function GuzzleHttp\Promise\all;
+
 class NotificationController extends Controller
 {
     public function index()
@@ -73,7 +75,8 @@ class NotificationController extends Controller
     }
 
 
-    public function destroy(Notification $notificacio)
+    public function destroy(Notification $notification)
     {
+        DB::table('notifications')->where('sento_id', '=', auth()->user()->id)->delete();
     }
 }

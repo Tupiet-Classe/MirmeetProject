@@ -1,4 +1,4 @@
 @extends('layouts.template')
 @section('content')
-        <my-profile/>
+        <my-wall/>
 @endsection

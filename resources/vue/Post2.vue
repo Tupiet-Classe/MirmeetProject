@@ -121,7 +121,6 @@ export default {
       axios.post('/post', data)
         .then(response => {
           this.data = response.data;
-          MyProfile.methods.getposts()
           // console.log(response.data['reference'])
         })
         .catch(error => {
