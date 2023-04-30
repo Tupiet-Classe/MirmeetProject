@@ -185,7 +185,10 @@ Route::get('/following-users/{search}', [ChatController::class, 'get_following_u
 // Aquestes rutes són per accedir als dos murs
 
 Route::post('/search/user', [UserController::class, 'searchUsers'])->middleware(['auth', 'verified']);
+Route::post('/search', [UserController::class, 'searchUsersResponsive'])->middleware(['auth', 'verified'])->name('search.responsive');
 Route::get('/search', [UserController::class, 'showSearchResults'])->middleware(['auth', 'verified'])->name('search.results');
+
+
 
 // Route::get('/search', function() {
 //     $users = collect(); // Definir una colección vacía
