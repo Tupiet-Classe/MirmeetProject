@@ -1,6 +1,6 @@
 <header class="flex justify-between sm:hidden mx-3 py-2 h-16">
     <button class="bg-red rounded-full w-12"><i class="fa fa-user text-2xl"></i></button>
-    <a href="/chat" class="align-self-center bg-red rounded-full w-12"><i class="fa fa-comments text-2xl"></i></a>
+    <a href="/chat" class="align-self-center bg-red rounded-full w-12 flex justify-center items-center"><i class="fa fa-comments text-2xl"></i></a>
 </header>
 
 <header class="hidden justify-between bg-red p-3 sm:flex">
