@@ -84,9 +84,13 @@ Route::get('/my', function() {
     return view('walls.my_wall');
 })->middleware(['auth', 'verified'])->name('my');
 
-Route::get('/apiSwarm', function() {
-    return view('apiSwarm');
-});
+Route::get('/home', function() {
+    return view('home');
+})->middleware(['auth', 'verified']);
+
+Route::get ('/discover', function(){
+    return view('discover');
+})->middleware(['auth', 'verified']);
 
 Route::get('/make-like/{id}/{post}', [UserController::class, 'likes'])->middleware(['auth'])->name('make-like');
 
@@ -191,6 +195,7 @@ Route::get('/following-users', [ChatController::class, 'get_following_users_to_c
 Route::get('/following-users/{search}', [ChatController::class, 'get_following_users_to_chat'])->middleware(['auth', 'verified', 'check_access']);
 // Aquestes rutes són per accedir als dos murs
 
+
 Route::post('/search/user', [UserController::class, 'searchUsers'])->middleware(['auth', 'verified']);
 Route::post('/search', [UserController::class, 'searchUsersResponsive'])->middleware(['auth', 'verified'])->name('search.responsive');
 Route::get('/search', [UserController::class, 'showSearchResults'])->middleware(['auth', 'verified'])->name('search.results');
@@ -201,6 +206,18 @@ Route::get('/search', [UserController::class, 'showSearchResults'])->middleware(
 //     $users = collect(); // Definir una colección vacía
 //     return view('search.index', compact('users'));
 // })->middleware(['auth', 'verified']);
+
+Route::get('/publications/{follower_id}',  [PublicationController::class, 'GetPosts']);
+Route::get('/publications',  [PublicationController::class, 'GetAllPosts2']);
+Route::get('/publications2', [PublicationController::class, 'GetPosts3'])->name('discover-prova');
+Route::get('/publications3', [PublicationController::class, 'GetPosts3'])->name('prova');
+
+Route::get('/api/posts', [PublicationController::class, 'GetAllPosts2'])->name('discover-prova');
+
+//Recuperar les dades de la base de dades
+Route::get('/posts-discover', [PublicationController::class, 'index'])->name('c');
+Route::get('/post-discover/posts', [PublicationController::class, 'GetPosts'])->name('discover-prova');
+Route::get('/posts', [PublicationController::class, 'GetPosts']);
 
 Route::get('/home', function() {
     return view('walls.home_wall');
@@ -214,6 +231,12 @@ Route::get('/home', function() {
 // Route::get('/api/posts', [PublicationController::class, 'GetAllPosts2'])->name('discover-prova');
 
 // Aquestes rutes retornen els posts a mostrar al mur discover i a la home
+Route::get('/posts-discover', [PublicationController::class, 'recDataSwarm'])->name('recoverPosts.discover');
+Route::get('/posts-my', [PublicationController::class, 'myWall'])->name('postsMyWall');
+Route::get('/posts-home', [PublicationController::class, 'postsHome'])->name('recoverPostsHome');
+Route::get('/posts-discover', [PublicationController::class, 'postsDiscover'])->name('recoverPostsDiscover');
+//Route::get('posts-discover');
+//Route::get('posts-home');
 Route::get('/posts-discover', [PublicationController::class, 'discoverWall'])->name('posts-discover');
 Route::get('/posts-home', [PublicationController::class, 'homeWall'])->name('posts-home');
 Route::get('/posts-mywall', [PublicationController::class, 'myWall'])->name('posts-mywall');

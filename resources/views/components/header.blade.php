@@ -31,8 +31,8 @@
 
 <header class="hidden justify-between bg-red p-3 sm:flex">
     <div class="flex gap-x-5 ml-3">
-        <a href="/home" class=""><i class="fa fa-house text-2xl"></i></a>
-        <a href="/discover" class=""><i class="fa fa-compass text-2xl"></i></a>
+        <button class=""><i class="fa fa-house text-2xl"></i></button>
+        <button class=""><i class="fa fa-compass text-2xl"></i></button>
     </div>
 
     <div class="flex gap-x-5 mr-3">
