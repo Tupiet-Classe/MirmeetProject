@@ -58,6 +58,9 @@ import likeBTN from './LikeBTN.vue'
 import { resultPosts } from './mostrar-posts';
 
 export default {
+    components:{
+        likeBTN
+    },
     data() {
         return {
             posts_data: [],
