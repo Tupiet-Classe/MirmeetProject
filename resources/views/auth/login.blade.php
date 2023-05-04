@@ -24,7 +24,7 @@
                     <a tabindex="5"
                         class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-2"
                         href="{{ route('password.request') }}">
-                        {{ __('Forgot password?') }}
+                        {{ __('Forgot-password') }}
                     </a>
                 @endif
             </div>
@@ -52,7 +52,7 @@
             <div class="flex items-center justify-end">
                 <x-login-button tabindex="3" data-modal-target="loginModal"
                     data-modal-toggle="loginModal" class="ml-3">
-                    {{ __('Log in') }}
+                    {{ __('Log-in') }}
                 </x-login-button>
             </div>
         </div>
