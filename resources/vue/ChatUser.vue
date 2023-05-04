@@ -1,5 +1,5 @@
 <template>
-    <div class="chat-user flex flex-row justify-between bg-white p-2 rounded-md cursor-pointer w-full" @click="startChat(user.id)">
+    <div class="chat-user flex justify-between" @click="startChat(user.id)">
         <span class="username">{{ user.username }}</span>
         <span v-if="user.last_message" class="last-message">{{ user.last_message }}</span>
     </div>
@@ -20,14 +20,14 @@
 
 <style scoped>
     .chat-user {
-        min-width: 3rem;
-        max-width: 20rem;
-        transition: background-color 200ms ease;
-    }
+        background: white;
+        width: 24rem;
+        padding: .5rem;
+        border-radius: .5rem;
+        margin: .5rem;
+        cursor: pointer;
 
-    .chat-user > * {
-        width: fit-content;
-        text-align: center;
+        transition: background-color 200ms ease;
     }
 
     .chat-user:hover {
