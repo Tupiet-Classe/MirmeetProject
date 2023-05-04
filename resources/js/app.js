@@ -19,11 +19,13 @@ import NotificationsBTN from '../vue/NotificationsBTN.vue';
 import NotificationsBTNsm from '../vue/NotificationsBTNsm.vue';
 import SearchBTN from '../vue/SearchBTN.vue';
 import MyButton from '../vue/follow.vue';
+import Langnavbar from '../vue/lang-navbar.vue';
 
 
 
 const app = createApp({})
 // app.component('discover2', require('./components/Discover2.vue').default)
+app.component('lang-navbar', Langnavbar)
 
 app.component('discover-wall', DiscoverWall)
 
