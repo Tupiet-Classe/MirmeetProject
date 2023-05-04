@@ -1,8 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
-import tailwindcss from 'tailwindcss'
-import postcss from 'postcss';
 
 export default defineConfig({
     server: {
@@ -19,7 +17,5 @@ export default defineConfig({
             ],
             refresh: true,
         }),
-        tailwindcss(),
-        postcss()
     ],
 });
