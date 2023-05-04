@@ -56,9 +56,13 @@ Route::get('/my', function() {
     return view('perfil.wall_personal');
 })->middleware(['auth', 'verified']);
 
-Route::get('/apiSwarm', function() {
-    return view('apiSwarm');
-});
+Route::get('/home', function() {
+    return view('home');
+})->middleware(['auth', 'verified']);
+
+Route::get ('/discover', function(){
+    return view('discover');
+})->middleware(['auth', 'verified']);
 
 Route::get('/make-like/{id}/{post}', [UserController::class, 'likes'])->middleware(['auth'])->name('make-like');
 
@@ -163,7 +167,6 @@ Route::get('/following-users', [ChatController::class, 'get_following_users_to_c
 Route::get('/following-users/{search}', [ChatController::class, 'get_following_users_to_chat'])->middleware(['auth', 'verified', 'check_access']);
 // Aquestes rutes són per accedir als dos murs
 
-Route::get('discover')->middleware(['auth', 'verified']);
 
 Route::post('/search/user', [UserController::class, 'searchUsers'])->middleware(['auth', 'verified']);
 Route::get('/search', [UserController::class, 'showSearchResults'])->middleware(['auth', 'verified'])->name('search.results');
@@ -172,17 +175,6 @@ Route::get('/search', [UserController::class, 'showSearchResults'])->middleware(
 //     $users = collect(); // Definir una colección vacía
 //     return view('search.index', compact('users'));
 // })->middleware(['auth', 'verified']);
-
-
-Route::get('/home', function() {
-    return view('perfil.wall_personal');
-})->middleware(['auth', 'verified']);
-
-
-//Redirecció a la view Blade "Discover" que es redirigirà a la view Vue
-Route::get('/discover-prova', function(){
-    return view('discover-prova');
-});
 
 Route::get('/publications/{follower_id}',  [PublicationController::class, 'GetPosts']);
 Route::get('/publications',  [PublicationController::class, 'GetAllPosts2']);
@@ -198,7 +190,9 @@ Route::get('/posts', [PublicationController::class, 'GetPosts']);
 
 // Aquestes rutes retornen els posts a mostrar al mur discover i a la home
 Route::get('/posts-discover', [PublicationController::class, 'recDataSwarm'])->name('recoverPosts.discover');
-Route::get('/posts-home', [PublicationController::class, 'myWall'])->name('postsMyWall.discover');
+Route::get('/posts-my', [PublicationController::class, 'myWall'])->name('postsMyWall');
+Route::get('/posts-home', [PublicationController::class, 'postsHome'])->name('recoverPostsHome');
+Route::get('/posts-discover', [PublicationController::class, 'postsDiscover'])->name('recoverPostsDiscover');
 //Route::get('posts-discover');
 //Route::get('posts-home');
 

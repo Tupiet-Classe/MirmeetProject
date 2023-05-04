@@ -26,9 +26,6 @@
                 </div>
             </div>
 
-
-
-
             <div class="content bg-cyan w-full mx-5 p-3 rounded-lg flex flex-col text-sm relative">
                 <p>{{ post.text }} {{ post.created_at }}</p>
                 <div class="topics mt-2 flex flex-wrap gap-2">
@@ -68,9 +65,8 @@ export default {
     },
 
     mounted() {
-        axios.get('/posts-my')
+        axios.get('/posts-discover')
             .then(response => {
-                console.log(response)
                 const posts = response.data;
                 for (let i = 0; i < posts.length; i++) {
 

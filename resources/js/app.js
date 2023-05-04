@@ -9,6 +9,8 @@ import ChatUser from '../vue/ChatUser.vue';
 import DiscoverWall from '../vue/DiscoverWall.vue';
 import discover2 from '../vue/Discover2.vue';
 import prova from '../vue/api.vue';
+import Home from '../vue/Home.vue';
+import Discover from '../vue/Discover.vue';
 
 // Vue.component('discover2', require('./components/Discover2.vue').default)
 import PostBtn1 from '../vue/Post1.vue';
@@ -28,6 +30,8 @@ app.component('welcome', titleComp)
 
 app.component('perfil', Perfil)
 app.component('my-profile', MyProfile)
+app.component('home', Home)
+app.component('discover', Discover)
 app.component('prova-api', prova)
 
 app.component('chart', chartAdmin);

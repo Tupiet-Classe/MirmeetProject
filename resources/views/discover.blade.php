@@ -1,4 +1,7 @@
 @extends('layouts.template')
+
 @section('content')
-        <prova-api/>
+
+<discover />
+
 @endsection

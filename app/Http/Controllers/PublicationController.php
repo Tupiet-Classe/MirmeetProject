@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -148,30 +149,99 @@ class PublicationController extends Controller
                 ->toJson();
               
             }            
-        
+    
 
+
+    public function postsHome()
+    {
+        $user_id = Auth::user()->id;
+
+        $data = DB::table('publications')
+            ->join('users', 'publications.user_id', '=', 'users.id')
+            ->join('follows', 'follows.following_id', '=', 'publications.user_id')
+            ->select('users.username', 'users.avatar', 'publications.ref_swarm', 'publications.created_at')
+            ->where('follows.follower_id', $user_id)
+            ->orderBy('publications.created_at', 'desc')
+            ->get();
+        
+            $encriptionKey = '';
+        
+            foreach ($data as $references) {
+    
+                $fetxa = Carbon::createFromFormat('Y-m-d H:i:s', $references->created_at);
+                $fetxaFormatada = $fetxa->format('d-m-Y');
+            
+                $arrayRef = array(
+                    'reference' => $references->ref_swarm,
+                    'encryptionKey' => $encriptionKey
+                );
+                
+                $response = PublicationController::getFromSwarm($references->ref_swarm);
+                $posts[] = ['data' => $response, 'user'=>$references->username, 'avatar'=>$references->avatar, 'created_at'=>$fetxaFormatada];
+            } 
+            return $posts;        
+    }
+
+    public function postsDiscover()
+    {
+        $user_id = Auth::user()->id;
+
+        $data = DB::table('publications')
+            ->join('users', 'publications.user_id', '=', 'users.id')
+            ->leftJoin('follows', 'follows.following_id', '=', 'publications.user_id')
+            ->select('users.username', 'users.avatar', 'publications.ref_swarm', 'publications.created_at')
+            ->whereNull('follows.follower_id')
+            ->orWhere('follows.follower_id', '<>', $user_id)
+            ->where('publications.user_id', '<>', $user_id)
+            ->orderBy('publications.created_at', 'desc')
+            ->get();
+        
+            $encriptionKey = '';
+        
+            foreach ($data as $references) {
+    
+                $fetxa = Carbon::createFromFormat('Y-m-d H:i:s', $references->created_at);
+                $fetxaFormatada = $fetxa->format('d-m-Y');
+            
+                $arrayRef = array(
+                    'reference' => $references->ref_swarm,
+                    'encryptionKey' => $encriptionKey
+                );
+                
+                $response = PublicationController::getFromSwarm($references->ref_swarm);
+                $posts[] = ['data' => $response, 'user'=>$references->username, 'avatar'=>$references->avatar, 'created_at'=>$fetxaFormatada];
+            } 
+            return $posts;        
+    }
+    
     public function myWall()
     {
-        $user_id = Auth::user()->id; 
-        
+        $user_id = Auth::user()->id;
+
         $data = DB::table('publications')
-        ->join('users', 'publications.user_id', '=', 'users.id')
-        ->select('users.username', 'publications.ref_swarm')
-        ->where('publications.user_id', $user_id)
-        ->get();
-
+            ->join('users', 'publications.user_id', '=', 'users.id')
+            ->select('users.username', 'users.avatar', 'publications.ref_swarm', 'publications.created_at')
+            ->where('publications.user_id', $user_id)
+            ->orderBy('publications.created_at', 'desc')
+            ->get();
+        
         $encriptionKey = '';
-
-
+        
         foreach ($data as $references) {
+
+            $fetxa = Carbon::createFromFormat('Y-m-d H:i:s', $references->created_at);
+            $fetxaFormatada = $fetxa->format('d-m-Y');
+        
             $arrayRef = array(
                 'reference' => $references->ref_swarm,
                 'encryptionKey' => $encriptionKey
             );
+            
             $response = PublicationController::getFromSwarm($references->ref_swarm);
-            $posts[] = ['data' => $response, 'user'=>$references->username];
+            $posts[] = ['data' => $response, 'user'=>$references->username, 'avatar'=>$references->avatar, 'created_at'=>$fetxaFormatada];
         } 
-        return ($posts);
+          
+        return $posts;        
     }
 
     public function postToSwarm(Request $request, Publication $post) 

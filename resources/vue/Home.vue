@@ -51,26 +51,24 @@
         </div>
     </div>
 </template>
-
 <script>
 import axios from 'axios';
 import likeBTN from './LikeBTN.vue'
 import LikeBTN from './LikeBTN.vue';
 
 export default {
-    components: { LikeBTN },
+  components: { LikeBTN },
     data() {
         return {
-            post: '1',
-            id_user: '6',
+            post:'1',
+            id_user:'6',
             posts_data: [],
         }
     },
 
     mounted() {
-        axios.get('/posts-my')
+        axios.get('/posts-home')
             .then(response => {
-                console.log(response)
                 const posts = response.data;
                 for (let i = 0; i < posts.length; i++) {
 
@@ -84,8 +82,8 @@ export default {
 
                     let js = JSON.parse(post.data)
                     postJSON.image = js.image,
-                        postJSON.text = js.text,
-                        console.log(postJSON);
+                    postJSON.text = js.text,
+                    console.log(postJSON);
                     this.posts_data.push(postJSON)
                 }
             })
