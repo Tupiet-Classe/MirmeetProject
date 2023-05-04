@@ -26,7 +26,7 @@
         </div>
 
     </div>
-    <a href="/chat" class="bg-red rounded-full mx-3 mt-2 mb-0 py-1 px-2"><i class="fa fa-comments text-2xl"></i></a>
+    <a href="/chat" class="align-self-center bg-red rounded-full w-12 flex justify-center items-center"><i class="fa fa-comments text-2xl"></i></a>
 </header>
 
 <header class="hidden justify-between bg-red p-3 sm:flex">

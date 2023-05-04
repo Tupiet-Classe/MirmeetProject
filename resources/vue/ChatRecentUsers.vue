@@ -1,12 +1,15 @@
 <template>
-    <div class="chat" style="height: calc(100vh - 4rem);">
-        <div class="flex justify-between align-center w-full mt-2">
-            <h1 class="text-2xl">Recent chats</h1>
-            <button @click="openModal">New chat</button>
+    <div class="chat" style="height: calc(100vh - 4rem); width: 100%">
+        <div class="chat-title flex justify-between align-bottom mt-2 px-5">
+            <h1 class="text-2xl m-0 self-end">Recent chats</h1>
+            <button @click="openModal" class="bg-cyan hover:brightness-95 text-black m-0 p-2 rounded-md ">New chat</button>
         </div>
-        <div class="chat-users">
-            <div v-for="user in users">
-                <chat-user :user="user" />
+        <div class="p-3">
+            <div class="chat-users p-3 bg-white rounded-lg flex flex-col justify-center w-full" :class="users.length === 0 ? 'p-3' : 'p-1'">
+                <div v-for="user in users">
+                    <chat-user :user="user" />
+                </div>
+                <p v-if="users.length === 0" class="text-center">No recent chats</p>
             </div>
         </div>    
     </div>
@@ -18,7 +21,7 @@
             <h2 class="text-lg font-medium text-gray-900 mb-4">Chat</h2>
             <p v-if="followingUsersToChat.length === 0">To chat with someone, you must follow him/her.</p>
             <p v-else>Listado de usuarios</p>
-            <div class="p-2 rounded-md bg-cyan-300">
+            <div class="p-2 rounded-md">
                 <label class="relative block">
                     <span class="sr-only">Search</span>
                     <span class="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -44,6 +47,9 @@
 <script>
     import axios from 'axios'
     import Modal from './Modal.vue'
+
+    //TODO: Arreglar diferència mida entre vista mòbil o normal al xat
+    //TODO: Arreglar mida mínima en mòbil
     
     export default {
         data() {
@@ -90,18 +96,7 @@
 </script>
 
 <style scoped>
-    /* .chat-user {
-        background: white;
-        width: 24rem;
-        padding: .5rem;
-        border-radius: .5rem;
-        margin: .5rem;
-        cursor: pointer;
-
-        transition: background-color 200ms ease;
+    .chat-title {
+        min-width: 24rem;
     }
-
-    .chat-user:hover {
-        background: var(--cyan);
-    } */
 </style>
