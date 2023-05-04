@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Ban Users') }}
+            {{ __('Banned-Users') }}
         </h2>
     </x-slot>
 
@@ -28,7 +28,7 @@
                                     <input type="text" name="search-manage" class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500"
                                            placeholder="Buscador...">
                                     <button type="submit" class="text-white absolute right-2.5 bottom-1 bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1">
-                                        Buscar
+                                        {{ __('Search') }}
                                     </button>
                                 </div>
                             </form>
@@ -39,13 +39,13 @@
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                                 <tr>
                                     <th scope="col" class="px-6 py-3">
-                                        Name
+                                        {{ __('Name') }}
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Email
+                                        {{ __('email') }}
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Options
+                                        {{ __('option') }}
                                     </th>
                                 </tr>
                                 </thead>
@@ -63,12 +63,12 @@
                                                 @if ($user->access == 'banned')
                                                     <a href="{{ route('unban', $user->id) }}"
                                                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded-md">
-                                                        Unban
+                                                       {{ __('Unban') }}
                                                     </a>
                                                 @elseif ($user->access)
                                                     <a href="{{ route('ban', $user->id) }}"
                                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded-md">
-                                                        Ban
+                                                       {{ __('Ban') }}
                                                     </a>
                                                 @endif
                                             </div>
