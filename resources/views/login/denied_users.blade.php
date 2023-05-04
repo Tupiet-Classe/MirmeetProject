@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Denied Users') }}
+            {{ __('Denied-Users') }}
         </h2>
     </x-slot>
 
@@ -17,13 +17,13 @@
                             <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                                 <tr>
                                     <th scope="col" class="px-6 py-3">
-                                        Name
+                                        {{ __('Name') }}
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Email
+                                        {{ __('Email') }}
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Options
+                                        {{ __('Options') }}
                                     </th>
                                 </tr>
                             </thead>
@@ -40,7 +40,7 @@
                                             <div class="inline-flex">
                                                 <a href="{{ route('restore', $user->id) }}"
                                                     class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded-full">
-                                                    Restore
+                                                    {{ __('Restore') }}
                                                 </a>
                                             </div>
                                         </td>
