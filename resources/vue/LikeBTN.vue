@@ -1,4 +1,7 @@
 <template>
+  <button v-if="!btnLike" @click.prevent="makeLike()" :style="{ color: btnLike ? 'red' : '' }">
+    <i class="fa-regular fa-heart"></i>
+  </button>
   <button @click.prevent="makeLike()"><i class="fa-regular fa-heart"></i></button>
 </template>
 
@@ -7,10 +10,11 @@ import axios from 'axios';
 
 export default {
   name: "Test",
-  created() {},
+  created() { },
   data() {
     return {
-      likes:'',
+      btnLike: false,
+      likes: '',
       id_user: this.id_user,
       id_post: this.id_post
     };
@@ -20,9 +24,10 @@ export default {
     id_post: null
   },
   methods: {
-    makeLike(){
-      axios.get('make-like/'+ this.id_user + '/' + this.id_post).then(res => {
-          this.likes = res.data;
+    makeLike() {
+      axios.get('make-like/' + this.id_user + '/' + this.id_post).then(res => {
+        this.likes = res.data;
+        this.btnLike = true;
       });
     }
 
