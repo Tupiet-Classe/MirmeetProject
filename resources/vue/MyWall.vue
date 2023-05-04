@@ -55,11 +55,9 @@
 <script>
 import axios from 'axios';
 import likeBTN from './LikeBTN.vue'
-import LikeBTN from './LikeBTN.vue';
 import { resultPosts } from './mostrar-posts';
 
 export default {
-    components: { LikeBTN },
     data() {
         return {
             posts_data: [],
