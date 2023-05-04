@@ -66,7 +66,7 @@ Route::get('/get-notifications', [NotificationController::class, 'show'])->name(
 Route::get('/quit-notifications', [NotificationController::class, 'destroy'])->name('quit-notifications')->middleware(['auth', 'verified']);
 
 Route::get('/perfil/{id}', [ProfileController::class, 'show'])->name('get-perfil')->middleware(['auth', 'verified']);
-Route::get('/perfil/{id}/recuperar', [ProfileController::class, 'recuperar'])->name('get-informacio')->middleware(['auth', 'verified']);
+Route::get('/perfil/{user}/recuperar', [ProfileController::class, 'recuperar'])->name('get-informacio')->middleware(['auth', 'verified']);
 /*
 Route::get('/perfil', function () {
     return view('perfil.perfil');
@@ -124,9 +124,9 @@ Route::get('/give-role/{id}', [UserController::class, 'give'])->middleware(['aut
 Route::get('/remove-role/{id}', [UserController::class, 'remove'])->middleware(['auth', 'verified', 'check_access'])->name('remove');
 Route::get('/role-search', [UserController::class, 'searchRole'])->middleware(['auth', 'verified', 'check_access'])->name('role.search');
 
-Route::get('/perfil/get-followers/{id}', [UserController::class, 'followersammount'])->name('get.followers')->middleware(['auth', 'verified']);
-Route::get('/perfil/get-following/{id}', [UserController::class, 'followingammount'])->name('get.following')->middleware(['auth', 'verified']);
-
+Route::get('/perfil/{user}/get-followers', [FollowController::class, 'followersammount'])->name('get.followers')->middleware(['auth', 'verified']);
+Route::get('/perfil/{user}/get-following', [FollowController::class, 'followingammount'])->name('get.following')->middleware(['auth', 'verified']);
+Route::get('/perfil/{user}/get-publications', [FollowController::class, 'publicacionsUser'])->name('get.publicationsUser')->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

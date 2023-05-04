@@ -15,16 +15,17 @@ class ProfileController extends Controller
    /**
      * Display the user's profile form.
      */
-    public function show($id)
+    public function show($username)
     {
 
         return view('perfil.perfil');
         
     }
 
-    public function recuperar($id)
+    public function recuperar($user)
     {
-        $resultado = User::where('id', '=', $id)->first();
+        $resultado = User::where('username', '=', $user)->first();
+        
         return $resultado;
     }
 
