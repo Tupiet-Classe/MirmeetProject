@@ -9,7 +9,6 @@ import Chat from '../vue/Chat.vue';
 import { i18nVue } from 'laravel-vue-i18n'; //Importacion de vue-i18n con Laravel integrado
 import ChatUser from '../vue/ChatUser.vue';
 import DiscoverWall from '../vue/DiscoverWall.vue';
-import discover2 from '../vue/Discover2.vue';
 import prova from '../vue/api.vue';
 
 // Vue.component('discover2', require('./components/Discover2.vue').default)

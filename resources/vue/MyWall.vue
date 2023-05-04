@@ -71,7 +71,7 @@ export default {
     },
     methods: {
         getposts() {
-            resultPosts('/posts-mywall').then(data => {
+            resultPosts('/posts-my').then(data => {
                 this.posts_data = data
             })
         },
