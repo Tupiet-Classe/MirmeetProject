@@ -15,7 +15,7 @@
                     @method('PUT')
 
                     <div class="mt-4">
-                        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                        <label for="name" class="block text-sm font-medium text-gray-700">{{ __('Name') }}</label>
 
                         <div class="col-md-6">
                             <input id="name" type="text"
@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="mt-4">
-                        <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                        <label for="username" class="block text-sm font-medium text-gray-700">{{ __('Username') }}</label>
                         <div class="col-md-6">
                             <input id="username" type="text"
                                 class="form-control @error('username') is-invalid @enderror mt-1 focus:ring-blue-600 focus:border-blue-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="mt-4">
-                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <label for="email" class="block text-sm font-medium text-gray-700">{{ __('Email') }}</label>
                         <div class="col-md-6">
                             <input id="email" type="email"
                                 class="form-control @error('email') is-invalid @enderror mt-1 focus:ring-blue-600 focus:border-blue-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="mt-4">
-                        <label for="dni" class="block text-sm font-medium text-gray-700">DNI</label>
+                        <label for="dni" class="block text-sm font-medium text-gray-700">{{ __('DNI') }}</label>
                         <div class="col-md-6">
                             <input id="dni" type="text"
                                 class="form-control @error('dni') is-invalid @enderror mt-1 focus:ring-blue-600 focus:border-blue-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="mt-4">
-                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                        <label for="phone" class="block text-sm font-medium text-gray-700">{{ __('Phone') }}</label>
                         <div class="col-md-6">
                             <input id="phone" type="text"
                                 class="form-control @error('phone') is-invalid @enderror mt-1 focus:ring-blue-600 focus:border-blue-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                     <div class="mt-4">
-                        <label for="birthdate" class="block text-sm font-medium text-gray-700">Birthdate</label>
+                        <label for="birthdate" class="block text-sm font-medium text-gray-700">{{ __('Birthday') }}</label>
                         <div class="col-md-6">
                             <input id="birthdate" type="date"
                                 class="form-control @error('birthdate') is-invalid @enderror mt-1 focus:ring-blue-600 focus:border-blue-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -104,25 +104,25 @@
                     </div>
 
                     <div class="mt-4">
-                        <span class="block text-sm font-medium text-gray-700 mb-2">Role</span>
+                        <span class="block text-sm font-medium text-gray-700 mb-2">{{ __('Role') }}</span>
                         <div class="flex flex-row items-center">
                             <label for="role_user" class="mr-4">
                                 <input type="radio" id="role_admin" name="role" value="admin"
                                     @if ($user->role == 'admin') checked @endif
                                     class="focus:ring-blue-600 h-4 w-4 text-blue-600 border-gray-300">
-                                <span class="ml-2 text-sm font-medium text-gray-700">Admin</span>
+                                <span class="ml-2 text-sm font-medium text-gray-700">{{ __('Admin') }}</span>
                             </label>
                             <label for="role_admin" class="mr-4">
                                 <input type="radio" id="role_moderator" name="role" value="moderator"
                                     @if ($user->role == 'moderator') checked @endif
                                     class="focus:ring-blue-600 h-4 w-4 text-blue-600 border-gray-300">
-                                <span class="ml-2 text-sm font-medium text-gray-700">Moderator</span>
+                                <span class="ml-2 text-sm font-medium text-gray-700">{{ __('Moderator') }}</span>
                             </label>
                             <label for="role_admin" class="mr-4">
                                 <input type="radio" id="role_client" name="role" value="client"
                                     @if ($user->role == 'client') checked @endif
                                     class="focus:ring-blue-600 h-4 w-4 text-blue-600 border-gray-300">
-                                <span class="ml-2 text-sm font-medium text-gray-700">Client</span>
+                                <span class="ml-2 text-sm font-medium text-gray-700">{{ __('Client') }}</span>
                             </label>
                         </div>
                         @error('role')
@@ -131,7 +131,7 @@
                     </div>
 
                     <div class="mt-4">
-                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <label for="password" class="block text-sm font-medium text-gray-700">{{ __('Password') }}</label>
                         <div class="col-md-6">
                             <input id="password" type="password"
                                 class="form-control @error('password') is-invalid @enderror mt-1 focus:ring-blue-600 focus:border-blue-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -146,8 +146,8 @@
                     </div>
 
                     <div class="mt-4">
-                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm
-                            Password</label>
+                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700">{{ __('Confirm') }}
+                            {{ __('Password') }}</label>
                         <div class="col-md-6">
                             <input id="password-confirm" type="password"
                                 class="form-control mt-1 focus:ring-blue-600 focus:border-blue-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
