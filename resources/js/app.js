@@ -21,8 +21,10 @@ import SearchBTN from '../vue/SearchBTN.vue';
 import MyButton from '../vue/follow.vue';
 
 
+
 const app = createApp({})
 // app.component('discover2', require('./components/Discover2.vue').default)
+
 app.component('discover-wall', DiscoverWall)
 
 app.component('home-wall', HomeWall)
