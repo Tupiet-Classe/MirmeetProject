@@ -42,10 +42,10 @@
                                         {{ __('Name') }}
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        {{ __('email') }}
+                                        {{ __('Email') }}
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        {{ __('option') }}
+                                        {{ __('Options') }}
                                     </th>
                                 </tr>
                                 </thead>

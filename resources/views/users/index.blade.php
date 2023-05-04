@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Manage Users') }}
+            {{ __('Manage-Users') }}
         </h2>
     </x-slot>
 
@@ -30,7 +30,7 @@
                                         placeholder="Buscador..." value="{{ $search }}">
                                     <button type="submit"
                                         class="text-white absolute right-2.5 bottom-1 bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1">
-                                        Buscar
+                                        {{ __('Search') }}
                                     </button>
                                 </div>
                             </form>
@@ -47,13 +47,13 @@
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
-                                            Name
+                                            {{ __('Name') }}
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Email
+                                            {{ __('Email') }}
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Options
+                                            {{ __('Options') }}
                                         </th>
                                     </tr>
                                 </thead>
@@ -70,7 +70,7 @@
                                                 <div class="inline-flex">
                                                     <a href="{{ route('users.edit', $user) }}"
                                                         class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded-l-md">
-                                                        Edit
+                                                        {{ __('Edit') }}
                                                     </a>
                                                     <form action="{{ route('users.destroy', $user) }}" method="POST"
                                                         class="inline-block">
@@ -78,7 +78,7 @@
                                                         @method('DELETE')
                                                         <button type="submit"
                                                             class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded-r-md">
-                                                            Delete
+                                                            {{ __('Delete') }}
                                                         </button>
                                                     </form>
                                                 </div>

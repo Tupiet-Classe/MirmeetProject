@@ -14,7 +14,6 @@
                     {{-- {{ __("You're logged in!") }} --}}
 
                     <div id="app">
-                        <welcome/>
                     </div>
                     <div id="graphic">
                         <chart/>
