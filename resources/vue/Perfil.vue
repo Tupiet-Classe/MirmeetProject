@@ -35,7 +35,7 @@
 
     </div>
     <div v-if="this.me.id == this.perfil.id">
-    <button class="botoConfiguracio" @click="modal">
+    <button class="botoConfiguracio" @click="modal(perfil)">
       Configuracion
     </button>
     </div>
@@ -45,26 +45,36 @@
           <p class="ml-2 flex text-base font-semibold leading-6 text-gray-900">
             Editar Perfil
           </p>
-          <form class="content bg-white w-full mx-5 p-3 rounded-lg flex flex-col text-sm relative bg-white rounded-lg">
+          <form method="POST" v-on:submit.prevent="configPerfil()" enctype="multipart/form-data">
 
-            <div class="mb-4">
-              <label class="block font-bold mb-2">Nombre</label>
-              <input class="w-full border border-gray-400 p-2 rounded-lg" type="text" required />
+            <div hidden>
+              @csrf
             </div>
-
-            <div class="mb-4">
-              <label class="block font-bold mb-2" for="email">Nombre del usuario</label>
-              <input class="w-full border border-gray-400 p-2 rounded-lg" type="text" required />
+            <div class="sm:items-start">
+            <div class="mt-3 text-center sm:mt-0 sm:mx-1 sm:text-left">
+            <div>
+            <input type="hidden" v-model="id" id="id" name="id" required
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
             </div>
-
-            <div class="mb-6">
-              <label class="block font-bold mb-2">Descripción</label>
-              <input class="w-full border border-gray-400 p-2 rounded-lg" type="text" required />
+            <div>
+              <label for="name"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+              <input type="text" v-model="username" id="username" name="username" required
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
             </div>
-
-            <div class="mb-4">
-              <label class="block font-bold mb-2" for="email">Añadir enlace</label>
-              <input class="w-full border border-gray-400 p-2 rounded-lg" type="email" id="email" name="email" required />
+            <div>
+              <label for="description"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biografia</label>
+              <input type="text" v-model="bibliografy" id="bibliografy" name="bibliografy" required
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+            </div>
+            <div>
+              <label for="image"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Imagen Perfil</label>
+              <input type="file" v-on:change="avatar" id="avatar" name="avatar" required
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+            </div>
+            </div>
             </div>
 
             <div class="flex items-center">
@@ -198,6 +208,10 @@ export default {
       perfil: {},
       me: {},
       configuracioModal: false,
+      id: '',
+      username:'',
+      bibliografy:'',
+      avatar:'',
     };
   },
 
@@ -215,7 +229,7 @@ export default {
       axios.get('/perfil/' + user + '/recuperar')
         .then(response => {
           this.perfil = response.data
-          console.log(this.perfil.avatar);
+          console.log(this.perfil);
         })
         .catch(error => {
           console.log(error)
@@ -237,6 +251,7 @@ export default {
 
         .then(response => {
           this.followers = response.data;
+          this.getFollowers();
           console.log(this.followers);
         })
         .catch(error => {
@@ -250,6 +265,7 @@ export default {
 
         .then(response => {
           this.following = response.data;
+          this.getFollowing();
           console.log(this.following);
         })
         .catch(error => {
@@ -303,10 +319,37 @@ export default {
           });
       }
     },
-    modal() {
+    modal(perfil) {
     this.configuracioModal = true;
-    console.log(this.configuracioModal);
+    this.id = perfil.id
+    this.username = perfil.username;
+    this.bibliografy = perfil.bibliografy;
+    this.avatar = perfil.avatar;
     },
+
+    configPerfil() {
+
+      const id = document.getElementById('id').value;
+      const username = document.getElementById('username').value;
+      const bibliografy = document.getElementById('bibliografy').value;
+      const avatar = document.getElementById('avatar').files[0];
+      console.log(id);
+
+      const data = new FormData();
+      data.append('id', id);
+      data.append('username', username);
+      data.append('bibliografy', bibliografy);
+      data.append('avatar', avatar);
+
+      axios.post('/perfil/configuracio', data)
+        .then(response => {
+          this.getPerfil();
+          console.log(response.data)
+        })
+        .catch(error => {
+          console.log(response.data)
+        });
+      },
   },
 
   }
