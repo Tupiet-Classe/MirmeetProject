@@ -86,6 +86,7 @@ Route::get('/my', function() {
 })->middleware(['auth', 'verified'])->name('my');
 
 Route::get('/make-like/{id}/{post}', [UserController::class, 'likes'])->middleware(['auth'])->name('make-like');
+Route::get('/check-like/{post}', [UserController::class, 'checkLikes'])->middleware(['auth'])->name('check-like');
 
 Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'verified', 'check_access'])->name('users.index');
 Route::get('/users/create', [UserController::class, 'create'])->middleware(['auth', 'verified', 'check_access'])->name('users.create');
@@ -226,5 +227,9 @@ Route::get('/home', function() {
 Route::get('/posts-my', [PublicationController::class, 'myWall'])->name('postsMyWall');
 Route::get('/posts-home', [PublicationController::class, 'postsHome'])->name('recoverPostsHome');
 Route::get('/posts-discover', [PublicationController::class, 'postsDiscover'])->name('recoverPostsDiscover');
+//Apartat comentaris
+Route::post('/messages/{id}/comments', 'MessageController@storeComment')->name('messages.comments.store');
+Route::delete('/messages/{id}/comments/{comment_id}', 'MessageController@destroyComment')->name('messages.comments.destroy');
+Route::get('/messages/{id}/comments', 'MessageController@getComments')->name('messages.comments.get');
 
 require __DIR__.'/auth.php';

@@ -501,4 +501,28 @@ class UserController extends Controller
             return response()->json($data);
         }
     }
+
+    public function checkLikes(Request $request)
+    {
+        $postliked = $request->post;
+
+        $likedYet = DB::table('notifications')
+            ->join('publications', 'publications.id', '=', 'notifications.publication_id')
+            ->join('likes', 'likes.id', '=', 'notifications.like_id')
+            ->join('users', 'users.id', '=', 'notifications.sentby_id')
+            ->select('like_id', 'notifications.id')
+            ->where('notifications.publication_id', '=', $postliked)
+            ->where('notifications.sentby_id', '=', auth()->user()->id)
+            ->get();
+
+        $likedYet = json_encode($likedYet);
+
+        if ($likedYet == '[]') {
+            $data = "No Likes";
+            return response()->json($data);
+        }else {
+            $data = "Liked";
+            return response()->json($data);
+        }
+    }
 }
