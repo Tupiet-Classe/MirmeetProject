@@ -21,6 +21,9 @@ export default {
       id_post: this.id_post
     };
   },
+  mounted() {
+    this.checkLikes();
+  },
   props: {
     id_user: null,
     id_post: null
@@ -31,12 +34,21 @@ export default {
         this.likes = res.data;
         if (this.likes == "OK") {
           this.btnLike = true;
-        }else{
+        } else {
           this.btnLike = false;
         }
       });
-    }
-
+    },
+    checkLikes() {
+      axios.get('check-like/' + this.id_post).then(res => {
+        this.likes = res.data;
+        if (this.likes == "Liked") {
+          this.btnLike = true;
+        } else {
+          this.btnLike = false;
+        }
+      });
+    },
   },
 };
 </script>
