@@ -5,7 +5,8 @@
 @section('content')
 
 <div class="pt-5">
-    <perfil/>
+    <div><perfil /></div>
+    <div><my-wall/></div>
 </div>
  
 @endsection

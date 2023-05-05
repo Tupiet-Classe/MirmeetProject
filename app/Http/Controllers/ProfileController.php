@@ -76,4 +76,11 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+    
+
+    public function perfilConfiguration(Request $request)
+    {
+        $prova = $request->avatar;
+        dd($prova);
+    }
 }
