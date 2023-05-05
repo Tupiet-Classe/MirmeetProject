@@ -44,6 +44,7 @@ Route::get('language/{locale}', function ($locale) {
     return redirect()->back();
 });
 
+
 Route::post('/language/{locale}', function ($locale) {
     app()->setLocale($locale);
     session()->put('locale', $locale);

@@ -19,13 +19,18 @@ import NotificationsBTN from '../vue/NotificationsBTN.vue';
 import NotificationsBTNsm from '../vue/NotificationsBTNsm.vue';
 import SearchBTN from '../vue/SearchBTN.vue';
 import MyButton from '../vue/follow.vue';
-import Langnavbar from '../vue/lang-navbar.vue';
-
+import LangNavbar from '../vue/LangNavbar.vue';
 
 
 const app = createApp({})
+app.use(i18nVue, {
+  resolve: async lang => {
+      const langs = import.meta.glob('../lang/*.json');
+      return await langs[`../lang/${lang}.json`]();
+  }
+});
 // app.component('discover2', require('./components/Discover2.vue').default)
-app.component('lang-navbar', Langnavbar)
+app.component('lang-navbar', LangNavbar)
 
 app.component('discover-wall', DiscoverWall)
 
@@ -52,21 +57,10 @@ createApp(SearchBTN).mount('#search')
 createApp(chartAdmin).mount('#graphic')
 createApp(PostBtn2).mount('#post2')
 
+createApp(LangNavbar).mount('#lang-navbar')
 
-/**
-  * Mateix manera de traduir que a Mirmeet 
-  * Middleware que permet carregar automàticament els fitxers d'idioma de l'aplicació segons l'idioma seleccionat per l'usuari.
-  *
-  * * resolve és una funció asíncrona que rep com a paràmetre el codi de l'idioma que volem traduir
-  * * la funcio import.meta.glob és una funció que retorna un objecte amb un mapeig de totes les rutes relatives que coincideixen amb el patró especificat
-  *
-  */
-app.use(i18nVue, {
-    resolve: async lang => {
-        const langs = import.meta.glob('../lang/*.json');
-        return await langs[`../lang/${lang}.json`]();
-    }
-});
+
+
 
 // BREEZE
 import Alpine from 'alpinejs';

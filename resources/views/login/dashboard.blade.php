@@ -6,6 +6,7 @@
     </x-slot>
 
     @vite('resources/css/app.css')
+    @extends('layouts.LangNav')
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
