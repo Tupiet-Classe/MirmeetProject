@@ -60,7 +60,7 @@
     "Username" : "Nombre de usuario",
     "Remove" : "Eliminar",
     "Assign" : "Asignar",
-    "Log-Out" : "Cerrar sessión",
+    "Log-Out" : "Cerrar sesión",
     "Message-Forgot-Password" : "¿Olvidaste tu contraseña? Ningún problema. Simplemente háganos saber su dirección de correo electrónico y le enviaremos un enlace de restablecimiento de contraseña que le permitirá elegir una nueva",
     "Resend-Verification-Email" : "Reenviar correo electrónico de verificación",
     "Email-Password-Reset-Link" : "Enlace de restablecimiento de contraseña de correo electrónico",
