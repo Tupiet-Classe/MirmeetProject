@@ -45,9 +45,15 @@
             <div class="options bg-purple w-full flex justify-around mx-5 p-1 rounded-lg text-white text-xl">
                 <like-BTN v-bind:id_user="post.id_user" v-bind:id_post="post.post" />
                 <button><i class="fa fa-retweet"></i></button>
-                <button><i class="fa-regular fa-comment"></i></button>
+                <button @click="showCommentInput = true"><i class="fa-regular fa-comment"></i></button>
                 <button><i class="fa fa-share"></i></button>
             </div>
+            
+            <div v-if="showCommentInput" class="comments">
+                <textarea v-model="newComment" class="w-full resize-none focus:outline-none p-2 rounded-lg" placeholder="Añade un comentario..."></textarea>
+                <button @click="submitComment(post.id)" class="bg-purple rounded-xl py-0.5 px-4 text-white mt-2">Enviar</button>
+            </div>
+            
         </div>
     </div>
 </template>
@@ -58,12 +64,15 @@ import likeBTN from './LikeBTN.vue'
 import { resultPosts } from './mostrar-posts';
 
 export default {
-    components:{
+    components: {
         likeBTN
     },
     data() {
         return {
             posts_data: [],
+            newComment: '',
+            showCommentInput: false,
+
         }
     },
 
@@ -76,6 +85,22 @@ export default {
                 this.posts_data = data
             })
         },
+        toggleCommentInput() {
+            this.showCommentInput = !this.showCommentInput;
+        },
+        toggleCommentInput() {
+            this.showCommentInput = !this.showCommentInput;
+        },
+        submitComment(postId) {
+        axios.post(`/messages/${postId}/comments`, {text: this.newComment})
+            .then(response => {
+                this.newComment = '';
+                this.showCommentInput = false;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    },
     }
 
 }
