@@ -131,6 +131,7 @@ Route::get('/role-search', [UserController::class, 'searchRole'])->middleware(['
 Route::get('/perfil/{user}/get-followers', [FollowController::class, 'followersammount'])->name('get.followers')->middleware(['auth', 'verified']);
 Route::get('/perfil/{user}/get-following', [FollowController::class, 'followingammount'])->name('get.following')->middleware(['auth', 'verified']);
 Route::get('/perfil/{user}/get-publications', [FollowController::class, 'publicacionsUser'])->name('get.publicationsUser')->middleware(['auth', 'verified']);
+Route::post('perfil/configuracio', [ProfileController::class, 'perfilConfiguration'])->name('perfilConfiguration')->middleware('auth', 'verified');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
