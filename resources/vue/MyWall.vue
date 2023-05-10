@@ -45,7 +45,18 @@
             <div class="options bg-purple w-full flex justify-around mx-5 p-1 rounded-lg text-white text-xl">
                 <like-BTN v-bind:id_user="post.id_user" v-bind:id_post="post.post" />
                 <button><i class="fa fa-retweet"></i></button>
-                <button><i class="fa-regular fa-comment"></i></button>
+                <ul>
+                    <li v-for="comment in post.comments" :key="comment.id">
+                        {{ comment.text }}
+                    </li>
+                </ul>
+                <button @click="toggleCommentInputForPost(post.post)">Agregar comentario</button>
+                <div v-if="showCommentInput[post.post]">
+                    <form @submit.prevent="submitComment(post.id_user, post.post)">
+                        <textarea v-model="newComments[post.post]" required></textarea>
+                        <button type="submit">Enviar comentario</button>
+                    </form>
+                </div>
                 <button><i class="fa fa-share"></i></button>
             </div>
         </div>
@@ -58,7 +69,7 @@ import likeBTN from './LikeBTN.vue'
 import { resultPosts } from './mostrar-posts';
 
 export default {
-    components:{
+    components: {
         likeBTN
     },
     data() {
@@ -71,6 +82,22 @@ export default {
         this.getposts()
     },
     methods: {
+        submitComment(postId, publicationId) {
+            axios.post(`/discover/${postId}/comments`, { text: this.newComments[postId] })
+                .then(response => {
+                    this.newComments[postId] = '';
+                    this.showCommentInput[postId] = false;
+
+                    const index = this.posts_data.findIndex(post => post.post === publicationId);
+                    if (index >= 0) {
+                        this.posts_data[index].comments.push(response.data.comment);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+
         getposts() {
             resultPosts('/posts-my').then(data => {
                 this.posts_data = data

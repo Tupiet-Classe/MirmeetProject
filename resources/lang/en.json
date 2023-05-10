@@ -10,6 +10,7 @@
     "Allow" : "Allow",
     "Deny" : "Deny",
     "Email" : "Email",
+    "addComment": "Add a comment...",
     "Confirm": "Confirm",
     "Current-Password": "Current password",
     "Update-Password" : "Update password ",

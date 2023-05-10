@@ -42,12 +42,29 @@
                 </div>
             </div>
 
-            <div class="options bg-purple w-full flex justify-around mx-5 p-1 rounded-lg text-white text-xl">
-                <like-BTN v-bind:id_user="post.id_user" v-bind:id_post="post.post" />
-                <button><i class="fa fa-retweet"></i></button>
-                <button><i class="fa-regular fa-comment"></i></button>
-                <button><i class="fa fa-share"></i></button>
-            </div>
+<!-- Opciones del post -->
+<div class="options bg-purple w-full flex justify-around mx-5 p-1 rounded-lg text-white text-xl">
+    <like-BTN v-bind:id_user="post.id_user" v-bind:id_post="post.post" />
+    <button @click="toggleCommentInputForPost(post.post)">
+        <i class="fa-regular fa-comment"></i>
+    </button>
+    <button>
+        <i class="fa fa-retweet"></i>
+    </button>
+    <button>
+        <i class="fa fa-share"></i>
+    </button>
+</div>
+<div v-if="showCommentInput[post.post]" class="comment-input">
+    <div v-for="comment in post.comments" :key="comment.id" class="comment">
+        <p>{{ comment.text }}</p>
+    </div>
+    <!-- Código para agregar un comentario -->
+    <textarea v-model="newComments[post.post]" class="w-full resize-none focus:outline-none p-2 rounded-lg"
+        placeholder="Afegeix un comentari..."></textarea>
+    <button @click="submitComment(post.post, post.id_user)"
+        class="bg-purple rounded-xl py-0.5 px-4 text-white mt-2">Enviar</button>
+</div>
         </div>
     </div>
 </template>
@@ -64,21 +81,50 @@ export default {
     data() {
         return {
             posts_data: [],
+            newComments: {},
+            showCommentInput: {},
         }
     },
-
     mounted() {
         this.getposts()
     },
     methods: {
         getposts() {
             resultPosts('/posts-home').then(data => {
-                this.posts_data = data
-            })
+                this.posts_data = data;
+            });
         },
+        async getCommentsForPost(postId) {
+            try {
+                const response = await axios.get(`/discover/${postId}/comments`);
+                return response.data.comments;
+            } catch (error) {
+                console.log(error);
+                return [];
+            }
+        },
+        toggleCommentInputForPost(postId) {
+            this.showCommentInput[postId] = !this.showCommentInput[postId];
+        },
+        async submitComment(postId, userId) {
+            try {
+                const response = await axios.post(`/discover/${postId}/comments`, { text: this.newComments[postId] });
+                // Limpiar el campo de comentario y ocultar el formulario
+                this.newComments[postId] = '';
+                this.showCommentInput[postId] = false;
+                // Actualizar la lista de comentarios para la publicación
+                const index = this.posts_data.findIndex(post => post.id_user === userId); 
+                if (index >= 0) {
+                    if (response.data.comment) {  // Agregamos esta línea para asegurarnos de que existe el comentario en la respuesta
+                        this.posts_data[index].comments.push(response.data.comment);
+                    }
+                    // Actualizar la lista de comentarios
+                    this.posts_data[index].comments = await this.getCommentsForPost(postId);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
-
 }
-
 </script>
-
