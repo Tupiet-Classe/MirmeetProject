@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Exception;
 use GuzzleHttp\Client;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use App\Models\Publication;
 use App\Models\User;
@@ -301,6 +302,54 @@ class PublicationController extends Controller
         return $response;  
     }
     
+     // -------------------------------------
+    //
+    //     Agafar Comentaris del Vue
+    //
+    // -------------------------------------
+    public function storeComment(Request $request, $id)
+    {
+        // Validar las datos del formulario
+        $request->validate([
+            'text' => 'required|max:255',
+        ]);
     
+        // Buscar la publicación correspondiente
+        $publication = Publication::find($id);
+    
+        $comment = new Message();
+        $comment->text = $request->text;
+        $comment->sentby_id = auth()->user()->id;
+        $comment->sento_id = $publication->user_id; // Agregar la ID del usuario que hizo la publicación
+        $comment->publication_id = $publication->id; // Agregar la ID de la publicación al comentario
+        $comment->save(); // Guardar el comentario en la base de datos
+    
+        // Redireccionar al usuario a la página de "discover"
+        return redirect()->route('discover');
+    }
+    
+     // -------------------------------------
+    //
+    //     Veure Comentaris del Vue
+    //
+    // -------------------------------------
+    public function showComments($id)
+{
+    // Buscar la publicación correspondiente
+    $publication = Publication::find($id);
 
+    // Si no se encuentra la publicación, redirigir a una página de error o a donde prefieras
+    if ($publication == null) {
+        return redirect()->route('Algo ha anat mal...!');
+    }
+
+    // Obtener los comentarios de la publicación
+    $comments = $publication->messages;
+
+
+    // retornar una respuesta JSON:
+    return response()->json($comments);
 }
+
+    }
+    

@@ -18,21 +18,23 @@ class MessageController extends Controller
     }
 
     public function storeComment(Request $request, $id)
-    {
-        // Validar los datos del formulario
-        $request->validate([
-            'text' => 'required|max:255',
-        ]);
+{
+    // Validar les dades del formulari
+    $request->validate([
+        'text' => 'required|max:255',
+    ]);
 
-        // Crear el nuevo comentario
-        $comment = new Message();
-        $comment->text = $request->text;
-        $comment->user_id = auth()->user()->id; // Asignar el ID del usuario autenticado
-        $comment->message_id = $id;
-        $comment->save();
+    // Crear nou comentari
+    $comment = new Message();
+    $comment->text = $request->text;
+    $comment->user_id = auth()->user()->id; // Assignar el ID de l'usuari autenticat
+    $comment->message_id = $id;
+    $comment->save();
 
-        return redirect()->back();
-    }
+    // Tornar una resposta en format JSON
+    return response()->json(['message' => 'Comment created successfully!']);
+}
+
 
     /**
      * Show the form for creating a new resource.
